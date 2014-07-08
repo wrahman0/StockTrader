@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
+	public static final String TAG = "STOCKTRADER"; 
+	
 	Button addStocksButton;
 	EditText stockSymbolEditText;
 	
@@ -66,7 +68,7 @@ public class MainActivity extends Activity {
 			//Get the stock symbol from the card which is the parent of the imageButton
 			TableRow cardTableRow = (TableRow) v.getParent();
 			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
-			Log.e("STOCKTRADER", stockSymbolTextView.getText().toString());
+			Log.e(TAG, stockSymbolTextView.getText().toString());
 			
 			//Intent to start the details activity
 			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
