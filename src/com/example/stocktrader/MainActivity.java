@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
@@ -62,11 +63,15 @@ public class MainActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 		
-			//Intent to start the details activity
-			Intent intent = new Intent();
+			//Get the stock symbol from the card which is the parent of the imageButton
 			TableRow cardTableRow = (TableRow) v.getParent();
 			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
+			Log.e("STOCKTRADER", stockSymbolTextView.getText().toString());
+			
+			//Intent to start the details activity
+			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
 			intent.putExtra("stock_name", stockSymbolTextView.getText().toString());
+			startActivity(intent);
 			
 		}
 		
