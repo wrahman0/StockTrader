@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
@@ -23,7 +27,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
 		findViews();
 		addButtonListeners();
 		
@@ -46,7 +49,7 @@ public class MainActivity extends Activity {
 			
 			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 			View card = inflater.inflate(R.layout.stock_card, null);
-			Button detailsButton = (Button) card.findViewById(R.id.stockDetailsButton);
+			ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
 			detailsButton.setOnClickListener(stockDetailsListener);
 			stockListTableLayout.addView(card);
 			
@@ -58,7 +61,7 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void onClick(View v) {
-			
+		
 			//Intent to start the details activity
 			Intent intent = new Intent();
 			
@@ -67,7 +70,9 @@ public class MainActivity extends Activity {
 			
 			if (stockSymbol != null && stockSymbol.length() > 0){
 				intent.putExtra("stock_name", stockSymbol);
-				//TODO:Stock activity
+				TableRow cardTableRow = (TableRow) v.getParent();
+				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
+				
 			}else{
 				//TODO: Raise Alert Box
 			}
