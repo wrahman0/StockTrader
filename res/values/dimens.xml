@@ -6,5 +6,9 @@
     
     <dimen name="card_important">12sp</dimen>
     <dimen name="card_secondard_info">10sp</dimen>
+    
+    <dimen name="details_important">16sp</dimen>
+    <dimen name="details_secondary_info">14sp</dimen>
+    <dimen name="details_fine_information">12sp</dimen>
 
 </resources>

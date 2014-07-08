@@ -25,5 +25,12 @@
     <color name="card_background">#FFFFFF</color>
     <color name="card_color_positive">#669900</color>
     <color name="card_color_negative">#CC0000</color>
-
+	
+    <!-- Details Stock View  -->
+    <string name="details_stock_name">Google Inc.</string>
+    <string name="details_stock_symbol">GOOG</string>
+    <string name="details_stock_exchange">NASDAQ</string>
+    <string name="details_stock_last_trade_price_only">Last Trade Price: </string>
+    <string name="details_stock_change">Change: </string>
+    
 </resources>
