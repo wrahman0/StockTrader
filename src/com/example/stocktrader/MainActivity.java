@@ -64,19 +64,9 @@ public class MainActivity extends Activity {
 		
 			//Intent to start the details activity
 			Intent intent = new Intent();
-			
-			//Get the stock name
-			String stockSymbol = stockSymbolEditText.getText().toString();
-			
-			if (stockSymbol != null && stockSymbol.length() > 0){
-				intent.putExtra("stock_name", stockSymbol);
-				TableRow cardTableRow = (TableRow) v.getParent();
-				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
-				
-			}else{
-				//TODO: Raise Alert Box
-			}
-			
+			TableRow cardTableRow = (TableRow) v.getParent();
+			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
+			intent.putExtra("stock_name", stockSymbolTextView.getText().toString());
 			
 		}
 		
