@@ -10,5 +10,8 @@
     <dimen name="details_important">16sp</dimen>
     <dimen name="details_secondary_info">14sp</dimen>
     <dimen name="details_fine_information">12sp</dimen>
+    <dimen name="details_fine_information_spacing">4dp</dimen>
+    
+    
 
 </resources>

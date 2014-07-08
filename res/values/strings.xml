@@ -32,5 +32,9 @@
     <string name="details_stock_exchange">NASDAQ</string>
     <string name="details_stock_last_trade_price_only">Last Trade Price: </string>
     <string name="details_stock_change">Change: </string>
+    <string name="details_stock_days_low">Days Low: </string>
+    <string name="details_stock_days_high">Days High: </string>
+    <string name="details_stock_year_low">Year Low: </string>
+    <string name="details_stock_year_high">Year High: </string>
     
 </resources>

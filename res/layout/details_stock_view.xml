@@ -14,7 +14,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/detailsName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/details_stock_name"
@@ -26,7 +26,7 @@
         </View>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/detailsSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-thin"
@@ -41,7 +41,7 @@
         </View>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/detailsExchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/card_stock_exchange"
@@ -60,32 +60,58 @@
         </View>
     </TableRow>
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/detailsLastTradePriceOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:paddingBottom="@dimen/details_fine_information_spacing"
+            android:text="@string/details_stock_last_trade_price_only"
+            android:textSize="@dimen/details_fine_information" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details_stock_last_trade_price_only"
-                android:textSize="@dimen/details_fine_information" />
+        <TextView
+            android:id="@+id/detailsChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/details_fine_information_spacing"
+            android:text="@string/details_stock_change"
+            android:textSize="@dimen/details_fine_information" />
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details_stock_change"
-                android:textSize="@dimen/details_fine_information" />
+        <TextView
+            android:id="@+id/detailsDaysHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/details_fine_information_spacing"
+            android:text="@string/details_stock_days_high"
+            android:textSize="@dimen/details_fine_information" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/detailsDaysLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/details_fine_information_spacing"
+            android:text="@string/details_stock_days_low"
+            android:textSize="@dimen/details_fine_information" />
 
-    </TableRow>
+        <TextView
+            android:id="@+id/detailsYearHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/details_fine_information_spacing"
+            android:text="@string/details_stock_year_high"
+            android:textSize="@dimen/details_fine_information" />
+
+        <TextView
+            android:id="@+id/detailsYearLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/details_fine_information_spacing"
+            android:text="@string/details_stock_year_low"
+            android:textSize="@dimen/details_fine_information" />
+    </LinearLayout>
 
 </LinearLayout>
