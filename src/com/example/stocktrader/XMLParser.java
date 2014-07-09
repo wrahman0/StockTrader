@@ -45,6 +45,7 @@ public class XMLParser {
 
 
 	public XMLParser(String stock, OnParseComplete listener) {
+		
 		url = yqlFirst + stock + yqlSecond;
 		new MyAsyncTask().execute(url);
 		this.listener = listener;
@@ -53,8 +54,6 @@ public class XMLParser {
 
 
 	private class MyAsyncTask extends AsyncTask<String, String, String>{
-
-		
 
 		@Override
 		protected String doInBackground(String... args) {

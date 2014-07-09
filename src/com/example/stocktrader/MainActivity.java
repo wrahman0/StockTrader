@@ -64,8 +64,6 @@ public class MainActivity extends Activity {
 				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
 			}
 			
-			
-			
 		}
 		
 	};
