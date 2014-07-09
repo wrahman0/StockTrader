@@ -32,6 +32,12 @@ public class MainActivity extends Activity {
 		findViews();
 		addButtonListeners();
 		
+		//populate with stocks
+		DBAdapter db = new DBAdapter(this);
+		long id = db.insertStock("Google Inc.", "GOOG");
+		id = db.insertStock("Apple Inc.", "AAPL");
+		db.close();
+		
 	}
 	
 	private void findViews(){
