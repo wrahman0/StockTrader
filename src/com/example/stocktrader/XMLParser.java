@@ -24,15 +24,14 @@ import android.util.Log;
 //Takes the stock symbol as an argument for the contructor
 public class XMLParser {
 	
+	private OnParseComplete listener;
+	
 	String url;
 	StockDetails theStock;
-	
-	//set to true when the parsing is complete
-	boolean parsed = false;
-	
+
 	static final String yqlFirst = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22";
 	static final String yqlSecond = "%22)&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-	
+
 	//Needed for the constructor call to the StockDetails
 	String name = "";
 	String symbol = "";
@@ -43,21 +42,25 @@ public class XMLParser {
 	String daysLow = "";
 	String yearHigh = "";
 	String yearLow = "";
-	
-	
-	public XMLParser(String stock) {
+
+
+	public XMLParser(String stock, OnParseComplete listener) {
 		url = yqlFirst + stock + yqlSecond;
 		new MyAsyncTask().execute(url);
+		this.listener = listener;
+		
 	}
-	
-	
+
+
 	private class MyAsyncTask extends AsyncTask<String, String, String>{
+
+		
 
 		@Override
 		protected String doInBackground(String... args) {
 
 			try{
-				
+
 				URL url = new URL(args[0]);
 				URLConnection connection = url.openConnection();
 				HttpURLConnection httpConnection = (HttpURLConnection) connection;
@@ -69,7 +72,7 @@ public class XMLParser {
 					InputStream in = httpConnection.getInputStream();
 					DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 					DocumentBuilder db = dbf.newDocumentBuilder();
-					
+
 					//Getting the DOM
 					Document dom = db.parse(in);
 
@@ -78,12 +81,12 @@ public class XMLParser {
 
 					//Getting the quote tag
 					NodeList nl = ele.getElementsByTagName("quote");
-					
+
 					//Make sure that we indeed got the quote tag
 					if (nl != null && nl.getLength() > 0){
 						theStock = extractStockInformation(ele);
 					}
-					
+
 				}
 
 			}catch (MalformedURLException e) {
@@ -97,14 +100,15 @@ public class XMLParser {
 			}
 			finally {
 			}
-			
+
 			return null;
 		}
-		
-		protected void onPostExecute(String result){
-			parsed = true;
+
+		@Override
+		protected void onPostExecute(String result) {
+			listener.OnTaskCompleted(theStock);
 		}
-		
+
 		private StockDetails extractStockInformation (Element root){
 
 			name = getTextValue (root, "Name");
@@ -137,7 +141,7 @@ public class XMLParser {
 		}
 
 	}
-	
-	
-	
+
+
+
 }
