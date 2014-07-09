@@ -16,31 +16,24 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
-public class DetailsStockView extends Activity{
 
-	String stockName = "";
-
+//Handles all the xml parsing
+//Takes the stock symbol as an argument for the contructor
+public class XMLParser {
+	
+	String url;
+	StockDetails theStock;
+	
+	//set to true when the parsing is complete
+	boolean parsed = false;
+	
 	static final String yqlFirst = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22";
 	static final String yqlSecond = "%22)&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-
-	//Get the views that we will modify later
-	TextView detailsName;
-	TextView detailsSymbol;
-	TextView detailsExchange;
-	TextView detailsLastTradePriceOnly;
-	TextView detailsChange;
-	TextView detailsDaysHigh;
-	TextView detailsDaysLow;
-	TextView detailsYearHigh;
-	TextView detailsYearLow;
-
+	
+	//Needed for the constructor call to the StockDetails
 	String name = "";
 	String symbol = "";
 	String exchange = "";
@@ -50,44 +43,33 @@ public class DetailsStockView extends Activity{
 	String daysLow = "";
 	String yearHigh = "";
 	String yearLow = "";
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.details_stock_view);
-
-		Intent intent = getIntent();
-		stockName = intent.getStringExtra("stock_name");
-
-		findViews();
-
-		Log.e(MainActivity.TAG, "Retrieving the stock info for " + stockName);
-
-		//Constructing the URL
-		final String url = yqlFirst + stockName + yqlSecond;
+	
+	
+	public XMLParser(String stock) {
+		url = yqlFirst + stock + yqlSecond;
 		new MyAsyncTask().execute(url);
-
 	}
-
+	
+	
 	private class MyAsyncTask extends AsyncTask<String, String, String>{
 
 		@Override
 		protected String doInBackground(String... args) {
 
 			try{
-
+				
 				URL url = new URL(args[0]);
 				URLConnection connection = url.openConnection();
 				HttpURLConnection httpConnection = (HttpURLConnection) connection;
 				int responseCode = httpConnection.getResponseCode();
-				Log.e(MainActivity.TAG, "1");
+
 				//Proper connection is made
 				if (responseCode == HttpURLConnection.HTTP_OK){
 
 					InputStream in = httpConnection.getInputStream();
 					DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 					DocumentBuilder db = dbf.newDocumentBuilder();
-					Log.e(MainActivity.TAG, "2");
+					
 					//Getting the DOM
 					Document dom = db.parse(in);
 
@@ -96,25 +78,12 @@ public class DetailsStockView extends Activity{
 
 					//Getting the quote tag
 					NodeList nl = ele.getElementsByTagName("quote");
-					Log.e(MainActivity.TAG, "3");
+					
 					//Make sure that we indeed got the quote tag
 					if (nl != null && nl.getLength() > 0){
-						Log.e(MainActivity.TAG, "4");
-						StockDetails theStock = extractStockInformation(ele);
-						
-						//Setting the vars with the new parsed info
-						name = theStock.getName();
-						symbol = theStock.getSymbol();
-						exchange = theStock.getExchange();
-						lastTradePriceOnly = theStock.getLastTradePriceOnly();
-						change = theStock.getChange();
-						daysHigh = theStock.getDaysHigh();
-						daysLow = theStock.getDaysLow();
-						yearHigh = theStock.getYearHigh();
-						yearLow = theStock.getYearLow();
-
+						theStock = extractStockInformation(ele);
 					}
-
+					
 				}
 
 			}catch (MalformedURLException e) {
@@ -128,23 +97,12 @@ public class DetailsStockView extends Activity{
 			}
 			finally {
 			}
-
-
+			
 			return null;
 		}
 		
 		protected void onPostExecute(String result){
-			
-			detailsName.setText(name);
-			detailsSymbol.setText(symbol);
-			detailsChange.setText("Change: " + change);
-			detailsExchange.setText(exchange);
-			detailsLastTradePriceOnly.setText("Last Trade Price: " + lastTradePriceOnly);
-			detailsDaysHigh.setText("Days High: " + daysHigh);
-			detailsDaysLow.setText("Days Low: " + daysLow);
-			detailsYearHigh.setText("Year High: " + yearHigh);
-			detailsYearLow.setText("Year Low: " + yearLow);
-
+			parsed = true;
 		}
 		
 		private StockDetails extractStockInformation (Element root){
@@ -179,22 +137,7 @@ public class DetailsStockView extends Activity{
 		}
 
 	}
-
-	private void findViews(){
-
-		detailsName = (TextView) findViewById (R.id.detailsName);
-		detailsSymbol = (TextView) findViewById (R.id.detailsSymbol);
-		detailsExchange = (TextView) findViewById (R.id.detailsExchange);
-		detailsLastTradePriceOnly = (TextView) findViewById (R.id.detailsLastTradePriceOnly);
-		detailsChange = (TextView) findViewById (R.id.detailsChange);
-		detailsDaysHigh = (TextView) findViewById (R.id.detailsDaysHigh);
-		detailsDaysLow = (TextView) findViewById (R.id.detailsDaysLow);
-		detailsYearHigh = (TextView) findViewById (R.id.detailsYearHigh);
-		detailsYearLow = (TextView) findViewById (R.id.detailsYearLow);
-
-
-	}
-
-
-
+	
+	
+	
 }
