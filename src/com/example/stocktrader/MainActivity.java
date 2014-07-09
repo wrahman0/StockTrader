@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
@@ -22,7 +23,6 @@ public class MainActivity extends Activity {
 	
 	Button addStocksButton;
 	EditText stockSymbolEditText;
-	
 	TableLayout stockListTableLayout;
 	
 	@Override
@@ -51,9 +51,20 @@ public class MainActivity extends Activity {
 			
 			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 			View card = inflater.inflate(R.layout.stock_card, null);
-			ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
-			detailsButton.setOnClickListener(stockDetailsListener);
-			stockListTableLayout.addView(card);
+			
+			//Get the stock symbol and clear the search bar
+			String stockSymbol = stockSymbolEditText.getText().toString();
+			stockSymbolEditText.setText("");
+			
+			if (stockSymbol != null && stockSymbol.length() > 0){
+				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
+				detailsButton.setOnClickListener(stockDetailsListener);
+				stockListTableLayout.addView(card);
+			}else{
+				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
+			}
+			
+			
 			
 		}
 		

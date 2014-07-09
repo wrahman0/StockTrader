@@ -2,6 +2,10 @@
 <resources>
 	
     <!-- Text Resources  -->
+    
+    <!-- General -->
+    <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
+    
     <!-- Main Activity  -->
     <string name="app_name">Stock Trader</string>
     <string name="action_settings">Settings</string>
