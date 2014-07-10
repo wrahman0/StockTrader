@@ -1,5 +1,7 @@
 package com.example.stocktrader;
 
+import java.sql.SQLException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;

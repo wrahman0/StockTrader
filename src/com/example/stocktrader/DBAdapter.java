@@ -27,7 +27,7 @@ public class DBAdapter {
 	static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
 																	KEY_NAME + " name text not null, "+ 
 																	KEY_SYMBOL +" text not null);";
-	
+
 	final Context context;
 
 	DatabaseHelper DBHelper;
