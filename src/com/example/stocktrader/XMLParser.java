@@ -119,7 +119,7 @@ public class XMLParser {
 			daysLow = getTextValue (root, "DaysLow");
 			yearHigh = getTextValue (root, "YearHigh");
 			yearLow = getTextValue (root, "YearLow");
-
+			
 			StockDetails theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly,change,daysHigh,daysLow,yearHigh,yearLow);
 			return theStock;
 
