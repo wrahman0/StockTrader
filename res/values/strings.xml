@@ -42,4 +42,7 @@
     <string name="details_stock_year_low">Year Low: </string>
     <string name="details_stock_year_high">Year High: </string>
     
+    <string name="details_stock_buy_button">Purchase Stock</string>
+    <string name="details_stock_user_cash">Money Remaining: </string>
+    
 </resources>

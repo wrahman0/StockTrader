@@ -1,0 +1,8 @@
+
+*.dex
+
+*.class
+
+*.apk
+
+libs/android-support-v4.jar
