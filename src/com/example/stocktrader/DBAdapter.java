@@ -28,8 +28,8 @@ public class DBAdapter {
 
 	final Context context;
 
-	static DatabaseHelper DBHelper;
-	static SQLiteDatabase db;
+	DatabaseHelper DBHelper;
+	SQLiteDatabase db;
 
 	public DBAdapter (Context ctx){
 		this.context = ctx;
@@ -72,13 +72,13 @@ public class DBAdapter {
 		ContentValues initialValues = new ContentValues ();
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_SYMBOL, symbol);
-		return db.insert(DATABASE_NAME, null, initialValues);
+		return db.insert(DATABASE_TABLE, null, initialValues);
 
 	}
 
 	//delets a particular stock
-	public int deleteStock (long rowId){
-		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null);
+	public boolean deleteStock (long rowId){
+		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	//Gets all the stocks
@@ -87,11 +87,10 @@ public class DBAdapter {
 				null,null,null,null,null);
 	}
 
-	//Gets particular 
-	@SuppressLint("NewApi")
+	//Gets particular stock
 	public Cursor getStock (long rowId) throws SQLException{
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,KEY_NAME,KEY_SYMBOL},
-				KEY_ROWID + "=" + rowId, null, null, null, null, null, null);
+				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
 		}

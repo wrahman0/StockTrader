@@ -1,5 +1,7 @@
 package com.example.stocktrader;
 
+import java.sql.SQLException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,13 @@ public class MainActivity extends Activity {
 		
 		//populate with stocks
 		DBAdapter db = new DBAdapter(this);
+		
+		try {
+			db.open();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		long id = db.insertStock("Google Inc.", "GOOG");
 		id = db.insertStock("Apple Inc.", "AAPL");
 		db.close();
