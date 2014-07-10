@@ -114,4 +114,46 @@
             android:textSize="@dimen/details_fine_information" />
     </LinearLayout>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </View>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+        </View>
+
+        <TextView
+            android:id="@+id/detailsUserMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/details_stock_user_cash"
+            android:textSize="@dimen/details_important" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+        </View>
+    </TableRow>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="10dp" >
+    </View>
+
+    <Button
+        android:id="@+id/detailsBuyButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/details_stock_buy_button" />
+
 </LinearLayout>

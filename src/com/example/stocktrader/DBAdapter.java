@@ -19,17 +19,19 @@ public class DBAdapter {
 
 	//Database properties
 	static final String TAG = "DBAdapter";
-	static final String DATABASE_NAME = "StockTraderDB";
+	static final String DATABASE_NAME = "StockTrader.db";
 	static final String DATABASE_TABLE = "stockinfo";
-	static final int DATABASE_VERSION = 1;
+	static final int DATABASE_VERSION = 6;
 
 	//Database creation command
-	static final String DATABASE_CREATE = "create table stockinfo (_id integer primary key autoincrement, name text not null, symbol text not null);";
-
+	static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
+																	KEY_NAME + " name text not null, "+ 
+																	KEY_SYMBOL +" text not null);";
+	
 	final Context context;
 
-	static DatabaseHelper DBHelper;
-	static SQLiteDatabase db;
+	DatabaseHelper DBHelper;
+	SQLiteDatabase db;
 
 	public DBAdapter (Context ctx){
 		this.context = ctx;
@@ -58,40 +60,44 @@ public class DBAdapter {
 
 	//Open DB
 	public DBAdapter open() throws SQLException {
+		Log.w(TAG, "OPENNING DB...");
 		db = DBHelper.getWritableDatabase();
 		return this;
 	}
 
 	public void close(){
+		Log.w(TAG, "CLOSING DB...");
 		DBHelper.close();
 	}
 
 	//Inserts a stock into the database
 	public long insertStock (String name, String symbol){
-
+		Log.w(TAG, "INSERTING STOCK WITH NAME:"+name+", SYMBOL:" + symbol + "...");
 		ContentValues initialValues = new ContentValues ();
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_SYMBOL, symbol);
-		return db.insert(DATABASE_NAME, null, initialValues);
+		return db.insert(DATABASE_TABLE, null, initialValues);
 
 	}
 
-	//delets a particular stock
-	public int deleteStock (long rowId){
-		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null);
+	//deletes a particular stock
+	public boolean deleteStock (long rowId){
+		Log.w(TAG, "DELETING STOCK WITH ID: " +  rowId +"...");
+		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	//Gets all the stocks
 	public Cursor getAllStocks(){
+		Log.w(TAG, "GETTING ALL STOCKS...");
 		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL}, 
 				null,null,null,null,null);
 	}
 
-	//Gets particular 
-	@SuppressLint("NewApi")
+	//Gets particular stock
 	public Cursor getStock (long rowId) throws SQLException{
+		Log.w(TAG, "GETTING SINGLE STOCK WITH ID: " +  rowId +"...");
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,KEY_NAME,KEY_SYMBOL},
-				KEY_ROWID + "=" + rowId, null, null, null, null, null, null);
+				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
 		}
@@ -100,6 +106,7 @@ public class DBAdapter {
 
 	//Edit a stock
 	public boolean updateStock(long rowId, String name, String symbol){
+		Log.w(TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		args.put(KEY_NAME, name);
 		args.put(KEY_SYMBOL, symbol);
