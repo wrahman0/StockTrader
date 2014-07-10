@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,6 +48,28 @@ public class MainActivity extends Activity {
 		id = db.insertStock("Apple Inc.", "AAPL");
 		db.close();
 		
+		//Getting all the contacts
+		try {
+			db.open();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		Cursor c = db.getAllStocks();
+		if(c.moveToFirst()){
+			do {
+				DisplayStock(c);
+			}while (c.moveToNext());
+		}
+		
+		db.close();
+		
+	}
+	
+	public void DisplayStock (Cursor c){
+		Toast.makeText(this, "id: " + c.getString(0) + "\n" +
+							 "Name: " + c.getString(1) + "\n" +
+							 "Symbol: " + c.getString(2) + "\n", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void findViews(){
