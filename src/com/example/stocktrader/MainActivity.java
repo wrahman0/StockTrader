@@ -1,8 +1,11 @@
 package com.example.stocktrader;
 
+import java.sql.SQLException;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,16 +26,22 @@ public class MainActivity extends Activity {
 	
 	Button addStocksButton;
 	EditText stockSymbolEditText;
-	
 	TableLayout stockListTableLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViews();
 		addButtonListeners();
 		
+	}
+	
+	public void DisplayStock (Cursor c){
+		Toast.makeText(this, "id: " + c.getString(0) + "\n" +
+							 "Name: " + c.getString(1) + "\n" +
+							 "Symbol: " + c.getString(2) + "\n", Toast.LENGTH_SHORT).show();
 	}
 	
 	private void findViews(){
@@ -52,9 +61,18 @@ public class MainActivity extends Activity {
 			
 			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 			View card = inflater.inflate(R.layout.stock_card, null);
-			ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
-			detailsButton.setOnClickListener(stockDetailsListener);
-			stockListTableLayout.addView(card);
+			
+			//Get the stock symbol and clear the search bar
+			String stockSymbol = stockSymbolEditText.getText().toString();
+			stockSymbolEditText.setText("");
+			
+			if (stockSymbol != null && stockSymbol.length() > 0){
+				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
+				detailsButton.setOnClickListener(stockDetailsListener);
+				stockListTableLayout.addView(card);
+			}else{
+				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
+			}
 			
 		}
 		
