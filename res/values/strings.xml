@@ -5,6 +5,7 @@
     
     <!-- General -->
     <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
+    <string name="invalid_search_alert">Please Enter a Valid Stock Symbol</string>
     
     <!-- Main Activity  -->
     <string name="app_name">Stock Trader</string>
@@ -17,8 +18,13 @@
     <string name="card_stock_name"></string>
     <string name="card_stock_symbol"></string>
     <string name="card_stock_exchange"></string>
+<<<<<<< HEAD
     <string name="card_stock_last_trade_price_only"></string>
     <string name="card_stock_change"></string>
+=======
+    <string name="card_stock_last_trade_price_only">582.25</string>
+    <string name="card_stock_change">-2.32 (-0.39%)</string>
+>>>>>>> dweep
     <string name="card_image_button_desc">View Stock Details</string>
     
     <!-- Color Resources  -->

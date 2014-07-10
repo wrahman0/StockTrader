@@ -27,12 +27,10 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViews();
 		addButtonListeners();
-		
 	}
 	
 	public void DisplayStock (Cursor c){
@@ -53,20 +51,13 @@ public class MainActivity extends Activity {
 	
 	//Add Stocks button listener
 	public OnClickListener addStocksListener = new OnClickListener(){
-
 		public void onClick(View v) {
-			
-			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
-			intent.putExtra("stock_name", stockSymbolEditText.getText().toString());
-			startActivity(intent);
-			
 //			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 //			View card = inflater.inflate(R.layout.stock_card, null);
 //			
 //			//Get the stock symbol and clear the search bar
 //			String stockSymbol = stockSymbolEditText.getText().toString();
 //			stockSymbolEditText.setText("");
-//			
 //			if (stockSymbol != null && stockSymbol.length() > 0){
 //				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
 //				detailsButton.setOnClickListener(stockDetailsListener);
@@ -75,15 +66,15 @@ public class MainActivity extends Activity {
 //				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
 //			}
 			
+			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
+			intent.putExtra("stock_name", stockSymbolEditText.getText().toString());
+			startActivity(intent);	
 		}
-		
 	};
 	
 	public OnClickListener stockDetailsListener = new OnClickListener (){
-
 		@Override
 		public void onClick(View v) {
-		
 			//Get the stock symbol from the card which is the parent of the imageButton
 			TableRow cardTableRow = (TableRow) v.getParent();
 			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
@@ -92,10 +83,8 @@ public class MainActivity extends Activity {
 			//Intent to start the details activity
 			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
 			intent.putExtra("stock_name", stockSymbolTextView.getText().toString());
-			startActivity(intent);
-			
+			startActivity(intent);	
 		}
-		
 	};
 
 	@Override
@@ -104,5 +93,4 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 }

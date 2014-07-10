@@ -77,38 +77,39 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
+        public static final int action_settings=0x7f050003;
         /**  Main Activity  
          */
-        public static final int app_name=0x7f050001;
-        public static final int card_image_button_desc=0x7f05000b;
-        public static final int card_stock_change=0x7f05000a;
-        public static final int card_stock_exchange=0x7f050008;
-        public static final int card_stock_last_trade_price_only=0x7f050009;
+        public static final int app_name=0x7f050002;
+        public static final int card_image_button_desc=0x7f05000c;
+        public static final int card_stock_change=0x7f05000b;
+        public static final int card_stock_exchange=0x7f050009;
+        public static final int card_stock_last_trade_price_only=0x7f05000a;
         /**  Card 
          */
-        public static final int card_stock_name=0x7f050006;
-        public static final int card_stock_symbol=0x7f050007;
-        public static final int details_stock_buy_button=0x7f050015;
-        public static final int details_stock_change=0x7f050010;
-        public static final int details_stock_days_high=0x7f050012;
-        public static final int details_stock_days_low=0x7f050011;
-        public static final int details_stock_exchange=0x7f05000e;
-        public static final int details_stock_last_trade_price_only=0x7f05000f;
+        public static final int card_stock_name=0x7f050007;
+        public static final int card_stock_symbol=0x7f050008;
+        public static final int details_stock_buy_button=0x7f050016;
+        public static final int details_stock_change=0x7f050011;
+        public static final int details_stock_days_high=0x7f050013;
+        public static final int details_stock_days_low=0x7f050012;
+        public static final int details_stock_exchange=0x7f05000f;
+        public static final int details_stock_last_trade_price_only=0x7f050010;
         /**  Details Stock View  
          */
-        public static final int details_stock_name=0x7f05000c;
-        public static final int details_stock_symbol=0x7f05000d;
-        public static final int details_stock_user_cash=0x7f050016;
-        public static final int details_stock_year_high=0x7f050014;
-        public static final int details_stock_year_low=0x7f050013;
+        public static final int details_stock_name=0x7f05000d;
+        public static final int details_stock_symbol=0x7f05000e;
+        public static final int details_stock_user_cash=0x7f050017;
+        public static final int details_stock_year_high=0x7f050015;
+        public static final int details_stock_year_low=0x7f050014;
         /**  Text Resources  
  General 
          */
         public static final int empty_search_alert=0x7f050000;
-        public static final int stock_add_button=0x7f050004;
-        public static final int stock_list_title=0x7f050003;
-        public static final int stock_search_bar_hint=0x7f050005;
+        public static final int invalid_search_alert=0x7f050001;
+        public static final int stock_add_button=0x7f050005;
+        public static final int stock_list_title=0x7f050004;
+        public static final int stock_search_bar_hint=0x7f050006;
     }
     public static final class style {
         /** 

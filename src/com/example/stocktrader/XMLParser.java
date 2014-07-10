@@ -19,11 +19,9 @@ import org.xml.sax.SAXException;
 import android.os.AsyncTask;
 import android.util.Log;
 
-
 //Handles all the xml parsing
 //Takes the stock symbol as an argument for the contructor
 public class XMLParser {
-	
 	private OnParseComplete listener;
 	
 	String url;
@@ -43,7 +41,6 @@ public class XMLParser {
 	String yearHigh = "";
 	String yearLow = "";
 
-
 	public XMLParser(String stock, OnParseComplete listener) {
 		
 		url = yqlFirst + stock + yqlSecond;
@@ -52,14 +49,10 @@ public class XMLParser {
 		
 	}
 
-
 	private class MyAsyncTask extends AsyncTask<String, String, String>{
-
 		@Override
 		protected String doInBackground(String... args) {
-
 			try{
-
 				URL url = new URL(args[0]);
 				URLConnection connection = url.openConnection();
 				HttpURLConnection httpConnection = (HttpURLConnection) connection;
@@ -87,7 +80,6 @@ public class XMLParser {
 					}
 
 				}
-
 			}catch (MalformedURLException e) {
 				Log.d(MainActivity.TAG, "MalformedURLException", e);
 			} catch (IOException e) {
@@ -108,6 +100,7 @@ public class XMLParser {
 			listener.OnParseCompleted(theStock);
 		}
 
+<<<<<<< HEAD
 		private StockDetails extractStockInformation (Element root){
 
 			name = getTextValue (root, "Name");
@@ -121,26 +114,42 @@ public class XMLParser {
 			yearLow = getTextValue (root, "YearLow");
 			
 			StockDetails theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly,change,daysHigh,daysLow,yearHigh,yearLow);
+=======
+		private StockDetails extractStockInformation (Element root) {
+			StockDetails theStock;
+			try {
+				name = getTextValue (root, "Name");
+				symbol = getTextValue (root, "Symbol");
+				exchange = getTextValue (root, "StockExchange");
+				lastTradePriceOnly = getTextValue (root, "LastTradePriceOnly");
+				change = getTextValue (root, "Change");
+				daysHigh = getTextValue (root, "DaysHigh");
+				daysLow = getTextValue (root, "DaysLow");
+				yearHigh = getTextValue (root, "YearHigh");
+				yearLow = getTextValue (root, "YearLow");
+			} catch (final NullPointerException e) {
+				theStock = null;
+				return theStock;
+			} 
+			theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly, change, daysHigh, daysLow, yearHigh, yearLow);
+>>>>>>> dweep
 			return theStock;
-
 		}
 
 		//Given the root and the tag name within the root, returns the value inside the tag
-		private String getTextValue (Element root, String tag){
-
+		private String getTextValue (Element root, String tag) {
 			String result = null;
 			NodeList nl = root.getElementsByTagName(tag);
 			//Verify the result
 			if (nl != null && nl.getLength() > 0){
 				Element element = (Element) nl.item(0);
-				result = element.getFirstChild().getNodeValue();
+				try {
+					result = element.getFirstChild().getNodeValue();
+				} catch(final NullPointerException e) {
+					throw e;
+				}
 			}
 			return result;
-
 		}
-
 	}
-
-
-
 }

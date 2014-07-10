@@ -1,7 +1,6 @@
 package com.example.stocktrader;
 
 public class StockDetails {
-	
 	String name = "";
 	String symbol = "";
 	String exchange = "";
@@ -79,8 +78,5 @@ public class StockDetails {
 	}
 	public void setYearLow(String yearLow) {
 		this.yearLow = yearLow;
-	}
-	
-	
-	
+	}	
 }

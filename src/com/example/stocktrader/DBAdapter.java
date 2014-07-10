@@ -58,9 +58,7 @@ public class DBAdapter {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-
 			db.execSQL(DATABASE_CREATE);
-
 		}
 
 		@Override
@@ -141,6 +139,4 @@ public class DBAdapter {
 		args.put(KEY_YEAR_LOW, yearlow);
 		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
 	}
-
-
 }
