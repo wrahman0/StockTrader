@@ -1,18 +1,17 @@
 package com.example.stocktrader;
 
+import java.sql.SQLException;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -53,20 +52,23 @@ public class MainActivity extends Activity {
 	//Add Stocks button listener
 	public OnClickListener addStocksListener = new OnClickListener(){
 		public void onClick(View v) {
-			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-			View card = inflater.inflate(R.layout.stock_card, null);
+//			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+//			View card = inflater.inflate(R.layout.stock_card, null);
+//			
+//			//Get the stock symbol and clear the search bar
+//			String stockSymbol = stockSymbolEditText.getText().toString();
+//			stockSymbolEditText.setText("");
+//			if (stockSymbol != null && stockSymbol.length() > 0){
+//				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
+//				detailsButton.setOnClickListener(stockDetailsListener);
+//				stockListTableLayout.addView(card);
+//			}else{
+//				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
+//			}
 			
-			//Get the stock symbol and clear the search bar
-			String stockSymbol = stockSymbolEditText.getText().toString();
-			stockSymbolEditText.setText("");
-			
-			if (stockSymbol != null && stockSymbol.length() > 0){
-				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
-				detailsButton.setOnClickListener(stockDetailsListener);
-				stockListTableLayout.addView(card);
-			}else{
-				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
-			}	
+			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
+			intent.putExtra("stock_name", stockSymbolEditText.getText().toString());
+			startActivity(intent);	
 		}
 	};
 	
