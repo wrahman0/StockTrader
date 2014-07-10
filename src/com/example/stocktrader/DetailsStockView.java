@@ -50,6 +50,8 @@ public class DetailsStockView extends Activity implements OnParseComplete{
 	public void OnParseCompleted(StockDetails theStock){
 		this.theStock = theStock;
 		if (theStock == null) {
+			Intent intent2 = new Intent(DetailsStockView.this, MainActivity.class);
+			startActivity(intent2);
 			Toast.makeText(getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
 		} else {
 			detailsName.setText(theStock.getName());

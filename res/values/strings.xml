@@ -15,9 +15,9 @@
     <string name="stock_search_bar_hint">Add a stock &#8230;</string>
     
     <!-- Card -->
-    <string name="card_stock_name">Google Inc.</string>
-    <string name="card_stock_symbol">GOOG</string>
-    <string name="card_stock_exchange">NASDAQ</string>
+    <string name="card_stock_name"></string>
+    <string name="card_stock_symbol"></string>
+    <string name="card_stock_exchange"></string>
     <string name="card_stock_last_trade_price_only">582.25</string>
     <string name="card_stock_change">-2.32 (-0.39%)</string>
     <string name="card_image_button_desc">View Stock Details</string>
@@ -32,9 +32,9 @@
     <color name="card_color_negative">#CC0000</color>
 	
     <!-- Details Stock View  -->
-    <string name="details_stock_name">Google Inc.</string>
-    <string name="details_stock_symbol">GOOG</string>
-    <string name="details_stock_exchange">NASDAQ</string>
+    <string name="details_stock_name"></string>
+    <string name="details_stock_symbol"></string>
+    <string name="details_stock_exchange"></string>
     <string name="details_stock_last_trade_price_only">Last Trade Price: </string>
     <string name="details_stock_change">Change: </string>
     <string name="details_stock_days_low">Days Low: </string>
