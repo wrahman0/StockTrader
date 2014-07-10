@@ -21,10 +21,12 @@ public class DBAdapter {
 	static final String TAG = "DBAdapter";
 	static final String DATABASE_NAME = "StockTrader.db";
 	static final String DATABASE_TABLE = "stockinfo";
-	static final int DATABASE_VERSION = 1;
+	static final int DATABASE_VERSION = 6;
 
 	//Database creation command
-	static final String DATABASE_CREATE = "create table stockinfo (_id integer primary key autoincrement, name text not null, symbol text not null);";
+	static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
+																	KEY_NAME + " name text not null, "+ 
+																	KEY_SYMBOL +" text not null);";
 
 	final Context context;
 
@@ -78,7 +80,7 @@ public class DBAdapter {
 
 	}
 
-	//delets a particular stock
+	//deletes a particular stock
 	public boolean deleteStock (long rowId){
 		Log.w(TAG, "DELETING STOCK WITH ID: " +  rowId +"...");
 		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;

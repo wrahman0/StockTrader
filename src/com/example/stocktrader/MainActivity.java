@@ -30,39 +30,11 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViews();
 		addButtonListeners();
-		
-		//populate with stocks
-		DBAdapter db = new DBAdapter(this);
-		
-		try {
-			db.open();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		long id = db.insertStock("Google Inc.", "GOOG");
-		id = db.insertStock("Apple Inc.", "AAPL");
-		db.close();
-		
-		//Getting all the contacts
-		try {
-			db.open();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		Cursor c = db.getAllStocks();
-		if(c.moveToFirst()){
-			do {
-				DisplayStock(c);
-			}while (c.moveToNext());
-		}
-		
-		db.close();
 		
 	}
 	
