@@ -100,21 +100,6 @@ public class XMLParser {
 			listener.OnParseCompleted(theStock);
 		}
 
-<<<<<<< HEAD
-		private StockDetails extractStockInformation (Element root){
-
-			name = getTextValue (root, "Name");
-			symbol = getTextValue (root, "Symbol");
-			exchange = getTextValue (root, "StockExchange");
-			lastTradePriceOnly = getTextValue (root, "LastTradePriceOnly");
-			change = getTextValue (root, "Change");
-			daysHigh = getTextValue (root, "DaysHigh");
-			daysLow = getTextValue (root, "DaysLow");
-			yearHigh = getTextValue (root, "YearHigh");
-			yearLow = getTextValue (root, "YearLow");
-			
-			StockDetails theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly,change,daysHigh,daysLow,yearHigh,yearLow);
-=======
 		private StockDetails extractStockInformation (Element root) {
 			StockDetails theStock;
 			try {
@@ -132,7 +117,6 @@ public class XMLParser {
 				return theStock;
 			} 
 			theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly, change, daysHigh, daysLow, yearHigh, yearLow);
->>>>>>> dweep
 			return theStock;
 		}
 
