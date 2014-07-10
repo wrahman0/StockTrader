@@ -2,7 +2,6 @@ package com.example.stocktrader;
 
 import java.sql.SQLException;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -112,6 +111,4 @@ public class DBAdapter {
 		args.put(KEY_SYMBOL, symbol);
 		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
 	}
-
-
 }

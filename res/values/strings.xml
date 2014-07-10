@@ -5,6 +5,7 @@
     
     <!-- General -->
     <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
+    <string name="invalid_search_alert">Please Enter a Valid Stock Symbol</string>
     
     <!-- Main Activity  -->
     <string name="app_name">Stock Trader</string>

@@ -1,7 +1,5 @@
 package com.example.stocktrader;
 
-import java.sql.SQLException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,12 +28,10 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		findViews();
 		addButtonListeners();
-		
 	}
 	
 	public void DisplayStock (Cursor c){
@@ -56,9 +52,7 @@ public class MainActivity extends Activity {
 	
 	//Add Stocks button listener
 	public OnClickListener addStocksListener = new OnClickListener(){
-
 		public void onClick(View v) {
-			
 			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 			View card = inflater.inflate(R.layout.stock_card, null);
 			
@@ -72,17 +66,13 @@ public class MainActivity extends Activity {
 				stockListTableLayout.addView(card);
 			}else{
 				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
-			}
-			
+			}	
 		}
-		
 	};
 	
 	public OnClickListener stockDetailsListener = new OnClickListener (){
-
 		@Override
 		public void onClick(View v) {
-		
 			//Get the stock symbol from the card which is the parent of the imageButton
 			TableRow cardTableRow = (TableRow) v.getParent();
 			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
@@ -91,10 +81,8 @@ public class MainActivity extends Activity {
 			//Intent to start the details activity
 			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
 			intent.putExtra("stock_name", stockSymbolTextView.getText().toString());
-			startActivity(intent);
-			
+			startActivity(intent);	
 		}
-		
 	};
 
 	@Override
@@ -103,5 +91,4 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 }
