@@ -27,8 +27,8 @@ public class XMLParser {
 	String url;
 	StockDetails theStock;
 
-	static final String yqlFirst = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22";
-	static final String yqlSecond = "%22)&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+	private static final String YQL_FIRST = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%20in%20(%22";
+	private static final String YQL_SECOND = "%22)&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
 
 	//Needed for the constructor call to the StockDetails
 	String name = "";
@@ -43,7 +43,7 @@ public class XMLParser {
 
 	public XMLParser(String stock, OnParseComplete listener) {
 		
-		url = yqlFirst + stock + yqlSecond;
+		url = YQL_FIRST + stock + YQL_SECOND;
 		new MyAsyncTask().execute(url);
 		this.listener = listener;
 		

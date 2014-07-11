@@ -10,7 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBAdapterUser {
-
+	
+	//T: Repeating constants from DBAdapter
 	//Database columns
 	static final String KEY_ROWID = "_id";
 	static final String KEY_USERNAME = "username";

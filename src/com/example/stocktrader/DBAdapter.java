@@ -12,25 +12,25 @@ import android.util.Log;
 public class DBAdapter {
 
 	//Database columns
-	static final String KEY_ROWID = "_id";
-	static final String KEY_NAME = "name";
-	static final String KEY_SYMBOL = "symbol";
-	static final String KEY_EXCHANGE = "exchange";
-	static final String KEY_LAST_TRADE_PRICE_ONLY = "lasttradepriceonly";
-	static final String KEY_CHANGE = "change";
-	static final String KEY_DAYS_HIGH = "dayshigh";
-	static final String KEY_DAYS_LOW = "dayslow";
-	static final String KEY_YEAR_HIGH = "yearhigh";
-	static final String KEY_YEAR_LOW = "yearlow";
+	private static final String KEY_ROWID = "_id";
+	private static final String KEY_NAME = "name";
+	private static final String KEY_SYMBOL = "symbol";
+	private static final String KEY_EXCHANGE = "exchange";
+	private static final String KEY_LAST_TRADE_PRICE_ONLY = "lasttradepriceonly";
+	private static final String KEY_CHANGE = "change";
+	private static final String KEY_DAYS_HIGH = "dayshigh";
+	private static final String KEY_DAYS_LOW = "dayslow";
+	private static final String KEY_YEAR_HIGH = "yearhigh";
+	private static final String KEY_YEAR_LOW = "yearlow";
 
 	//Database properties
-	static final String TAG = "DBAdapter";
-	static final String DATABASE_NAME = "StockTrader.db";
-	static final String DATABASE_TABLE = "stockinfo";
-	static final int DATABASE_VERSION = 6;
+	private static final String TAG = "DBAdapter";
+	private static final String DATABASE_NAME = "StockTrader.db";
+	private static final String DATABASE_TABLE = "stockinfo";
+	private static final int DATABASE_VERSION = 6;
 
 	//Database creation command
-	static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
+	private static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
 																	KEY_NAME + " text not null, "+ 
 																	KEY_SYMBOL + " text not null, " +
 																	KEY_CHANGE + " text not null, "+ 

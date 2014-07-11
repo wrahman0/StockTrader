@@ -19,67 +19,74 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-	public static final String TAG = "STOCKTRADER"; 
+	public static final String TAG = "StockTraderMainActivity"; 
 	
-	Button addStocksButton;
-	EditText stockSymbolEditText;
-	TableLayout stockListTableLayout;
+	private Button mSearchStockButton;
+	private EditText mStockSymbolEditText;
+	private TableLayout mStockListTableLayout;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		findViews();
-		addButtonListeners();
-	}
-	
-	private void findViews(){
-		addStocksButton = (Button) findViewById (R.id.addStock);
-		stockListTableLayout = (TableLayout) findViewById (R.id.stockListTableLayout);
-		stockSymbolEditText = (EditText) findViewById (R.id.stockSymbolEditText);
-	}
-	
-	private void addButtonListeners(){
-		addStocksButton.setOnClickListener(addStocksListener);
+		
+		//get reference to components
+		mSearchStockButton = (Button) findViewById (R.id.addStock);
+		mStockListTableLayout = (TableLayout) findViewById (R.id.stockListTableLayout);
+		mStockSymbolEditText = (EditText) findViewById (R.id.stockSymbolEditText);
+		
+		mSearchStockButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
+				intent.putExtra(DetailsStockViewActivity.STOCK_NAME_EXTRA, 
+						mStockSymbolEditText.getText().toString());
+				startActivity(intent);
+			}
+			
+		});
+		
 	}
 	
 	//Add Stocks button listener
-	public OnClickListener addStocksListener = new OnClickListener(){
-		public void onClick(View v) {
+//	public OnClickListener addStocksListener = new OnClickListener(){
+//		public void onClick(View v) {
 //			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 //			View card = inflater.inflate(R.layout.stock_card, null);
 //			
 //			//Get the stock symbol and clear the search bar
-//			String stockSymbol = stockSymbolEditText.getText().toString();
-//			stockSymbolEditText.setText("");
+//			String stockSymbol = mStockSymbolEditText.getText().toString();
+//			mStockSymbolEditText.setText("");
 //			if (stockSymbol != null && stockSymbol.length() > 0){
 //				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
 //				detailsButton.setOnClickListener(stockDetailsListener);
-//				stockListTableLayout.addView(card);
+//				mStockListTableLayout.addView(card);
 //			}else{
 //				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
 //			}
-			
-			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
-			intent.putExtra("stock_name", stockSymbolEditText.getText().toString());
-			startActivity(intent);
-		}
-	};
+//			
+//
+//		}
+//	};
 	
-	public OnClickListener stockDetailsListener = new OnClickListener (){
+	//Q: What is this used for?
+	private class StockDetailsListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
+			//T: get all the views you need in onCreate
 			//Get the stock symbol from the card which is the parent of the imageButton
 			TableRow cardTableRow = (TableRow) v.getParent();
 			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
-			Log.e(TAG, stockSymbolTextView.getText().toString());
+			Log.i(TAG, stockSymbolTextView.getText().toString());
 			
 			//Intent to start the details activity
-			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
-			intent.putExtra("stock_name", stockSymbolTextView.getText().toString());
+			Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
+			intent.putExtra(DetailsStockViewActivity.STOCK_NAME_EXTRA, 
+					stockSymbolTextView.getText().toString());
 			startActivity(intent);	
 		}
-	};
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

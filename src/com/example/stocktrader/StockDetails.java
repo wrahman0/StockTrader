@@ -1,15 +1,15 @@
 package com.example.stocktrader;
 
 public class StockDetails {
-	String name = "";
-	String symbol = "";
-	String exchange = "";
-	String lastTradePriceOnly = "";
-	String change = "";
-	String daysHigh = "";
-	String daysLow = "";
-	String yearHigh = "";
-	String yearLow = "";
+	private String name;
+	private String symbol;
+	private String exchange;
+	private String lastTradePriceOnly;
+	private String change;
+	private String daysHigh;
+	private String daysLow;
+	private String yearHigh;
+	private String yearLow;
 
 	public StockDetails(String name, String symbol, String exchange,
 			String lastTradePriceOnly, String change, String daysHigh,
