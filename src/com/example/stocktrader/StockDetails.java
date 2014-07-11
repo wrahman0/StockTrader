@@ -1,6 +1,8 @@
 package com.example.stocktrader;
 
-public class StockDetails {
+import java.io.Serializable;
+
+public class StockDetails implements Serializable{
 	private String name;
 	private String symbol;
 	private String exchange;
@@ -13,7 +15,7 @@ public class StockDetails {
 
 	public StockDetails(String name, String symbol, String exchange,
 			String lastTradePriceOnly, String change, String daysHigh,
-			String daysLow, String yearHigh, String yearLow) {
+			String daysLow, String yearHigh, String yearLow){
 		this.name = name;
 		this.symbol = symbol;
 		this.exchange = exchange;

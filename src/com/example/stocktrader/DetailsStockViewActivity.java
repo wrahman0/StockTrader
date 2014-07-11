@@ -1,5 +1,7 @@
 package com.example.stocktrader;
 
+import java.io.Serializable;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +9,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class DetailsStockViewActivity extends Activity implements OnParseComplete{
+public class DetailsStockViewActivity extends Activity implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	public static final String STOCK_NAME_EXTRA = "stock name";
 	
-	private String stockName;
 	private StockDetails theStock;
 	
 	//Get the views that we will modify later
@@ -37,7 +39,8 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 		setContentView(R.layout.details_stock_view);
 
 		Intent intent = getIntent();
-		stockName = intent.getStringExtra(STOCK_NAME_EXTRA);
+		Bundle bundle = intent.getExtras();
+		this.theStock = (StockDetails) bundle.getSerializable(STOCK_NAME_EXTRA);
 
 		//TextViews
 		detailsName = (TextView) findViewById (R.id.detailsName);
@@ -54,34 +57,21 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 		//Button
 		detailsBuyStock = (Button) findViewById (R.id.detailsBuyButton);
 		detailsBuyStock.setOnClickListener(new BuyStockListener());
+		
+		detailsName.setText(theStock.getName());
+		detailsSymbol.setText(theStock.getSymbol());
+		detailsChange.setText("Change: " + theStock.getChange());
+		detailsExchange.setText(theStock.getExchange());
+		detailsLastTradePriceOnly.setText("Last Trade Price: " + theStock.getLastTradePriceOnly());
+		detailsDaysHigh.setText("Days High: " + theStock.getDaysHigh());
+		detailsDaysLow.setText("Days Low: " + theStock.getDaysLow());
+		detailsYearHigh.setText("Year High: " + theStock.getYearHigh());
+		detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
+		
+		//Retrieve user cash from the db
+		//Temp value
+		detailsUserMoney.setText("$10,000");
 
-		//Constructing the URL
-		XMLParser xml = new XMLParser (stockName, this);
-	}
-	
-	@Override
-	public void OnParseCompleted(StockDetails theStock){
-		this.theStock = theStock;
-		if (theStock == null) {
-			//T: this check should be done in MainActivity
-			Toast.makeText(getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
-			finish();
-		} else {
-			detailsName.setText(theStock.getName());
-			detailsSymbol.setText(theStock.getSymbol());
-			detailsChange.setText("Change: " + theStock.getChange());
-			detailsExchange.setText(theStock.getExchange());
-			detailsLastTradePriceOnly.setText("Last Trade Price: " + theStock.getLastTradePriceOnly());
-			detailsDaysHigh.setText("Days High: " + theStock.getDaysHigh());
-			detailsDaysLow.setText("Days Low: " + theStock.getDaysLow());
-			detailsYearHigh.setText("Year High: " + theStock.getYearHigh());
-			detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
-			
-			//Retrieve user cash from the db
-			//Temp value
-			detailsUserMoney.setText("$10,000");
-
-		}
 	}
 	
 	//Listeners
