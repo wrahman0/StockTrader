@@ -33,12 +33,6 @@ public class MainActivity extends Activity {
 		addButtonListeners();
 	}
 	
-	public void DisplayStock (Cursor c){
-		Toast.makeText(this, "id: " + c.getString(0) + "\n" +
-							 "Name: " + c.getString(1) + "\n" +
-							 "Symbol: " + c.getString(2) + "\n", Toast.LENGTH_SHORT).show();
-	}
-	
 	private void findViews(){
 		addStocksButton = (Button) findViewById (R.id.addStock);
 		stockListTableLayout = (TableLayout) findViewById (R.id.stockListTableLayout);
@@ -68,7 +62,7 @@ public class MainActivity extends Activity {
 			
 			Intent intent = new Intent(MainActivity.this, DetailsStockView.class);
 			intent.putExtra("stock_name", stockSymbolEditText.getText().toString());
-			startActivity(intent);	
+			startActivity(intent);
 		}
 	};
 	
