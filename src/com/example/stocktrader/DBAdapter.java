@@ -31,15 +31,15 @@ public class DBAdapter {
 
 	//Database creation command
 	static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
-																	KEY_NAME + " name text not null, "+ 
+																	KEY_NAME + " text not null, "+ 
 																	KEY_SYMBOL + " text not null, " +
-																	KEY_CHANGE + " name text not null, "+ 
-																	KEY_EXCHANGE + " name text not null, "+ 
-																	KEY_LAST_TRADE_PRICE_ONLY + " name text not null, "+ 
-																	KEY_DAYS_HIGH + " name text not null, "+ 
-																	KEY_DAYS_LOW + " name text not null, "+ 
-																	KEY_YEAR_HIGH + " name text not null, "+ 
-																	KEY_YEAR_LOW + " name text not null);";
+																	KEY_CHANGE + " text not null, "+ 
+																	KEY_EXCHANGE + " text not null, "+ 
+																	KEY_LAST_TRADE_PRICE_ONLY + " text not null, "+ 
+																	KEY_DAYS_HIGH + " text not null, "+ 
+																	KEY_DAYS_LOW + " text not null, "+ 
+																	KEY_YEAR_HIGH + " text not null, "+ 
+																	KEY_YEAR_LOW + " text not null);";
 	
 	final Context context;
 
