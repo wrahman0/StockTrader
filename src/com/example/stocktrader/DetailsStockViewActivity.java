@@ -1,9 +1,11 @@
 package com.example.stocktrader;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,9 +71,30 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
 		
 		//Retrieve user cash from the db
-		//Temp value
-		detailsUserMoney.setText("$10,000");
+		UserDetails theUser = getUserDetails();
+		detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
 
+	}
+	
+	private UserDetails getUserDetails(){
+		
+		DBAdapterUser db = new DBAdapterUser(this);
+		UserDetails theUser = null;
+		
+		try {
+			db.open();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Cursor cursor = db.getAllUsers();
+		if (cursor.moveToFirst()){
+			theUser = new UserDetails (cursor);
+		}
+		
+		return theUser;
+		 
 	}
 	
 	//Listeners

@@ -40,7 +40,17 @@ public class MainActivity extends Activity implements OnParseComplete,Serializab
 		mSearchStockButton = (Button) findViewById (R.id.addStock);
 		mStockListTableLayout = (TableLayout) findViewById (R.id.stockListTableLayout);
 		mStockSymbolEditText = (EditText) findViewById (R.id.cardStockSymbol);
-
+		
+//		DBAdapterUser db = new DBAdapterUser(this);
+//		try {
+//			db.open();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		db.addUser("Wasiur", "0", "12000", "12000");
+//		db.close();
+		
 		populateView(mStockListTableLayout);
 
 		mSearchStockButton.setOnClickListener(new OnClickListener(){
