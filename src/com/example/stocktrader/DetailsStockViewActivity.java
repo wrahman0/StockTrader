@@ -78,6 +78,9 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private class BuyStockListener implements OnClickListener {
 		@Override			
 		public void onClick(View v) {
+			
+			
+			
 		}
 	}
 }
