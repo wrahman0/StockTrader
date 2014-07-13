@@ -46,23 +46,23 @@ public final class R {
     public static final class id {
         public static final int action_settings=0x7f090016;
         public static final int addStock=0x7f090003;
+        public static final int cardChange=0x7f09000b;
+        public static final int cardExchange=0x7f09000a;
+        public static final int cardLastTradePriceOnly=0x7f090007;
         public static final int cardStockName=0x7f090014;
+        public static final int cardStockSymbol=0x7f090002;
         public static final int cardTableRow=0x7f090013;
         public static final int detailsBuyButton=0x7f090012;
-        public static final int detailsChange=0x7f09000b;
         public static final int detailsDaysHigh=0x7f09000c;
         public static final int detailsDaysLow=0x7f09000d;
         public static final int detailsExchange=0x7f090008;
-        public static final int detailsLastTradePriceOnly=0x7f09000a;
         public static final int detailsName=0x7f090006;
-        public static final int detailsSymbol=0x7f090007;
         public static final int detailsUserMoney=0x7f090011;
         public static final int detailsYearHigh=0x7f09000e;
         public static final int detailsYearLow=0x7f09000f;
         public static final int stockCardLinearLayout=0x7f090000;
         public static final int stockDetailsButton=0x7f090015;
         public static final int stockListTableLayout=0x7f090005;
-        public static final int stockSymbolEditText=0x7f090002;
         public static final int stockTableView=0x7f090004;
         public static final int tableRow1=0x7f090001;
         public static final int tableRow2=0x7f090010;
