@@ -52,11 +52,14 @@ public class MainActivity extends Activity implements OnParseComplete,Serializab
 
 	public void OnParseCompleted(StockDetails theStock){
 		if (theStock == null) {
-
+			
 			Toast.makeText(getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
 
 		}else {
-
+			
+			//Empty the search bar
+			mStockSymbolEditText.setText("");
+			
 			Bundle bundle = new Bundle();
 			Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
