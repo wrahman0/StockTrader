@@ -81,13 +81,13 @@ public class XMLParser {
 
 				}
 			}catch (MalformedURLException e) {
-				Log.d(MainActivity.TAG, "MalformedURLException", e);
+				Log.d(StockTraderActivity.TAG, "MalformedURLException", e);
 			} catch (IOException e) {
-				Log.d(MainActivity.TAG, "IOException", e);
+				Log.d(StockTraderActivity.TAG, "IOException", e);
 			} catch (ParserConfigurationException e) {
-				Log.d(MainActivity.TAG, "Parser Configuration Exception", e);
+				Log.d(StockTraderActivity.TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
-				Log.d(MainActivity.TAG, "SAX Exception", e);
+				Log.d(StockTraderActivity.TAG, "SAX Exception", e);
 			}
 			finally {
 			}
