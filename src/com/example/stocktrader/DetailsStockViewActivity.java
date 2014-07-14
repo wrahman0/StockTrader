@@ -72,7 +72,10 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		
 		//Retrieve user cash from the db
 		UserDetails theUser = getUserDetails();
-		detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
+		
+		//Causes app to crash, null-pointer exception
+		//Caused by failing to get UserDetails from getUserDetails() where null is returned
+		//detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
 
 	}
 	
