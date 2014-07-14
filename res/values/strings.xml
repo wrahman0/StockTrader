@@ -3,6 +3,11 @@
 	
     <!-- Text Resources  -->
     
+    <!-- User Signup page -->
+    <string name="signup_username">Username&#8230;</string>
+    <string name="signup_starting_cash">Starting Cash&#8230;</string>
+    <string name="signup_setup_complete">Done</string>
+    
     <!-- General -->
     <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
     <string name="invalid_search_alert">Please Enter a Valid Stock Symbol</string>
@@ -24,6 +29,8 @@
     
     <!-- Color Resources  -->
     <color name="main_background_color">#EEEEEE</color>
+    <color name="button_color">#EEEEEE</color>
+    <color name="main_text_color">#888888</color>
     
     <!-- Card  -->
     <color name="card_highlight">#000000</color>

@@ -71,7 +71,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
 		
 		//Retrieve user cash from the db
-		UserDetails theUser = getUserDetails();
+		//TODO:@Wasiur Finish retrieving the user cash after making the signup page
 		
 		//Causes app to crash, null-pointer exception
 		//Caused by failing to get UserDetails from getUserDetails() where null is returned
@@ -87,7 +87,6 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		try {
 			db.open();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
