@@ -4,12 +4,14 @@ import android.database.Cursor;
 
 public class UserDetails {
 	
+	private int _id;
 	private String username = "";
 	private int stocksBought = 0;
 	private int startingCash = 0;
 	private int currentCash = 0;
 	
 	public UserDetails(Cursor userRow) {
+		this._id = userRow.getInt(0);
 		this.username = userRow.getString(1);
 		this.stocksBought = Integer.parseInt(userRow.getString(2));
 		this.startingCash = Integer.parseInt(userRow.getString(3));
