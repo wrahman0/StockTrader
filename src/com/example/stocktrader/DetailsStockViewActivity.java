@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -72,13 +73,15 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		
 		//Retrieve user cash from the db
 		//TODO:@Wasiur Finish retrieving the user cash after making the signup page
+		UserDetails theUser = getUserDetails();
 		
 		//Causes app to crash, null-pointer exception
 		//Caused by failing to get UserDetails from getUserDetails() where null is returned
-		//detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
+		detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
 
 	}
 	
+	//Gets the current user
 	private UserDetails getUserDetails(){
 		
 		DBAdapterUser db = new DBAdapterUser(this);
@@ -94,6 +97,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		if (cursor.moveToFirst()){
 			theUser = new UserDetails (cursor);
 		}
+		
 		
 		return theUser;
 		 
