@@ -1,6 +1,8 @@
 package com.example.stocktrader;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,33 +40,38 @@ public class MainActivity extends Activity implements OnParseComplete,Serializab
 
 
 		mSearchStockButton.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
-
 				XMLParser xml = new XMLParser(mStockSymbolEditText.getText().toString(), MainActivity.this);
-
 			}
-
 		});
-
 	}
-
+	
+	Bundle bundle = new Bundle();
+	
 	public void OnParseCompleted(StockDetails theStock){
 		if (theStock == null) {
-
 			Toast.makeText(getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
-
-		}else {
-
-			Bundle bundle = new Bundle();
-			Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
+		} else {
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
+			try {
+				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), MainActivity.this);
+			} catch (UnsupportedEncodingException e) {
+				Log.e(TAG, "Company Name can not be encoded");
+			}
+		}
+	}
+	
+	public void OnParseCompleted(ArrayList<NewsDetails> news){
+		if (news.isEmpty()) {
+			Toast.makeText(getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
+		} else {
+			Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
+			DataWrapper newsData = new DataWrapper(news);
+			bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
 			intent.putExtras(bundle);
 			startActivity(intent);
-
 		}
-
 	}
 
 	//Add Stocks button listener

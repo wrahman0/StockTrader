@@ -13,6 +13,7 @@
     <string name="stock_list_title">Stocks Purchased</string>
     <string name="stock_add_button">Search</string>
     <string name="stock_search_bar_hint">Add a stock &#8230;</string>
+    <string name="news_not_found">No news found for company name</string>
     
     <!-- Card -->
     <string name="card_stock_name"></string>
@@ -31,7 +32,7 @@
     <color name="card_color_positive">#669900</color>
     <color name="card_color_negative">#CC0000</color>
 	
-    <!-- Details Stock View  -->
+    <!-- Details Stock View Stock  -->
     <string name="details_stock_name"></string>
     <string name="details_stock_symbol"></string>
     <string name="details_stock_exchange"></string>
@@ -41,6 +42,14 @@
     <string name="details_stock_days_high">Days High: </string>
     <string name="details_stock_year_low">Year Low: </string>
     <string name="details_stock_year_high">Year High: </string>
+    
+    <!-- Details Stock View News  -->
+    <string name="details_title">Title: </string>
+    <string name="details_content">Content: </string>
+    <string name="details_news_URL">URL: </string>
+    
+    <string name="details_publisher">Publisher: </string>
+    <string name="details_published_date">Published Date: </string>
     
     <string name="details_stock_buy_button">Purchase Stock</string>
     <string name="details_stock_user_cash">Money Remaining: </string>

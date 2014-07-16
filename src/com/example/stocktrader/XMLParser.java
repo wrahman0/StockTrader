@@ -78,16 +78,15 @@ public class XMLParser {
 					if (nl != null && nl.getLength() > 0){
 						theStock = extractStockInformation(ele);
 					}
-
 				}
 			}catch (MalformedURLException e) {
-				Log.d(MainActivity.TAG, "MalformedURLException", e);
+				Log.e(MainActivity.TAG, "MalformedURLException", e);
 			} catch (IOException e) {
-				Log.d(MainActivity.TAG, "IOException", e);
+				Log.e(MainActivity.TAG, "IOException", e);
 			} catch (ParserConfigurationException e) {
-				Log.d(MainActivity.TAG, "Parser Configuration Exception", e);
+				Log.e(MainActivity.TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
-				Log.d(MainActivity.TAG, "SAX Exception", e);
+				Log.e(MainActivity.TAG, "SAX Exception", e);
 			}
 			finally {
 			}
@@ -117,6 +116,10 @@ public class XMLParser {
 				return theStock;
 			} 
 			theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly, change, daysHigh, daysLow, yearHigh, yearLow);
+			Log.i(MainActivity.TAG, theStock.getName());
+			Log.i(MainActivity.TAG, theStock.getSymbol());
+			Log.i(MainActivity.TAG, theStock.getExchange());
+			Log.i(MainActivity.TAG, theStock.getLastTradePriceOnly());
 			return theStock;
 		}
 
