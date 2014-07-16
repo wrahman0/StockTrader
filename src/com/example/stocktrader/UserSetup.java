@@ -31,6 +31,7 @@ public class UserSetup extends Activity{
 		if(userDatabaseCreated()){
 			Intent intent = new Intent(this, StockTraderActivity.class);
 			startActivity(intent);
+			finish();
 		}
 		
 		//View References
