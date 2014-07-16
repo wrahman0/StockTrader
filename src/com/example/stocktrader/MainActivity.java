@@ -3,16 +3,21 @@ package com.example.stocktrader;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,9 +41,10 @@ public class MainActivity extends Activity implements OnParseComplete,Serializab
 		//get reference to components
 		mSearchStockButton = (Button) findViewById (R.id.addStock);
 		mStockListTableLayout = (TableLayout) findViewById (R.id.stockListTableLayout);
-		mStockSymbolEditText = (EditText) findViewById (R.id.stockSymbolEditText);
-
-
+		mStockSymbolEditText = (EditText) findViewById (R.id.cardStockSymbol);
+		
+		populateView(mStockListTableLayout);
+		
 		mSearchStockButton.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
@@ -52,7 +58,11 @@ public class MainActivity extends Activity implements OnParseComplete,Serializab
 	public void OnParseCompleted(StockDetails theStock){
 		if (theStock == null) {
 			Toast.makeText(getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
-		} else {
+		}else {
+			//Empty the search bar
+			mStockSymbolEditText.setText("");
+			Bundle bundle = new Bundle();
+			Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
 			try {
 				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), MainActivity.this);
@@ -74,43 +84,68 @@ public class MainActivity extends Activity implements OnParseComplete,Serializab
 		}
 	}
 
-	//Add Stocks button listener
-	//	public OnClickListener addStocksListener = new OnClickListener(){
-	//		public void onClick(View v) {
-	//			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-	//			View card = inflater.inflate(R.layout.stock_card, null);
-	//			
-	//			//Get the stock symbol and clear the search bar
-	//			String stockSymbol = mStockSymbolEditText.getText().toString();
-	//			mStockSymbolEditText.setText("");
-	//			if (stockSymbol != null && stockSymbol.length() > 0){
-	//				ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
-	//				detailsButton.setOnClickListener(stockDetailsListener);
-	//				mStockListTableLayout.addView(card);
-	//			}else{
-	//				Toast.makeText(getBaseContext(), R.string.empty_search_alert, Toast.LENGTH_LONG).show();
-	//			}
-	//			
-	//
-	//		}
-	//	};
-
-	//Used to populate the scroll view with purchased stocks
-	private class StockDetailsListener implements OnClickListener{
-		@Override
-		public void onClick(View v) {
-			//T: get all the views you need in onCreate
-			//Get the stock symbol from the card which is the parent of the imageButton
-			TableRow cardTableRow = (TableRow) v.getParent();
-			TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.stockSymbolEditText);
-			Log.i(TAG, stockSymbolTextView.getText().toString());
-
-			//Intent to start the details activity
-			Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
-			intent.putExtra(DetailsStockViewActivity.STOCK_NAME_EXTRA, 
-					stockSymbolTextView.getText().toString());
-			startActivity(intent);	
+	//Populates the view with the stocks from the db
+	private void populateView (TableLayout tableLayout){
+		
+		DBAdapter db = new DBAdapter(this);
+		try {
+			db.open();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
+		Cursor cursor = db.getAllStocks();
+		if (cursor.moveToFirst()){
+			do {
+				renderCardToView(tableLayout, cursor);
+			}while (cursor.moveToNext());
+		}
+		
+		db.close();
+		
+	}
+
+	private void renderCardToView(TableLayout tableLayout, Cursor stockRow) {
+		
+		LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+		View card = inflater.inflate(R.layout.stock_card, null);
+		ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
+		
+		//Set the card text here
+		TextView cardStockName = (TextView) card.findViewById (R.id.cardStockName);
+		TextView cardStockSymbol = (TextView) card.findViewById (R.id.cardStockSymbol);
+		TextView cardExchange = (TextView) card.findViewById (R.id.cardExchange);
+		TextView cardLastTradePriceOnly = (TextView) card.findViewById (R.id.cardLastTradePriceOnly);
+		TextView cardChange = (TextView) card.findViewById (R.id.cardChange);
+		
+		cardStockName.setText(stockRow.getString(1));
+		cardStockSymbol.setText(stockRow.getString(2));
+		cardChange.setText(stockRow.getString(3));
+		cardExchange.setText(stockRow.getString(4));
+		cardLastTradePriceOnly.setText(stockRow.getString(5));
+		
+		detailsButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+
+				//Get the stock symbol from the card which is the parent of the imageButton
+				TableRow cardTableRow = (TableRow) v.getParent();
+				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.cardStockSymbol);
+				Log.i(TAG, stockSymbolTextView.getText().toString());
+
+				//Intent to start the details activity
+				Intent intent = new Intent(MainActivity.this, DetailsStockViewActivity.class);
+				intent.putExtra(DetailsStockViewActivity.STOCK_NAME_EXTRA, 
+						stockSymbolTextView.getText().toString());
+				startActivity(intent);
+
+			}
+
+		});
+		
+		tableLayout.addView(card);
+		
 	}
 
 	@Override

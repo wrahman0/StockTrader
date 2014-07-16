@@ -57,10 +57,10 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		
 		//TextViews for Stock
 		detailsName = (TextView) findViewById (R.id.detailsName);
-		detailsSymbol = (TextView) findViewById (R.id.detailsSymbol);
+		detailsSymbol = (TextView) findViewById (R.id.cardLastTradePriceOnly);
 		detailsExchange = (TextView) findViewById (R.id.detailsExchange);
-		detailsLastTradePriceOnly = (TextView) findViewById (R.id.detailsLastTradePriceOnly);
-		detailsChange = (TextView) findViewById (R.id.detailsChange);
+		detailsLastTradePriceOnly = (TextView) findViewById (R.id.cardExchange);
+		detailsChange = (TextView) findViewById (R.id.cardChange);
 		detailsDaysHigh = (TextView) findViewById (R.id.detailsDaysHigh);
 		detailsDaysLow = (TextView) findViewById (R.id.detailsDaysLow);
 		detailsYearHigh = (TextView) findViewById (R.id.detailsYearHigh);

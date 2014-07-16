@@ -26,7 +26,7 @@
         </View>
 
         <TextView
-            android:id="@+id/detailsSymbol"
+            android:id="@+id/cardLastTradePriceOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-thin"
@@ -66,7 +66,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/detailsLastTradePriceOnly"
+            android:id="@+id/cardExchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/details_fine_information_spacing"
@@ -74,7 +74,7 @@
             android:textSize="@dimen/details_fine_information" />
 
         <TextView
-            android:id="@+id/detailsChange"
+            android:id="@+id/cardChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/details_fine_information_spacing"

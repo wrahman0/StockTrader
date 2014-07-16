@@ -21,7 +21,7 @@
                 android:id="@+id/cardStockName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/card_stock_name"
+                android:text="Google Inc."
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/card_highlight"
                 android:textSize="@dimen/card_important"
@@ -33,11 +33,11 @@
             </View>
 
             <TextView
-                android:id="@+id/stockSymbolEditText"
+                android:id="@+id/cardStockSymbol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-thin"
-                android:text="@string/card_stock_symbol"
+                android:text="GOOG"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textSize="@dimen/card_secondard_info" />
 
@@ -48,10 +48,10 @@
             </View>
 
             <TextView
-                android:id="@+id/detailsSymbol"
+                android:id="@+id/cardLastTradePriceOnly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/card_stock_last_trade_price_only"
+                android:text="585.43"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/card_highlight"
                 android:textSize="@dimen/card_important"
@@ -69,10 +69,10 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/detailsLastTradePriceOnly"
+                android:id="@+id/cardExchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/card_stock_exchange"
+                android:text="NASDAQ"
                 android:textSize="@dimen/card_secondard_info" />
 
             <View
@@ -81,10 +81,10 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/detailsChange"
+                android:id="@+id/cardChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/card_stock_change"
+                android:text="+2.54(+0.39%)"
                 android:textColor="@color/card_color_negative"
                 android:textSize="@dimen/card_secondard_info" />
         </TableRow>
