@@ -11,17 +11,17 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int button_color=0x7f060001;
-        public static final int card_background=0x7f060004;
-        public static final int card_color_negative=0x7f060006;
-        public static final int card_color_positive=0x7f060005;
+        public static final int button_color=0x7f040001;
+        public static final int card_background=0x7f040004;
+        public static final int card_color_negative=0x7f040006;
+        public static final int card_color_positive=0x7f040005;
         /**  Card  
          */
-        public static final int card_highlight=0x7f060003;
+        public static final int card_highlight=0x7f040003;
         /**  Color Resources  
          */
-        public static final int main_background_color=0x7f060000;
-        public static final int main_text_color=0x7f060002;
+        public static final int main_background_color=0x7f040000;
+        public static final int main_text_color=0x7f040002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -30,14 +30,14 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
-        public static final int card_important=0x7f040002;
-        public static final int card_secondard_info=0x7f040003;
-        public static final int details_fine_information=0x7f040006;
-        public static final int details_fine_information_spacing=0x7f040007;
-        public static final int details_important=0x7f040004;
-        public static final int details_secondary_info=0x7f040005;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
+        public static final int card_important=0x7f050002;
+        public static final int card_secondard_info=0x7f050003;
+        public static final int details_fine_information=0x7f050006;
+        public static final int details_fine_information_spacing=0x7f050007;
+        public static final int details_important=0x7f050004;
+        public static final int details_secondary_info=0x7f050005;
     }
     public static final class drawable {
         public static final int ic_action_forward=0x7f020000;
@@ -84,44 +84,44 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
+        public static final int action_settings=0x7f060001;
         /**  Text Resources  
  General 
          */
-        public static final int app_name=0x7f050000;
-        public static final int card_image_button_desc=0x7f05000d;
-        public static final int card_stock_change=0x7f05000c;
-        public static final int card_stock_exchange=0x7f05000a;
-        public static final int card_stock_last_trade_price_only=0x7f05000b;
+        public static final int app_name=0x7f060000;
+        public static final int card_image_button_desc=0x7f06000d;
+        public static final int card_stock_change=0x7f06000c;
+        public static final int card_stock_exchange=0x7f06000a;
+        public static final int card_stock_last_trade_price_only=0x7f06000b;
         /**  Card 
          */
-        public static final int card_stock_name=0x7f050008;
-        public static final int card_stock_symbol=0x7f050009;
-        public static final int details_stock_buy_button=0x7f050017;
-        public static final int details_stock_change=0x7f050012;
-        public static final int details_stock_days_high=0x7f050014;
-        public static final int details_stock_days_low=0x7f050013;
-        public static final int details_stock_exchange=0x7f050010;
-        public static final int details_stock_last_trade_price_only=0x7f050011;
+        public static final int card_stock_name=0x7f060008;
+        public static final int card_stock_symbol=0x7f060009;
+        public static final int details_stock_buy_button=0x7f060017;
+        public static final int details_stock_change=0x7f060012;
+        public static final int details_stock_days_high=0x7f060014;
+        public static final int details_stock_days_low=0x7f060013;
+        public static final int details_stock_exchange=0x7f060010;
+        public static final int details_stock_last_trade_price_only=0x7f060011;
         /**  Details Stock View  
          */
-        public static final int details_stock_name=0x7f05000e;
-        public static final int details_stock_symbol=0x7f05000f;
-        public static final int details_stock_user_cash=0x7f050018;
-        public static final int details_stock_year_high=0x7f050016;
-        public static final int details_stock_year_low=0x7f050015;
+        public static final int details_stock_name=0x7f06000e;
+        public static final int details_stock_symbol=0x7f06000f;
+        public static final int details_stock_user_cash=0x7f060018;
+        public static final int details_stock_year_high=0x7f060016;
+        public static final int details_stock_year_low=0x7f060015;
         /**  Error Messages 
          */
-        public static final int empty_search_alert=0x7f050005;
-        public static final int invalid_search_alert=0x7f050006;
-        public static final int signup_setup_complete=0x7f050004;
-        public static final int signup_starting_cash=0x7f050003;
+        public static final int empty_search_alert=0x7f060005;
+        public static final int invalid_search_alert=0x7f060006;
+        public static final int signup_setup_complete=0x7f060004;
+        public static final int signup_starting_cash=0x7f060003;
         /**  User Signup page 
          */
-        public static final int signup_username=0x7f050002;
+        public static final int signup_username=0x7f060002;
         /**  SearchStockFragment  
          */
-        public static final int stock_search_bar_hint=0x7f050007;
+        public static final int stock_search_bar_hint=0x7f060007;
     }
     public static final class style {
         /** 
@@ -150,5 +150,8 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070001;
+        /**  Button 
+         */
+        public static final int button_text=0x7f070002;
     }
 }

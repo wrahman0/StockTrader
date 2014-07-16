@@ -26,18 +26,7 @@
     <string name="card_stock_last_trade_price_only"></string>
     <string name="card_stock_change"></string>
     <string name="card_image_button_desc">View Stock Details</string>
-    
-    <!-- Color Resources  -->
-    <color name="main_background_color">#EEEEEE</color>
-    <color name="button_color">#EEEEEE</color>
-    <color name="main_text_color">#888888</color>
-    
-    <!-- Card  -->
-    <color name="card_highlight">#000000</color>
-    <color name="card_background">#FFFFFF</color>
-    <color name="card_color_positive">#669900</color>
-    <color name="card_color_negative">#CC0000</color>
-	
+
     <!-- Details Stock View  -->
     <string name="details_stock_name"></string>
     <string name="details_stock_symbol"></string>

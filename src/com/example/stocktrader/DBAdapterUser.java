@@ -23,7 +23,7 @@ public class DBAdapterUser {
 	static final String TAG = "DBAdapter";
 	static final String DATABASE_NAME = "UserData.db";
 	static final String DATABASE_TABLE = "userinfo";
-	static final int DATABASE_VERSION = 2;
+	static final int DATABASE_VERSION = 3;
 
 	//Database creation command
 	static final String DATABASE_CREATE = "create table "+ DATABASE_TABLE +" ("+ KEY_ROWID + " integer primary key autoincrement, " + 
