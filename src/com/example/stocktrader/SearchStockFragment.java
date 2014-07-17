@@ -2,11 +2,17 @@ package com.example.stocktrader;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -25,6 +32,12 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 	private static final long serialVersionUID = 1L;
 
 	private SearchView mSearchView;
+	private ListView mListView;
+	
+	private StockListAdapter mStockListAdapter;
+	private XMLParser mXMLParser;
+
+	private ArrayList<String>suggestedStockList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +47,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 		//get reference to components
 		mSearchView = (SearchView)view.findViewById(R.id.searchView);
+		mListView = (ListView)view.findViewById(R.id.searchListView);
 
 		mSearchView.setSubmitButtonEnabled(true);
 		mSearchView.setQueryHint(getString(R.string.stock_search_bar_hint));
@@ -41,7 +55,9 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				XMLParser xml = new XMLParser(query, SearchStockFragment.this);
+				StockSymbolSuggester mSuggester = new StockSymbolSuggester();
+				mSuggester.execute(query);
+				//XMLParser xml = new XMLParser(query, SearchStockFragment.this);
 
 				return false;
 			}
@@ -54,6 +70,10 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 
 		});
+		
+		mXMLParser = new XMLParser(SearchStockFragment.this);
+		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, mXMLParser);
+		mListView.setAdapter(mStockListAdapter);
 
 		//  DBAdapterUser db = new DBAdapterUser(this);
 		//  try {
@@ -87,6 +107,11 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 		}
 
+	}
+	
+	private void updateStockListing() {
+		// TODO Auto-generated method stub
+		mStockListAdapter.notifyDataSetChanged();
 	}
 
 	//Populates the view with the stocks from the db
@@ -179,6 +204,82 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			intent.putExtras(bundle);
 			startActivity(intent);
 
+		}
+
+	}
+	
+	private class StockSymbolSuggester extends AsyncTask<String, Void, Void> {
+		private static final String TAG = "StockSymbolSuggester";
+		
+		private static final String QUERY_PLACEHOLDER = "MYQUERY";
+		private String queryUrl = 
+						"http://d.yimg.com/autoc.finance.yahoo.com/autoc?query="
+								+QUERY_PLACEHOLDER
+						+"&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+
+		// JSON Node names
+		private static final String RESULT_SET = "ResultSet";
+		private static final String QUERY_RESULT = "Result";
+		private static final String STOCK_SYMBOL = "symbol";
+		
+		private ArrayList<String>stockList = new ArrayList<String>();
+		
+		private String getJSONString(String str){
+			
+			str = str.replaceFirst("YAHOO.Finance.SymbolSuggest.ssCallback\\(", "");
+			str = str.substring(0, str.length()-1);
+			
+			return str;
+			
+		}
+
+		@Override
+		protected Void doInBackground(String... arg0) {
+			String query = arg0[0];
+			
+			// Creating service handler class instance
+			WebServiceHandler wsh = new WebServiceHandler();
+			
+			//Making a request to url and getting response
+			String jsonStr = getJSONString(wsh.makeWebServiceGet(
+					queryUrl.replaceFirst(QUERY_PLACEHOLDER, query)));
+
+			if (jsonStr != null) {
+				try {
+					JSONObject jsonObj = new JSONObject(jsonStr);
+					JSONObject jsonObjResultSet = jsonObj.getJSONObject(RESULT_SET);
+
+					JSONArray jsonArrResults = jsonObjResultSet.getJSONArray(QUERY_RESULT);
+						
+						for(int i=0;i<jsonArrResults.length();i++){
+							JSONObject jsonObjStock = jsonArrResults.getJSONObject(i);
+
+							String symbol = jsonObjStock.getString(STOCK_SYMBOL);
+							stockList.add(symbol);
+
+						}
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			} else {
+				Log.e("ServiceHandler", "Couldn't get any data from the url");
+			}
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			for(String stock_symbol:stockList){
+				Log.i(TAG, stock_symbol);
+			}
+
+			suggestedStockList.clear();
+			suggestedStockList.addAll(stockList);
+			updateStockListing();
 		}
 
 	}

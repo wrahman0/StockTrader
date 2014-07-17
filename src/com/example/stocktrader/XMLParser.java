@@ -41,12 +41,15 @@ public class XMLParser {
 	String yearHigh = "";
 	String yearLow = "";
 
-	public XMLParser(String stock, OnParseComplete listener) {
-		
-		url = YQL_FIRST + stock + YQL_SECOND;
-		new MyAsyncTask().execute(url);
+	public XMLParser(OnParseComplete listener) {
+
 		this.listener = listener;
 		
+	}
+	
+	public void parseStock(String stock){
+		url = YQL_FIRST + stock + YQL_SECOND;
+		new MyAsyncTask().execute(url);
 	}
 
 	private class MyAsyncTask extends AsyncTask<String, String, String>{

@@ -8,3 +8,7 @@
 **.jar
 *.png
 .classpath
+bin/StockTrader.apk
+bin/resources.ap_
+bin/classes.dex
+.classpath
