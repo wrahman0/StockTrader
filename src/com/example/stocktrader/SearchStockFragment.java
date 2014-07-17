@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-<<<<<<< HEAD
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-=======
->>>>>>> dweep
 
 import android.content.Context;
 import android.content.Intent;
