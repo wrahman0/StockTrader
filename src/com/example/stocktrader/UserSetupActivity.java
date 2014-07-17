@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class UserSetup extends Activity{
+public class UserSetupActivity extends Activity{
 	
 	EditText signupUsername;
 	EditText signupStartingCash;
@@ -55,7 +55,7 @@ public class UserSetup extends Activity{
 			if (username.length() > 4 && startingCash >= 1000){
 				
 				//Enter the user to the database
-				DBAdapterUser db = new DBAdapterUser(UserSetup.this);
+				DBAdapterUser db = new DBAdapterUser(UserSetupActivity.this);
 				try{
 					db.open();
 				}catch(SQLException e){
@@ -65,8 +65,9 @@ public class UserSetup extends Activity{
 				db.close();
 				
 				//Start the main program
-				Intent intent = new Intent(UserSetup.this, StockTraderActivity.class);
+				Intent intent = new Intent(UserSetupActivity.this, StockTraderActivity.class);
 				startActivity(intent);
+				finish();
 				
 			}else if (username.length() <= 4){
 				Toast.makeText(getBaseContext(), "Username must be longer than 4 characters", Toast.LENGTH_SHORT).show();
