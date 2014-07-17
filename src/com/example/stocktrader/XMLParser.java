@@ -81,16 +81,15 @@ public class XMLParser {
 					if (nl != null && nl.getLength() > 0){
 						theStock = extractStockInformation(ele);
 					}
-
 				}
 			}catch (MalformedURLException e) {
-				Log.d(StockTraderActivity.TAG, "MalformedURLException", e);
+				Log.e(StockTraderActivity.TAG, "MalformedURLException", e);
 			} catch (IOException e) {
-				Log.d(StockTraderActivity.TAG, "IOException", e);
+				Log.e(StockTraderActivity.TAG, "IOException", e);
 			} catch (ParserConfigurationException e) {
-				Log.d(StockTraderActivity.TAG, "Parser Configuration Exception", e);
+				Log.e(StockTraderActivity.TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
-				Log.d(StockTraderActivity.TAG, "SAX Exception", e);
+				Log.e(StockTraderActivity.TAG, "SAX Exception", e);
 			}
 			finally {
 			}
