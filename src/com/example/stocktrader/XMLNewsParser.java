@@ -47,7 +47,7 @@ public class XMLNewsParser {
 
 	public XMLNewsParser(String companyName, OnParseComplete listener) throws UnsupportedEncodingException {
 		url = YQL_FIRST + URLEncoder.encode(companyName, "UTF-8") + YQL_SECOND;
-		Log.i(MainActivity.TAG, url);
+		Log.i(StockTraderActivity.TAG, url);
 		new MyAsyncTask().execute(url);
 		this.listener = listener;
 	}
@@ -83,7 +83,7 @@ public class XMLNewsParser {
 						NodeList newsResults = results.getElementsByTagName("results");
 						if (newsResults != null && newsResults.getLength() > 0) {
 							for(int i = 0; i < newsResults.getLength(); i++) {
-								Log.i(MainActivity.TAG, String.valueOf(i));
+								Log.i(StockTraderActivity.TAG, String.valueOf(i));
 								theNews = extractNewsInformation((Element) newsResults.item(i));
 								if(theNews != null) {
 									news.add(theNews);
@@ -91,17 +91,17 @@ public class XMLNewsParser {
 							}
 						}
 					} else {
-						Log.e(MainActivity.TAG, "Could not find the results tag while parsing News");
+						Log.e(StockTraderActivity.TAG, "Could not find the results tag while parsing News");
 					}
 				}
 			}catch (MalformedURLException e) {
-				Log.e(MainActivity.TAG, "MalformedURLException", e);
+				Log.e(StockTraderActivity.TAG, "MalformedURLException", e);
 			} catch (IOException e) {
-				Log.e(MainActivity.TAG, "IOException", e);
+				Log.e(StockTraderActivity.TAG, "IOException", e);
 			} catch (ParserConfigurationException e) {
-				Log.e(MainActivity.TAG, "Parser Configuration Exception", e);
+				Log.e(StockTraderActivity.TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
-				Log.e(MainActivity.TAG, "SAX Exception", e);
+				Log.e(StockTraderActivity.TAG, "SAX Exception", e);
 			}
 			finally {
 			}
@@ -124,11 +124,11 @@ public class XMLNewsParser {
 				publisher = getTextValue (result, "publisher");
 				publishedDate = getTextValue (result, "publishedDate");
 				
-				Log.i(MainActivity.TAG, content);
-				Log.i(MainActivity.TAG, newsURL);
-				Log.i(MainActivity.TAG, title);
-				Log.i(MainActivity.TAG, publisher);
-				Log.i(MainActivity.TAG, publishedDate);
+				Log.i(StockTraderActivity.TAG, content);
+				Log.i(StockTraderActivity.TAG, newsURL);
+				Log.i(StockTraderActivity.TAG, title);
+				Log.i(StockTraderActivity.TAG, publisher);
+				Log.i(StockTraderActivity.TAG, publishedDate);
 				//theImage = extractImageInformation(result.getElementsByTagName("image"));
 			} catch (final NullPointerException e) {
 				theNews = null;

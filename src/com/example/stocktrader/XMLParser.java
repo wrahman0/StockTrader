@@ -116,10 +116,6 @@ public class XMLParser {
 				return theStock;
 			} 
 			theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly, change, daysHigh, daysLow, yearHigh, yearLow);
-			Log.i(MainActivity.TAG, theStock.getName());
-			Log.i(MainActivity.TAG, theStock.getSymbol());
-			Log.i(MainActivity.TAG, theStock.getExchange());
-			Log.i(MainActivity.TAG, theStock.getLastTradePriceOnly());
 			return theStock;
 		}
 

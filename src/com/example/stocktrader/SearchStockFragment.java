@@ -2,14 +2,14 @@ package com.example.stocktrader;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,16 +83,16 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
 			try {
-				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), MainActivity.this);
+				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), SearchStockFragment.this);
 			} catch (UnsupportedEncodingException e) {
-				Log.e(TAG, "Company Name can not be encoded");
+				Log.e(StockTraderActivity.TAG, "Company Name can not be encoded");
 			}
 		}
 	}
 
 	public void OnParseCompleted(ArrayList<NewsDetails> news){
 		if (news.isEmpty()) {
-			Toast.makeText(getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
+			Toast.makeText(getActivity().getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
 		} else {
 			Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
 			DataWrapper newsData = new DataWrapper(news);
