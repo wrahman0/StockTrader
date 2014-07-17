@@ -1,6 +1,8 @@
 package com.example.stocktrader;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.sql.SQLException;
 
 import android.support.v4.app.Fragment;
@@ -70,28 +72,38 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		return view;
 	}
 
+	Bundle bundle = new Bundle();
+
 	public void OnParseCompleted(StockDetails theStock){
 		if (theStock == null) {
-
 			Toast.makeText(getActivity().getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
-
 		}else {
-
 			//Empty the search bar
 			mSearchView.setQuery("", false);
-			Bundle bundle = new Bundle();
-			Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);
+			
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
+			try {
+				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), MainActivity.this);
+			} catch (UnsupportedEncodingException e) {
+				Log.e(TAG, "Company Name can not be encoded");
+			}
+		}
+	}
+
+	public void OnParseCompleted(ArrayList<NewsDetails> news){
+		if (news.isEmpty()) {
+			Toast.makeText(getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
+		} else {
+			Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
+			DataWrapper newsData = new DataWrapper(news);
+			bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
 			intent.putExtras(bundle);
 			startActivity(intent);
-
 		}
-
 	}
 
 	//Populates the view with the stocks from the db
 	private void populateView (TableLayout tableLayout){
-
 		DBAdapter db = new DBAdapter(getActivity());
 
 		try {
@@ -108,7 +120,6 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		}
 
 		db.close();
-
 	}
 
 	private void renderCardToView(TableLayout tableLayout, Cursor stockRow) {
