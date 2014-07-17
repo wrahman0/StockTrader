@@ -23,10 +23,10 @@ public class DBAdapterUser {
 	static final String TAG = "DBAdapter";
 	static final String DATABASE_NAME = "UserData.db";
 	static final String DATABASE_TABLE = "userinfo";
-	static final int DATABASE_VERSION = 1;
+	static final int DATABASE_VERSION = 3;
 
 	//Database creation command
-	static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
+	static final String DATABASE_CREATE = "create table "+ DATABASE_TABLE +" ("+ KEY_ROWID + " integer primary key autoincrement, " + 
 																	KEY_USERNAME + " text not null, "+ 
 																	KEY_STOCKS_BOUGHT + " text not null, " +
 																	KEY_STARTING_CASH + " text not null, "+ 
@@ -73,7 +73,7 @@ public class DBAdapterUser {
 	}
 
 	//Inserts a stock into the database
-	public long insertStock (String username, String stocksbought, String startingcash, String currentcash){
+	public long addUser (String username, String stocksbought, String startingcash, String currentcash){
 		Log.w(TAG, "INSERTING USER WITH NAME:"+ username +", STOCKS:" + stocksbought + "..." + ", START CAPITAL:" + startingcash + ", CURRENT CAPITAL:" + currentcash);
 		
 		ContentValues initialValues = new ContentValues ();
@@ -87,20 +87,20 @@ public class DBAdapterUser {
 	}
 
 	//deletes a particular stock
-	public boolean deleteStock (long rowId){
-		Log.w(TAG, "DELETING STOCK WITH ID: " +  rowId + "...");
+	public boolean removeUser (long rowId){
+		Log.w(TAG, "DELETING USER WITH ID: " +  rowId + "...");
 		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	//Gets all the stocks
-	public Cursor getAllStocks(){
-		Log.w(TAG, "GETTING ALL STOCKS...");
+	public Cursor getAllUsers(){
+		Log.w(TAG, "GETTING ALL USERS...");
 		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH}, null,null,null,null,null);
 	}
 
 	//Gets particular stock
-	public Cursor getStock (long rowId) throws SQLException{
-		Log.w(TAG, "GETTING SINGLE STOCK WITH ID: " +  rowId +"...");
+	public Cursor getUser (long rowId) throws SQLException{
+		Log.w(TAG, "GETTING SINGLE USER WITH ID: " +  rowId +"...");
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH}, KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
@@ -109,7 +109,7 @@ public class DBAdapterUser {
 	}
 
 	//Edit a stock
-	public boolean updateStock(long rowId, String username, String stocksbought, String startingcash, String currentcash){
+	public boolean updateUser(long rowId, String username, String stocksbought, String startingcash, String currentcash){
 		Log.w(TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		

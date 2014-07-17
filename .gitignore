@@ -1,9 +1,13 @@
-**.dex
+*.dex
 
-**.class
+*.class
 
-**.apk
+*.apk
 
-**.jar
+*.jar
+
+*.png
 
 gen/com/example/stocktrader/R.java
+
+.classpath

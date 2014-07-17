@@ -4,15 +4,20 @@
     <!-- Text Resources  -->
     
     <!-- General -->
+    <string name="app_name">Stock Trader</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- User Signup page -->
+    <string name="signup_username">Username&#8230;</string>
+    <string name="signup_starting_cash">Starting Cash&#8230;</string>
+    <string name="signup_setup_complete">Done</string>
+
+    <!-- Error Messages -->
     <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
     <string name="invalid_search_alert">Please Enter a Valid Stock Symbol</string>
     
-    <!-- Main Activity  -->
-    <string name="app_name">Stock Trader</string>
-    <string name="action_settings">Settings</string>
-    <string name="stock_list_title">Stocks Purchased</string>
-    <string name="stock_add_button">Search</string>
-    <string name="stock_search_bar_hint">Add a stock &#8230;</string>
+    <!-- SearchStockFragment  -->
+    <string name="stock_search_bar_hint">Find Stocks &#8230;</string>
     <string name="news_not_found">No news found for company name</string>
     
     <!-- Card -->
