@@ -29,9 +29,12 @@
     <string name="card_image_button_desc">View Stock Details</string>
     
     <!-- Details Stock View Stock  -->
-    <string name="details_stock_name"></string>
-    <string name="details_stock_symbol"></string>
-    <string name="details_stock_exchange"></string>
+    <string name="details_title_stock_quote">Stock Quote</string>
+    <string name="details_title_stock_news">Recent News</string>
+    
+    <string name="details_stock_name">Google Inc.</string>
+    <string name="details_stock_symbol">GOOG</string>
+    <string name="details_stock_exchange">NASDAQ</string>
     <string name="details_stock_last_trade_price_only">Last Trade Price: </string>
     <string name="details_stock_change">Change: </string>
     <string name="details_stock_days_low">Days Low: </string>

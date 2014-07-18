@@ -15,7 +15,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/detailsName"
+            android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/details_stock_name"
@@ -27,11 +27,11 @@
         </View>
 
         <TextView
-            android:id="@+id/cardLastTradePriceOnly"
+            android:id="@+id/detailsSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-thin"
-            android:text="@string/card_stock_symbol"
+            android:text="@string/details_stock_symbol"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textSize="@dimen/details_secondary_info" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/detailsExchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/card_stock_exchange"
+            android:text="@string/details_stock_exchange"
             android:textSize="@dimen/details_secondary_info" />
     </TableRow>
 
@@ -67,7 +67,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/cardExchange"
+            android:id="@+id/detailsLastTradePriceOnly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/details_fine_information_spacing"
@@ -75,7 +75,7 @@
             android:textSize="@dimen/details_fine_information" />
 
         <TextView
-            android:id="@+id/cardChange"
+            android:id="@+id/detailsChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/details_fine_information_spacing"

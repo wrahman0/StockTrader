@@ -157,9 +157,9 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		//Set the card text here
 		TextView cardStockName = (TextView) card.findViewById (R.id.cardStockName);
 		TextView cardStockSymbol = (TextView) card.findViewById (R.id.cardStockSymbol);
-		TextView cardExchange = (TextView) card.findViewById (R.id.cardExchange);
-		TextView cardLastTradePriceOnly = (TextView) card.findViewById (R.id.cardLastTradePriceOnly);
-		TextView cardChange = (TextView) card.findViewById (R.id.cardChange);
+		TextView cardExchange = (TextView) card.findViewById (R.id.detailsLastTradePriceOnly);
+		TextView cardLastTradePriceOnly = (TextView) card.findViewById (R.id.detailsSymbol);
+		TextView cardChange = (TextView) card.findViewById (R.id.detailsChange);
 
 		cardStockName.setText(stockRow.getString(1));
 		cardStockSymbol.setText(stockRow.getString(2));
