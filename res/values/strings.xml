@@ -31,6 +31,7 @@
     <!-- Details Stock View Stock  -->
     <string name="details_title_stock_quote">Stock Quote</string>
     <string name="details_title_stock_news">Recent News</string>
+    <string name="details_title_buy">Purchase Stock</string>
     
     <string name="details_stock_name">Google Inc.</string>
     <string name="details_stock_symbol">GOOG</string>
@@ -45,12 +46,14 @@
     <!-- Details Stock View News  -->
     <string name="details_title">Title: </string>
     <string name="details_content">Content: </string>
-    <string name="details_news_URL">URL: </string>
-    
+    <string name="details_news_URL">URL: </string>    
     <string name="details_publisher">Publisher: </string>
     <string name="details_published_date">Published Date: </string>
     
-    <string name="details_stock_buy_button">Purchase Stock</string>
+    <!-- Details Buy Section -->
+    <string name="details_stock_buy_button">Buy</string>
     <string name="details_stock_user_cash">Money Remaining: </string>
+    <string name="details_stock_amount_to_buy">Stocks to buy: </string>
+    
     
 </resources>

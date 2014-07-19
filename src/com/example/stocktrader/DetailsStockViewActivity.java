@@ -1,8 +1,8 @@
 package com.example.stocktrader;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class DetailsStockViewActivity extends Activity implements Serializable{
@@ -36,7 +37,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private TextView detailsDaysLow;
 	private TextView detailsYearHigh;
 	private TextView detailsYearLow;
-	private TextView detailsUserMoney;
+//	private TextView detailsUserMoney;
 	
 	//Get the views for news that we will modify later
 	private TextView detailsTitle;
@@ -46,7 +47,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private TextView detailsNewsURL;
 	
 	//Buttons
-	private Button detailsBuyStock;
+	private ImageButton detailsBuyStock;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         
-		setContentView(R.layout.details_stock_view);
+		setContentView(R.layout.details_redesigned);
 
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
@@ -65,7 +66,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		this.theNews = this.news.get(0);
 		
 		//TextViews for Stock
-		detailsName = (TextView) findViewById (R.id.Name);
+		detailsName = (TextView) findViewById (R.id.detailsName);
 		detailsSymbol = (TextView) findViewById (R.id.detailsSymbol);
 		detailsExchange = (TextView) findViewById (R.id.detailsExchange);
 		detailsLastTradePriceOnly = (TextView) findViewById (R.id.detailsLastTradePriceOnly);
@@ -74,7 +75,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		detailsDaysLow = (TextView) findViewById (R.id.detailsDaysLow);
 		detailsYearHigh = (TextView) findViewById (R.id.detailsYearHigh);
 		detailsYearLow = (TextView) findViewById (R.id.detailsYearLow);
-		detailsUserMoney = (TextView) findViewById (R.id.detailsUserMoney);
+//		detailsUserMoney = (TextView) findViewById (R.id.detailsUserMoney);
 		
 		//TextViews for News
 		detailsTitle = (TextView) findViewById (R.id.detailsTitle);
@@ -84,7 +85,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		detailsNewsURL = (TextView) findViewById (R.id.detailsNewsURL);
 		
 		//Button
-		detailsBuyStock = (Button) findViewById (R.id.detailsBuyButton);
+		detailsBuyStock = (ImageButton) findViewById (R.id.detailsBuyButton);
 		detailsBuyStock.setOnClickListener(new BuyStockListener());
 		
 		detailsName.setText(theStock.getName());
@@ -105,11 +106,11 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		
 		//Retrieve user cash from the db
 		//TODO:@Wasiur Finish retrieving the user cash after making the signup page
-		UserDetails theUser = getUserDetails();
+//		UserDetails theUser = getUserDetails();
 		
 		//Causes app to crash, null-pointer exception
 		//Caused by failing to get UserDetails from getUserDetails() where null is returned
-		detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
+//		detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
 
 	}
 	
