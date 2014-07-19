@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.jsoup.Jsoup;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -44,7 +45,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private TextView detailsContent;
 	private TextView detailsPublisher;
 	private TextView detailsPublishedDate;
-	private TextView detailsNewsURL;
+//	private TextView detailsNewsURL;
 	
 	//Buttons
 	private ImageButton detailsBuyStock;
@@ -75,14 +76,12 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		detailsDaysLow = (TextView) findViewById (R.id.detailsDaysLow);
 		detailsYearHigh = (TextView) findViewById (R.id.detailsYearHigh);
 		detailsYearLow = (TextView) findViewById (R.id.detailsYearLow);
-//		detailsUserMoney = (TextView) findViewById (R.id.detailsUserMoney);
 		
 		//TextViews for News
 		detailsTitle = (TextView) findViewById (R.id.detailsTitle);
 		detailsContent = (TextView) findViewById (R.id.detailsContent);
 		detailsPublisher = (TextView) findViewById (R.id.detailsPublisher);
 		detailsPublishedDate = (TextView) findViewById (R.id.detailsPublishedDate);
-		detailsNewsURL = (TextView) findViewById (R.id.detailsNewsURL);
 		
 		//Button
 		detailsBuyStock = (ImageButton) findViewById (R.id.detailsBuyButton);
@@ -98,19 +97,10 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		detailsYearHigh.setText("Year High: " + theStock.getYearHigh());
 		detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
 		
-		detailsTitle.setText("Title: " + this.theNews.getTitle());
-		detailsContent.setText("Content: " + this.theNews.getContent());
-		detailsPublisher.setText("Publisher: " + this.theNews.getPublisher());
-		detailsPublishedDate.setText("Published Date: " + this.theNews.getPublishedDate());
-		detailsNewsURL.setText("News URL: " + this.theNews.getUrl());
-		
-		//Retrieve user cash from the db
-		//TODO:@Wasiur Finish retrieving the user cash after making the signup page
-//		UserDetails theUser = getUserDetails();
-		
-		//Causes app to crash, null-pointer exception
-		//Caused by failing to get UserDetails from getUserDetails() where null is returned
-//		detailsUserMoney.setText("$" + String.valueOf(theUser.getCurrentCash()));
+		detailsTitle.setText(Jsoup.parse(theNews.getTitle()).text());
+		detailsContent.setText(Jsoup.parse(theNews.getContent()).text());
+		detailsPublisher.setText(Jsoup.parse(theNews.getPublisher()).text());
+		detailsPublishedDate.setText("Published Date: " + theNews.getPublishedDate());
 
 	}
 	

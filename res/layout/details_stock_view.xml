@@ -157,14 +157,6 @@
             android:paddingBottom="@dimen/details_fine_information_spacing"
             android:text="@string/details_published_date"
             android:textSize="@dimen/details_fine_information" />
-        
-        <TextView
-            android:id="@+id/detailsNewsURL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/details_fine_information_spacing"
-            android:text="@string/details_news_URL"
-            android:textSize="@dimen/details_fine_information" />
     </LinearLayout>
 
     <View
