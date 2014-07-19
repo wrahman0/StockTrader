@@ -34,7 +34,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 	private SearchView mSearchView;
 	private ListView mListView;
-	
+
 	private StockListAdapter mStockListAdapter;
 	private XMLParser mXMLParser;
 
@@ -69,25 +69,11 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 				return false;
 			}
 
-
 		});
-		
+
 		mXMLParser = new XMLParser(SearchStockFragment.this);
 		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, mXMLParser);
 		mListView.setAdapter(mStockListAdapter);
-
-		//  DBAdapterUser db = new DBAdapterUser(this);
-		//  try {
-		//   db.open();
-		//  } catch (SQLException e) {
-		//   // TODO Auto-generated catch block
-		//   e.printStackTrace();
-		//  }
-		//  db.addUser("Wasiur", "0", "12000", "12000");
-		//  db.close();
-
-		//  if(container!=null)
-		//   container.addView(view);
 		return view;
 	}
 
@@ -99,7 +85,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		}else {
 			//Empty the search bar
 			mSearchView.setQuery("", false);
-			
+
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
 			try {
 				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), SearchStockFragment.this);
@@ -110,17 +96,20 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 	}
 
 	public void OnParseCompleted(ArrayList<NewsDetails> news){
+		
 		if (news.isEmpty()) {
 			Toast.makeText(getActivity().getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
-		} else {
-			Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
-			DataWrapper newsData = new DataWrapper(news);
-			bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
-			intent.putExtras(bundle);
-			startActivity(intent);
+			news = null;
 		}
+		
+		Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
+		DataWrapper newsData = new DataWrapper(news);
+		bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
+		intent.putExtras(bundle);
+		startActivity(intent);
+		
 	}
-	
+
 	private void updateStockListing() {
 		// TODO Auto-generated method stub
 		mStockListAdapter.notifyDataSetChanged();
@@ -217,39 +206,39 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		}
 
 	}
-	
+
 	private class StockSymbolSuggester extends AsyncTask<String, Void, Void> {
 		private static final String TAG = "StockSymbolSuggester";
-		
+
 		private static final String QUERY_PLACEHOLDER = "MYQUERY";
 		private String queryUrl = 
-						"http://d.yimg.com/autoc.finance.yahoo.com/autoc?query="
-								+QUERY_PLACEHOLDER
+				"http://d.yimg.com/autoc.finance.yahoo.com/autoc?query="
+						+QUERY_PLACEHOLDER
 						+"&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
 
 		// JSON Node names
 		private static final String RESULT_SET = "ResultSet";
 		private static final String QUERY_RESULT = "Result";
 		private static final String STOCK_SYMBOL = "symbol";
-		
+
 		private ArrayList<String>stockList = new ArrayList<String>();
-		
+
 		private String getJSONString(String str){
-			
+
 			str = str.replaceFirst("YAHOO.Finance.SymbolSuggest.ssCallback\\(", "");
 			str = str.substring(0, str.length()-1);
-			
+
 			return str;
-			
+
 		}
 
 		@Override
 		protected Void doInBackground(String... arg0) {
 			String query = arg0[0];
-			
+
 			// Creating service handler class instance
 			WebServiceHandler wsh = new WebServiceHandler();
-			
+
 			//Making a request to url and getting response
 			String jsonStr = getJSONString(wsh.makeWebServiceGet(
 					queryUrl.replaceFirst(QUERY_PLACEHOLDER, query)));
@@ -260,14 +249,14 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 					JSONObject jsonObjResultSet = jsonObj.getJSONObject(RESULT_SET);
 
 					JSONArray jsonArrResults = jsonObjResultSet.getJSONArray(QUERY_RESULT);
-						
-						for(int i=0;i<jsonArrResults.length();i++){
-							JSONObject jsonObjStock = jsonArrResults.getJSONObject(i);
 
-							String symbol = jsonObjStock.getString(STOCK_SYMBOL);
-							stockList.add(symbol);
+					for(int i=0;i<jsonArrResults.length();i++){
+						JSONObject jsonObjStock = jsonArrResults.getJSONObject(i);
 
-						}
+						String symbol = jsonObjStock.getString(STOCK_SYMBOL);
+						stockList.add(symbol);
+
+					}
 
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -282,7 +271,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			
+
 			for(String stock_symbol:stockList){
 				Log.i(TAG, stock_symbol);
 			}

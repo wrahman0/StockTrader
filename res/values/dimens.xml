@@ -13,5 +13,10 @@
 	<dimen name="details_info_margin_left">4dp</dimen>
     <dimen name="details_title_padding_top">4dp</dimen>
     <dimen name="details_subtitle_padding_top">7dp</dimen>
+    
+    <dimen name="news_title">16sp</dimen>
+    <dimen name="news_body">12sp</dimen>
+    <dimen name="news_image_height">48dp</dimen>
+    <dimen name="news_image_width">48dp</dimen>
 
 </resources>

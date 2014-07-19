@@ -78,7 +78,7 @@
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/newsCardImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_view_as_list" />
@@ -88,7 +88,7 @@
                 android:layout_height="0dip" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/newsCardBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/details_subtitle_padding_top"
@@ -167,86 +167,54 @@
         android:layout_width="0dp"
         android:layout_height="10dp" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TableRow
+            android:id="@+id/TableRow01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/ImageView01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_web_site" />
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="0dip" />
+
+            <TextView
+                android:id="@+id/TextView06"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/details_subtitle_padding_top"
+                android:text="@string/details_title_stock_news"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="@dimen/details_subtitle_size" />
+        </TableRow>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="10dp" />
+
     <ScrollView
-        android:id="@+id/scrollView1"
+        android:id="@+id/newsScrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
 
         <LinearLayout
+            android:id="@+id/newsLinearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TableRow
-                android:id="@+id/TableRow01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    android:id="@+id/ImageView01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_web_site" />
-
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="0dip" />
-
-                <TextView
-                    android:id="@+id/TextView06"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/details_subtitle_padding_top"
-                    android:text="@string/details_title_stock_news"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/secondary_text_color"
-                    android:textSize="@dimen/details_subtitle_size" />
-            </TableRow>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="10dp" />
-
-            <TextView
-                android:id="@+id/detailsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/details_info_margin_left"
-                android:paddingBottom="@dimen/details_fine_information_spacing"
-                android:text="@string/details_title"
-                android:textColor="@color/secondary_text_color"
-                android:textSize="@dimen/details_fine_information" />
-
-            <TextView
-                android:id="@+id/detailsContent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/details_info_margin_left"
-                android:paddingBottom="@dimen/details_fine_information_spacing"
-                android:text="@string/details_content"
-                android:textColor="@color/secondary_text_color"
-                android:textSize="@dimen/details_fine_information" />
-
-            <TextView
-                android:id="@+id/detailsPublisher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/details_info_margin_left"
-                android:paddingBottom="@dimen/details_fine_information_spacing"
-                android:text="@string/details_publisher"
-                android:textColor="@color/secondary_text_color"
-                android:textSize="@dimen/details_fine_information" />
-
-            <TextView
-                android:id="@+id/detailsPublishedDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/details_info_margin_left"
-                android:paddingBottom="@dimen/details_fine_information_spacing"
-                android:text="@string/details_published_date"
-                android:textColor="@color/secondary_text_color"
-                android:textSize="@dimen/details_fine_information" />
         </LinearLayout>
     </ScrollView>
 
