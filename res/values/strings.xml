@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	
-    <!-- Text Resources  -->
-    
+
+    <!-- Text Resources -->
+
+
     <!-- General -->
     <string name="app_name">Stock Trader</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- User Signup page -->
     <string name="signup_username">Username&#8230;</string>
     <string name="signup_starting_cash">Starting Cash&#8230;</string>
@@ -15,11 +16,11 @@
     <!-- Error Messages -->
     <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
     <string name="invalid_search_alert">Please Enter a Valid Stock Symbol</string>
-    
-    <!-- SearchStockFragment  -->
+
+    <!-- SearchStockFragment -->
     <string name="stock_search_bar_hint">Find Stocks &#8230;</string>
-    <string name="news_not_found">No news found for company name</string>
-    
+    <string name="news_not_found">No Recent News</string>
+
     <!-- Card -->
     <string name="card_stock_name"></string>
     <string name="card_stock_symbol"></string>
@@ -27,27 +28,47 @@
     <string name="card_stock_last_trade_price_only"></string>
     <string name="card_stock_change"></string>
     <string name="card_image_button_desc">View Stock Details</string>
-    
-    <!-- Details Stock View Stock  -->
-    <string name="details_stock_name"></string>
-    <string name="details_stock_symbol"></string>
-    <string name="details_stock_exchange"></string>
+
+    <!-- Details Stock View Stock -->
+    <string name="details_title_stock_quote">Stock Quote</string>
+    <string name="details_title_stock_news">Recent News</string>
+    <string name="details_title_buy">Purchase Stock</string>
+    <string name="details_stock_name">Google Inc.</string>
+    <string name="details_stock_symbol">GOOG</string>
+    <string name="details_stock_exchange">NASDAQ</string>
     <string name="details_stock_last_trade_price_only">Last Trade Price: </string>
     <string name="details_stock_change">Change: </string>
     <string name="details_stock_days_low">Days Low: </string>
     <string name="details_stock_days_high">Days High: </string>
     <string name="details_stock_year_low">Year Low: </string>
     <string name="details_stock_year_high">Year High: </string>
-    
-    <!-- Details Stock View News  -->
+
+    <!-- Details Stock View News -->
     <string name="details_title">Title: </string>
     <string name="details_content">Content: </string>
     <string name="details_news_URL">URL: </string>
-    
     <string name="details_publisher">Publisher: </string>
     <string name="details_published_date">Published Date: </string>
-    
-    <string name="details_stock_buy_button">Purchase Stock</string>
+
+    <!-- Details Buy Section -->
+    <string name="details_stock_buy_button">Buy</string>
     <string name="details_stock_user_cash">Money Remaining: </string>
+    <string name="details_stock_amount_to_buy">Stocks to buy: </string>
+	
+    <!-- Purchase Dialog -->
+    <string name="purchase_dialog_title">Purchase Stock</string>
+    <string name="purchase_dialog_positive_button">Buy</string>
+    <string name="purchase_dialog_negative_button">Cancel</string>
+    <string name="purchase_dialog_stocks_text">stocks will cost:&#160;</string>
+    <string name="purchase_dialog_stocks_price">$</string>
     
+    <!-- Extra stuff -->
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit. Maecenas a nunc at magna dictum congue. Etiam est tellus, scelerisque ut leo vitae, fringilla laoreet diam. 
+        Donec at vulputate felis, et placerat felis. Integer bibendum malesuada velit nec rhoncus. Suspendisse sodales, libero eu laoreet volutpat, 
+        velit est gravida enim, nec placerat nisl sapien in sapien. Sed scelerisque nisi et elementum ultrices. Vivamus dignissim, dui feugiat pharetra 
+        rutrum, risus lorem blandit nunc, vel pretium massa arcu quis dui. Duis interdum neque id tortor cursus, vitae volutpat sapien dictum. 
+        Nullam lorem nisi, laoreet at ipsum vel, dapibus consectetur odio. Ut condimentum sodales mi, id mollis nibh ornare eu. 
+        Proin volutpat at libero ut pharetra.</string>
+
 </resources>

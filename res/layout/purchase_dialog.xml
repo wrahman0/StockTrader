@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical" >
+
+        <View
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <NumberPicker
+            android:id="@+id/purchaseDialogQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="100dip" />
+        
+        <View
+            android:layout_height="0dp"
+            android:layout_width="5dp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purchase_dialog_stocks_text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/details_secondary_info" />
+
+        <TextView
+            android:id="@+id/totalPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/purchase_dialog_stocks_price"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/details_secondary_info" />
+        
+        <View
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/negativeButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/purchase_dialog_negative_button" />
+
+        <Button
+            android:id="@+id/positiveButton"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/purchase_dialog_positive_button" />
+    </TableRow>
+
+</LinearLayout>
