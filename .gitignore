@@ -4,10 +4,6 @@
 
 *.apk
 
-*.jar
-
-*.png
-
 .classpath
 bin/StockTrader.apk
 bin/resources.ap_

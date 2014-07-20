@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.jsoup.Jsoup;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class DetailsStockViewActivity extends Activity implements Serializable{
 
@@ -127,10 +127,6 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		
 	}
 
-	private void populateNewsView(NewsDetails theNews){
-
-	}
-
 	//Gets the current user
 	private UserDetails getUserDetails(){
 		DBAdapterUser db = new DBAdapterUser(this);
@@ -154,7 +150,13 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private class BuyStockListener implements OnClickListener {
 		@Override			
 		public void onClick(View v) {
-
+			showPurchaseDialog(v);
 		}
+	}
+	
+	private void showPurchaseDialog(View v){
+		FragmentManager manager = getFragmentManager();
+		PurchaseDialog purchaseDialog = new PurchaseDialog();
+		purchaseDialog.show(manager, "PurchaseDialog");
 	}
 }
