@@ -54,7 +54,14 @@
     <string name="details_stock_buy_button">Buy</string>
     <string name="details_stock_user_cash">Money Remaining: </string>
     <string name="details_stock_amount_to_buy">Stocks to buy: </string>
-
+	
+    <!-- Purchase Dialog -->
+    <string name="purchase_dialog_title">Purchase Stock</string>
+    <string name="purchase_dialog_positive_button">Buy</string>
+    <string name="purchase_dialog_negative_button">Cancel</string>
+    <string name="purchase_dialog_stocks_text">stocks will cost:&#160;</string>
+    <string name="purchase_dialog_stocks_price">$</string>
+    
     <!-- Extra stuff -->
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, 
         consectetur adipiscing elit. Maecenas a nunc at magna dictum congue. Etiam est tellus, scelerisque ut leo vitae, fringilla laoreet diam. 

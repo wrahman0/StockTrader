@@ -79,9 +79,9 @@ public final class R {
         public static final int ImageView01=0x7f09000f;
         public static final int TableRow01=0x7f09000e;
         public static final int TextView06=0x7f090010;
-        public static final int cardStockName=0x7f09001b;
-        public static final int cardStockSymbol=0x7f09001c;
-        public static final int cardTableRow=0x7f09001a;
+        public static final int cardStockName=0x7f09001f;
+        public static final int cardStockSymbol=0x7f090020;
+        public static final int cardTableRow=0x7f09001e;
         public static final int detailsBuyButton=0x7f090004;
         public static final int detailsChange=0x7f090009;
         public static final int detailsDaysHigh=0x7f09000a;
@@ -92,24 +92,28 @@ public final class R {
         public static final int detailsSymbol=0x7f090002;
         public static final int detailsYearHigh=0x7f09000c;
         public static final int detailsYearLow=0x7f09000d;
+        public static final int negativeButton=0x7f090019;
         public static final int newsCardBody=0x7f090007;
         public static final int newsCardImageView=0x7f090006;
         public static final int newsLinearLayout=0x7f090012;
         public static final int newsNotFound=0x7f090015;
         public static final int newsScrollView=0x7f090011;
         public static final int newsTableRow=0x7f090013;
-        public static final int searchListView=0x7f090019;
-        public static final int searchView=0x7f090018;
-        public static final int signupStartingCash=0x7f090020;
-        public static final int signupUsername=0x7f09001f;
-        public static final int stockCardLinearLayout=0x7f090017;
-        public static final int stockDetailsButton=0x7f09001d;
-        public static final int tabHost=0x7f09001e;
+        public static final int positiveButton=0x7f09001a;
+        public static final int purchaseDialogQuantity=0x7f090017;
+        public static final int searchListView=0x7f09001d;
+        public static final int searchView=0x7f09001c;
+        public static final int signupStartingCash=0x7f090024;
+        public static final int signupUsername=0x7f090023;
+        public static final int stockCardLinearLayout=0x7f09001b;
+        public static final int stockDetailsButton=0x7f090021;
+        public static final int tabHost=0x7f090022;
         public static final int tableRow1=0x7f090000;
         public static final int tableRow2=0x7f090005;
         public static final int tableRow3=0x7f090014;
         public static final int textView1=0x7f090016;
-        public static final int userSetupComplete=0x7f090021;
+        public static final int totalPriceTextView=0x7f090018;
+        public static final int userSetupComplete=0x7f090025;
     }
     public static final class layout {
         public static final int details_redesigned=0x7f030000;
@@ -170,8 +174,15 @@ public final class R {
         public static final int invalid_search_alert=0x7f060006;
         /**  Extra stuff 
          */
-        public static final int lorem_ipsum=0x7f060023;
+        public static final int lorem_ipsum=0x7f060028;
         public static final int news_not_found=0x7f060008;
+        public static final int purchase_dialog_negative_button=0x7f060025;
+        public static final int purchase_dialog_positive_button=0x7f060024;
+        public static final int purchase_dialog_stocks_price=0x7f060027;
+        public static final int purchase_dialog_stocks_text=0x7f060026;
+        /**  Purchase Dialog 
+         */
+        public static final int purchase_dialog_title=0x7f060023;
         public static final int signup_setup_complete=0x7f060004;
         public static final int signup_starting_cash=0x7f060003;
         /**  User Signup page 
