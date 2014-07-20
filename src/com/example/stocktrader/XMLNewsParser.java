@@ -60,7 +60,7 @@ public class XMLNewsParser {
 				URLConnection connection = url.openConnection();
 				HttpURLConnection httpConnection = (HttpURLConnection) connection;
 				int responseCode = httpConnection.getResponseCode();
-
+				
 				//Proper connection is made
 				if (responseCode == HttpURLConnection.HTTP_OK){
 
@@ -89,9 +89,11 @@ public class XMLNewsParser {
 									news.add(theNews);
 								}
 							}
+						} else {
+							Log.e(StockTraderActivity.TAG, "Could not find any news related to this company.");
 						}
 					} else {
-						Log.e(StockTraderActivity.TAG, "Could not find the results tag while parsing News");
+						Log.e(StockTraderActivity.TAG, "Could not find the results tag while parsing News.");
 					}
 				}
 			}catch (MalformedURLException e) {
