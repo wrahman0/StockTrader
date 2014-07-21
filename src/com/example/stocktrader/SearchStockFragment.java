@@ -224,7 +224,10 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		private ArrayList<String>stockList = new ArrayList<String>();
 
 		private String getJSONString(String str){
-
+			if (str==null){
+				return null;
+			}
+			
 			str = str.replaceFirst("YAHOO.Finance.SymbolSuggest.ssCallback\\(", "");
 			str = str.substring(0, str.length()-1);
 

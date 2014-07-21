@@ -37,6 +37,7 @@ public class StockTraderActivity extends FragmentActivity {
 		mViewPager = (ViewPager)findViewById(R.id.pager);
 
 		mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
+		mViewPager.setOffscreenPageLimit(2);
 		mViewPager.setAdapter(mPagerAdapter);
 		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			
