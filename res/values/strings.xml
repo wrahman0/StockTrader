@@ -2,7 +2,13 @@
 <resources>
 
     <!-- Text Resources -->
-
+	
+	<!--  Tab Labels -->
+    <string-array name="tab_labels">
+        <item>Search</item>
+        <item>My Stocks</item>
+        <item>Account</item>
+    </string-array>
 
     <!-- General -->
     <string name="app_name">Stock Trader</string>
