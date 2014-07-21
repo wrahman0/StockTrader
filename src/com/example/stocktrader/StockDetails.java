@@ -12,10 +12,11 @@ public class StockDetails implements Serializable{
 	private String daysLow;
 	private String yearHigh;
 	private String yearLow;
+	private String volume;
 
 	public StockDetails(String name, String symbol, String exchange,
 			String lastTradePriceOnly, String change, String daysHigh,
-			String daysLow, String yearHigh, String yearLow){
+			String daysLow, String yearHigh, String yearLow, String volume){
 		this.name = name;
 		this.symbol = symbol;
 		this.exchange = exchange;
@@ -25,8 +26,17 @@ public class StockDetails implements Serializable{
 		this.daysLow = daysLow;
 		this.yearHigh = yearHigh;
 		this.yearLow = yearLow;
+		this.volume = volume;
 	}
 	
+	public String getVolume() {
+		return volume;
+	}
+
+	public void setVolume(String volume) {
+		this.volume = volume;
+	}
+
 	public String getName() {
 		return name;
 	}

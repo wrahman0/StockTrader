@@ -174,7 +174,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 			}
 		});
-		StockDetails theStock = new StockDetails(stockRow.getString(1),stockRow.getString(2), stockRow.getString(3), stockRow.getString(4), stockRow.getString(5), stockRow.getString(6), stockRow.getString(7), stockRow.getString(8), stockRow.getString(9));
+		StockDetails theStock = new StockDetails(stockRow.getString(1),stockRow.getString(2), stockRow.getString(3), stockRow.getString(4), stockRow.getString(5), stockRow.getString(6), stockRow.getString(7), stockRow.getString(8), stockRow.getString(9), stockRow.getString(10));
 		detailsButton.setOnClickListener(new DetailsListener (theStock));
 		tableLayout.addView(card);
 

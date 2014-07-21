@@ -22,12 +22,13 @@ public class DBAdapter {
 	private static final String KEY_DAYS_LOW = "dayslow";
 	private static final String KEY_YEAR_HIGH = "yearhigh";
 	private static final String KEY_YEAR_LOW = "yearlow";
+	private static final String KEY_VOLUME = "volume";
 
 	//Database properties
 	private static final String TAG = "DBAdapter";
 	private static final String DATABASE_NAME = "StockTrader.db";
 	private static final String DATABASE_TABLE = "stockinfo";
-	private static final int DATABASE_VERSION = 6;
+	private static final int DATABASE_VERSION = 7;
 
 	//Database creation command
 	private static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
@@ -39,7 +40,8 @@ public class DBAdapter {
 																	KEY_DAYS_HIGH + " text not null, "+ 
 																	KEY_DAYS_LOW + " text not null, "+ 
 																	KEY_YEAR_HIGH + " text not null, "+ 
-																	KEY_YEAR_LOW + " text not null);";
+																	KEY_YEAR_LOW + " text not null," + 
+																	KEY_VOLUME + " text not null);";
 	
 	final Context context;
 
@@ -82,9 +84,9 @@ public class DBAdapter {
 	}
 
 	//Inserts a stock into the database
-	public long insertStock (String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow){
+	public long insertStock (String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow, String volume){
 		Log.w(TAG, "INSERTING STOCK WITH NAME:"+name+", SYMBOL:" + symbol + "..." + ", CHANGE:" + change + ", EXCHANGE:" + exchange + ", LAST TRADE PRICE ONLY:" + lasttradepriceonly + ", DAYS HIGH:" + dayshigh + 
-				", DAYS LOW:" + dayslow + ", YEAR HIGH" + yearhigh + ", YEAR LOW" + yearlow);
+				", DAYS LOW:" + dayslow + ", YEAR HIGH" + yearhigh + ", YEAR LOW" + yearlow + ", VOLUME" + volume);
 		ContentValues initialValues = new ContentValues ();
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_SYMBOL, symbol);
@@ -95,6 +97,7 @@ public class DBAdapter {
 		initialValues.put(KEY_DAYS_LOW, dayslow);
 		initialValues.put(KEY_YEAR_HIGH, yearhigh);
 		initialValues.put(KEY_YEAR_LOW, yearlow);
+		initialValues.put(KEY_VOLUME, volume);
 		
 		return db.insert(DATABASE_TABLE, null, initialValues);
 
@@ -109,14 +112,14 @@ public class DBAdapter {
 	//Gets all the stocks
 	public Cursor getAllStocks(){
 		Log.w(TAG, "GETTING ALL STOCKS...");
-		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW}, 
+		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME}, 
 				null,null,null,null,null);
 	}
 
 	//Gets particular stock
 	public Cursor getStock (long rowId) throws SQLException{
 		Log.w(TAG, "GETTING SINGLE STOCK WITH ID: " +  rowId +"...");
-		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW},
+		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME},
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
@@ -125,7 +128,7 @@ public class DBAdapter {
 	}
 
 	//Edit a stock
-	public boolean updateStock(long rowId, String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow){
+	public boolean updateStock(long rowId, String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow, String volume){
 		Log.w(TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		args.put(KEY_NAME, name);
@@ -137,6 +140,8 @@ public class DBAdapter {
 		args.put(KEY_DAYS_LOW, dayslow);
 		args.put(KEY_YEAR_HIGH, yearhigh);
 		args.put(KEY_YEAR_LOW, yearlow);
+		args.put(KEY_VOLUME, volume);
+		
 		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 }
