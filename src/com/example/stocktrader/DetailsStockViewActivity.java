@@ -157,6 +157,9 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private void showPurchaseDialog(View v){
 		FragmentManager manager = getFragmentManager();
 		PurchaseDialog purchaseDialog = new PurchaseDialog();
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
+		purchaseDialog.setArguments(bundle);
 		purchaseDialog.show(manager, "PurchaseDialog");
 	}
 }

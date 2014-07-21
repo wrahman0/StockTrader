@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_horizontal_margin" >
 
     <TableRow
-        android:id="@+id/tableRow1"
+        android:id="@+id/purchaseTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
@@ -173,7 +173,7 @@
         android:orientation="vertical" >
 
         <TableRow
-            android:id="@+id/TableRow01"
+            android:id="@+id/infoRow2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -188,7 +188,7 @@
                 android:layout_height="0dip" />
 
             <TextView
-                android:id="@+id/TextView06"
+                android:id="@+id/purchaseBrokerFee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/details_subtitle_padding_top"

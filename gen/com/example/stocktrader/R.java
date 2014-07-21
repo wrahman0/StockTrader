@@ -71,6 +71,13 @@ public final class R {
         public static final int news_image_height=0x7f05000e;
         public static final int news_image_width=0x7f05000f;
         public static final int news_title=0x7f05000c;
+        public static final int purchase_dialog_info_row_spacing=0x7f050013;
+        public static final int purchase_dialog_quantity_width=0x7f050014;
+        public static final int purchase_reciept_items=0x7f050011;
+        /**  Purchase Dialog Dimensions 
+         */
+        public static final int purchase_reciept_title=0x7f050010;
+        public static final int purchase_reciept_total=0x7f050012;
     }
     public static final class drawable {
         public static final int ic_action_forward=0x7f020000;
@@ -83,11 +90,16 @@ public final class R {
     }
     public static final class id {
         public static final int ImageView01=0x7f0a000f;
-        public static final int TableRow01=0x7f0a000e;
-        public static final int TextView06=0x7f0a0010;
-        public static final int cardStockName=0x7f0a001f;
-        public static final int cardStockSymbol=0x7f0a0020;
-        public static final int cardTableRow=0x7f0a001e;
+        public static final int TableRow01=0x7f0a0028;
+        public static final int TextView02=0x7f0a001b;
+        public static final int TextView03=0x7f0a001e;
+        public static final int TextView04=0x7f0a0021;
+        public static final int TextView05=0x7f0a0024;
+        public static final int TextView06=0x7f0a0026;
+        public static final int TextView07=0x7f0a0029;
+        public static final int cardStockName=0x7f0a0031;
+        public static final int cardStockSymbol=0x7f0a0032;
+        public static final int cardTableRow=0x7f0a0030;
         public static final int detailsBuyButton=0x7f0a0004;
         public static final int detailsChange=0x7f0a0009;
         public static final int detailsDaysHigh=0x7f0a000a;
@@ -98,28 +110,41 @@ public final class R {
         public static final int detailsSymbol=0x7f0a0002;
         public static final int detailsYearHigh=0x7f0a000c;
         public static final int detailsYearLow=0x7f0a000d;
-        public static final int negativeButton=0x7f0a0019;
+        public static final int infoRow1=0x7f0a0014;
+        public static final int infoRow2=0x7f0a000e;
+        public static final int infoRow3=0x7f0a001d;
+        public static final int infoRow4=0x7f0a0020;
+        public static final int infoRow5=0x7f0a0023;
+        public static final int infoRow6=0x7f0a0025;
+        public static final int negativeButton=0x7f0a002b;
         public static final int newsCardBody=0x7f0a0007;
         public static final int newsCardImageView=0x7f0a0006;
         public static final int newsLinearLayout=0x7f0a0012;
         public static final int newsNotFound=0x7f0a0015;
         public static final int newsScrollView=0x7f0a0011;
         public static final int newsTableRow=0x7f0a0013;
-        public static final int pager=0x7f0a0022;
-        public static final int positiveButton=0x7f0a001a;
-        public static final int purchaseDialogQuantity=0x7f0a0017;
-        public static final int searchListView=0x7f0a001d;
-        public static final int searchView=0x7f0a001c;
-        public static final int signupStartingCash=0x7f0a0024;
-        public static final int signupUsername=0x7f0a0023;
-        public static final int stockCardLinearLayout=0x7f0a001b;
-        public static final int stockDetailsButton=0x7f0a0021;
-        public static final int tableRow1=0x7f0a0000;
+        public static final int pager=0x7f0a0034;
+        public static final int positiveButton=0x7f0a002c;
+        public static final int purchaseBrokerFee=0x7f0a0010;
+        public static final int purchaseOverallTotal=0x7f0a002a;
+        public static final int purchaseQuantityEditText=0x7f0a0022;
+        public static final int purchaseStockName=0x7f0a0019;
+        public static final int purchaseStockPrice=0x7f0a001f;
+        public static final int purchaseStockSymbol=0x7f0a001c;
+        public static final int purchaseTax=0x7f0a0027;
+        public static final int purchaseTitle=0x7f0a0000;
+        public static final int purchaseTotalStockPrice=0x7f0a001a;
+        public static final int searchListView=0x7f0a002f;
+        public static final int searchView=0x7f0a002e;
+        public static final int signupStartingCash=0x7f0a0036;
+        public static final int signupUsername=0x7f0a0035;
+        public static final int stockCardLinearLayout=0x7f0a002d;
+        public static final int stockDetailsButton=0x7f0a0033;
         public static final int tableRow2=0x7f0a0005;
-        public static final int tableRow3=0x7f0a0014;
         public static final int textView1=0x7f0a0016;
-        public static final int totalPriceTextView=0x7f0a0018;
-        public static final int userSetupComplete=0x7f0a0025;
+        public static final int textView2=0x7f0a0017;
+        public static final int textView3=0x7f0a0018;
+        public static final int userSetupComplete=0x7f0a0037;
     }
     public static final class layout {
         public static final int details_redesigned=0x7f030000;
@@ -179,15 +204,22 @@ public final class R {
         public static final int invalid_search_alert=0x7f070006;
         /**  Extra stuff 
          */
-        public static final int lorem_ipsum=0x7f070028;
+        public static final int lorem_ipsum=0x7f07002f;
         public static final int news_not_found=0x7f070008;
+        public static final int purchase_dialog_info_broker_fee=0x7f070029;
+        public static final int purchase_dialog_info_item_price=0x7f07002c;
+        public static final int purchase_dialog_info_name=0x7f07002d;
+        public static final int purchase_dialog_info_quantity=0x7f07002b;
+        public static final int purchase_dialog_info_symbol=0x7f07002e;
+        public static final int purchase_dialog_info_tax=0x7f07002a;
+        public static final int purchase_dialog_info_total=0x7f070028;
         public static final int purchase_dialog_negative_button=0x7f070025;
         public static final int purchase_dialog_positive_button=0x7f070024;
-        public static final int purchase_dialog_stocks_price=0x7f070027;
-        public static final int purchase_dialog_stocks_text=0x7f070026;
         /**  Purchase Dialog 
          */
         public static final int purchase_dialog_title=0x7f070023;
+        public static final int purchase_dialog_title_amount=0x7f070027;
+        public static final int purchase_dialog_title_item=0x7f070026;
         public static final int signup_setup_complete=0x7f070004;
         public static final int signup_starting_cash=0x7f070003;
         /**  User Signup page 

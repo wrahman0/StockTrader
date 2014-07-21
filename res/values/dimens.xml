@@ -18,5 +18,12 @@
     <dimen name="news_body">12sp</dimen>
     <dimen name="news_image_height">48dp</dimen>
     <dimen name="news_image_width">48dp</dimen>
+    
+    <!-- Purchase Dialog Dimensions -->
+    <dimen name="purchase_reciept_title">16sp</dimen>
+    <dimen name="purchase_reciept_items">14sp</dimen>
+    <dimen name="purchase_reciept_total">22sp</dimen>
+    <dimen name="purchase_dialog_info_row_spacing">3dp</dimen>
+    <dimen name="purchase_dialog_quantity_width">48dp</dimen>
 
 </resources>

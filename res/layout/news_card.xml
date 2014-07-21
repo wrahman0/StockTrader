@@ -12,7 +12,7 @@
         android:orientation="vertical" >
 
         <TableRow
-            android:id="@+id/tableRow1"
+            android:id="@+id/purchaseTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
@@ -38,7 +38,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow3"
+            android:id="@+id/infoRow1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -61,7 +61,7 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/TableRow01"
+            android:id="@+id/infoRow2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 

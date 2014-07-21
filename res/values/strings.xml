@@ -62,11 +62,19 @@
     <string name="details_stock_amount_to_buy">Stocks to buy: </string>
 	
     <!-- Purchase Dialog -->
-    <string name="purchase_dialog_title">Purchase Stock</string>
+    <string name="purchase_dialog_title">Order Summary</string>
     <string name="purchase_dialog_positive_button">Buy</string>
     <string name="purchase_dialog_negative_button">Cancel</string>
-    <string name="purchase_dialog_stocks_text">stocks will cost:&#160;</string>
-    <string name="purchase_dialog_stocks_price">$</string>
+    <string name="purchase_dialog_title_item">Item</string>
+    <string name="purchase_dialog_title_amount">Amount</string>
+    <string name="purchase_dialog_info_total">Total</string>
+    <string name="purchase_dialog_info_broker_fee">Broker Fee</string>
+    <string name="purchase_dialog_info_tax">Tax</string>
+    <string name="purchase_dialog_info_quantity">Quantity:</string>
+    <string name="purchase_dialog_info_item_price">Unit Price:</string>
+    <string name="purchase_dialog_info_name">Name:</string>
+    <string name="purchase_dialog_info_symbol">Symbol:</string>
+    
     
     <!-- Extra stuff -->
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, 
