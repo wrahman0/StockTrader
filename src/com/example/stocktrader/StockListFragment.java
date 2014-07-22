@@ -5,12 +5,10 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,16 +22,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StockListFragment extends Fragment implements OnParseComplete, Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
 	private DBAdapter db;
 	private Cursor allStocks;
-	
+
 	private XMLParser xml;
-	
+
 	//The bundle that will hold the stock and news class
 	Bundle bundle = new Bundle();
-	
+
 	TableLayout stockList;
 	StockDetails theStock;
 
@@ -41,16 +39,17 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.stock_list, container, false);
-		
-		stockList = (TableLayout) view.findViewById(R.id.stockList);
-		
-		openDB();
-		populateView();
 
+		stockList = (TableLayout) view.findViewById(R.id.stockList);
+
+		if (openDB()){
+			populateView();	
+		}
+		
 		return view;
 	}
 
-	private void openDB(){
+	private boolean openDB(){
 
 		//Open the db for stocks
 		this.db = new DBAdapter(getActivity());
@@ -60,42 +59,42 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		
+
 		allStocks = db.getAllStocks();
-		allStocks.moveToFirst();
-		
+		return allStocks.moveToFirst();
+
 	}
-	
+
 	private void populateView(){
-		
+
 		do{
 			renderStockCard(stockList, allStocks);
 		}while(allStocks.moveToNext());
-		
+
 	}
-	
+
 	private void renderStockCard(TableLayout tableLayout, Cursor stockRow){
-		
+
 		LayoutInflater inflater = (LayoutInflater) getActivity()
 				.getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-		
+
 		View card = inflater.inflate(R.layout.stock_card, null);
 		ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
-		
+
 		TextView cardStockName = (TextView) card.findViewById (R.id.cardStockName);
 		TextView cardStockSymbol = (TextView) card.findViewById (R.id.cardStockSymbol);
 		TextView cardExchange = (TextView) card.findViewById (R.id.detailsLastTradePriceOnly);
 		TextView cardLastTradePriceOnly = (TextView) card.findViewById (R.id.detailsSymbol);
 		TextView cardChange = (TextView) card.findViewById (R.id.detailsChange);
-		
+
 		cardStockName.setText(stockRow.getString(1));
 		cardStockSymbol.setText(stockRow.getString(2));
 		cardChange.setText(stockRow.getString(3));
 		cardExchange.setText(stockRow.getString(4));
 		cardLastTradePriceOnly.setText(stockRow.getString(5));
-		
+
 		this.theStock = new StockDetails(stockRow.getString(1),stockRow.getString(2), stockRow.getString(3), stockRow.getString(4), stockRow.getString(5), stockRow.getString(6), stockRow.getString(7), stockRow.getString(8), stockRow.getString(9), stockRow.getString(10));
-		
+
 		detailsButton.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -108,14 +107,14 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 
 				xml = new XMLParser(StockListFragment.this);
 				xml.parseStock(stockSymbolTextView.getText().toString());
-				
+
 			}
 		});
-		
+
 		tableLayout.addView(card);
 	}
 
-	
+
 	@Override
 	public void OnParseCompleted(StockDetails theStock) {
 		if (theStock == null) {
@@ -128,23 +127,23 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 				Log.e(StockTraderActivity.TAG, "Company Name can not be encoded");
 			}
 		}
-		
+
 	}
 
 	@Override
 	public void OnParseCompleted(ArrayList<NewsDetails> news) {
-		
+
 		if (news.isEmpty()) {
 			Toast.makeText(getActivity().getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
 			news = null;
 		}
-		
+
 		Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
 		DataWrapper newsData = new DataWrapper(news);
 		bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
 		intent.putExtras(bundle);
 		startActivity(intent);
-		
+
 	}
 
 

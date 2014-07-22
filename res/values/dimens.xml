@@ -27,7 +27,7 @@
     <dimen name="purchase_dialog_quantity_width">48dp</dimen>
     
     <!-- My Account Page -->
-    <dimen name="account_main_text_size">16sp</dimen>
-    <dimen name="account_info_spacing">2dp</dimen>
+    <dimen name="account_main_text_size">20sp</dimen>
+    <dimen name="account_info_spacing">4dp</dimen>
 
 </resources>

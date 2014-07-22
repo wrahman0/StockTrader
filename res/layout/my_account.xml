@@ -7,326 +7,339 @@
 
     <!-- Row Begin -->
 
-    <TableRow
-        android:id="@+id/tableRow1"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_username"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/accUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_username"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_starting_capital"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accStartingCapital"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView03"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_current_capital"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accCurrentCapital"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow03"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_current_stock_value"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accCurrentStockValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow04"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView05"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_gain_loss"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accGainLoss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow05"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_stocks_bought"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accStocksBought"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView07"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_stocks_owned"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accStocksOwned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
+
+            <TableRow
+                android:id="@+id/TableRow07"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView08"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_total_transactions"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accTotalTransactions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow08"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_positive_transactions"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accPositiveTransactions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+
+            <TableRow
+                android:id="@+id/TableRow09"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_negative_transactions"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+
+                <View
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/accNegativeTransactions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/account_main_text_size" />
+            </TableRow>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/account_info_spacing" />
+        </LinearLayout>
+
+    </ScrollView>
 
     <!-- Row End -->
-
-    <TableRow
-        android:id="@+id/TableRow01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_starting_capital"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accStartingCapital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_current_capital"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accCurrentCapital"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow03"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_current_stock_value"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accCurrentStockValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView05"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_gain_loss"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accGainLoss"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-	
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@color/black" />
-    
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow05"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView06"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_stocks_bought"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accStocksBought"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow06"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView07"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_stocks_owned"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accStocksOwned"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@color/black" />
-
-    <TableRow
-        android:id="@+id/TableRow07"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView08"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_total_transactions"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accTotalTransactions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow08"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView09"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_positive_transactions"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accPositiveTransactions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow09"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_negative_transactions"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/accNegativeTransactions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/account_main_text_size" />
-    </TableRow>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="@dimen/account_info_spacing" />
 
 </LinearLayout>

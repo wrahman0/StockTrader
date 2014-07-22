@@ -28,7 +28,7 @@ public class DBAdapter {
 	private static final String TAG = "DBAdapter";
 	private static final String DATABASE_NAME = "StockTrader.db";
 	private static final String DATABASE_TABLE = "stockinfo";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 
 	//Database creation command
 	private static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
