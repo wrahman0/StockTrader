@@ -100,7 +100,7 @@ public class StockTraderActivity extends FragmentActivity {
 			}else if (i == 1){
 				fragment = new StockListFragment();	
 			}else if (i == 2){
-				fragment = new StockListFragment();	
+				fragment = new MyAccountFragment();	
 			}
 
 			return fragment;
