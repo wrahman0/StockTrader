@@ -5,9 +5,25 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="card_important">12sp</dimen>
     <dimen name="card_secondard_info">10sp</dimen>
-    <dimen name="details_important">16sp</dimen>
+    <dimen name="details_important">20sp</dimen>
+    <dimen name="details_subtitle_size">18sp</dimen>
     <dimen name="details_secondary_info">14sp</dimen>
-    <dimen name="details_fine_information">12sp</dimen>
+    <dimen name="details_fine_information">13sp</dimen>
     <dimen name="details_fine_information_spacing">4dp</dimen>
+	<dimen name="details_info_margin_left">4dp</dimen>
+    <dimen name="details_title_padding_top">4dp</dimen>
+    <dimen name="details_subtitle_padding_top">7dp</dimen>
+    
+    <dimen name="news_title">16sp</dimen>
+    <dimen name="news_body">12sp</dimen>
+    <dimen name="news_image_height">48dp</dimen>
+    <dimen name="news_image_width">48dp</dimen>
+    
+    <!-- Purchase Dialog Dimensions -->
+    <dimen name="purchase_reciept_title">16sp</dimen>
+    <dimen name="purchase_reciept_items">14sp</dimen>
+    <dimen name="purchase_reciept_total">18sp</dimen>
+    <dimen name="purchase_dialog_info_row_spacing">3dp</dimen>
+    <dimen name="purchase_dialog_quantity_width">48dp</dimen>
 
 </resources>
