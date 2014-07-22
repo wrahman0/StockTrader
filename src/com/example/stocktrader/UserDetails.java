@@ -4,19 +4,30 @@ import android.database.Cursor;
 
 public class UserDetails {
 	
-	private int _id;
+	private long _id;
 	private String username = "";
 	private int stocksBought = 0;
-	private int startingCash = 0;
-	private int currentCash = 0;
+	private float startingCash = (float) 0.0;
+	private float currentCash = (float) 0.0;
 	
 	public UserDetails(Cursor userRow) {
-		this._id = userRow.getInt(0);
+		this._id = (long) userRow.getFloat(0);
 		this.username = userRow.getString(1);
 		this.stocksBought = Integer.parseInt(userRow.getString(2));
-		this.startingCash = Integer.parseInt(userRow.getString(3));
-		this.currentCash = Integer.parseInt(userRow.getString(4));
+		this.startingCash = Float.parseFloat(userRow.getString(3));
+		this.currentCash = Float.parseFloat(userRow.getString(4));
 	}
+	
+
+	public long get_id() {
+		return _id;
+	}
+
+
+	public void set_id(long _id) {
+		this._id = _id;
+	}
+
 
 	public String getUsername() {
 		return username;
@@ -34,19 +45,19 @@ public class UserDetails {
 		this.stocksBought = stocksBought;
 	}
 
-	public int getStartingCash() {
+	public float getStartingCash() {
 		return startingCash;
 	}
 
-	public void setStartingCash(int startingCash) {
+	public void setStartingCash(float startingCash) {
 		this.startingCash = startingCash;
 	}
 
-	public int getCurrentCash() {
+	public float getCurrentCash() {
 		return currentCash;
 	}
 
-	public void setCurrentCash(int currentCash) {
+	public void setCurrentCash(float currentCash) {
 		this.currentCash = currentCash;
 	}
 	

@@ -94,8 +94,17 @@ public class StockTraderActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int i) {
-			Fragment fragment = new SearchStockFragment();
+			Fragment fragment = null;
+			if (i == 0){
+				fragment = new SearchStockFragment();	
+			}else if (i == 1){
+				fragment = new StockListFragment();	
+			}else if (i == 2){
+				fragment = new StockListFragment();	
+			}
+
 			return fragment;
+			
 		}
 
 		@Override

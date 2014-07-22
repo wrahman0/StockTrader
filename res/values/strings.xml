@@ -66,8 +66,10 @@
     <string name="purchase_dialog_positive_button">Buy</string>
     <string name="purchase_dialog_negative_button">Cancel</string>
     <string name="purchase_dialog_title_item">Item</string>
+    <string name="purchase_dialog_info_volume">Volume:</string>
     <string name="purchase_dialog_title_amount">Amount</string>
     <string name="purchase_dialog_info_total">Total</string>
+    <string name="purchase_dialog_info_user_bank">Bank</string>
     <string name="purchase_dialog_info_broker_fee">Broker Fee</string>
     <string name="purchase_dialog_info_tax">Tax</string>
     <string name="purchase_dialog_info_quantity">Quantity:</string>

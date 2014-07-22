@@ -40,6 +40,7 @@ public class XMLParser {
 	String daysLow = "";
 	String yearHigh = "";
 	String yearLow = "";
+	String volume = "";
 
 	public XMLParser(OnParseComplete listener) {
 
@@ -114,11 +115,12 @@ public class XMLParser {
 				daysLow = getTextValue (root, "DaysLow");
 				yearHigh = getTextValue (root, "YearHigh");
 				yearLow = getTextValue (root, "YearLow");
+				volume = getTextValue (root, "Volume");
 			} catch (final NullPointerException e) {
 				theStock = null;
 				return theStock;
 			} 
-			theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly, change, daysHigh, daysLow, yearHigh, yearLow);
+			theStock = new StockDetails (name,symbol,exchange,lastTradePriceOnly, change, daysHigh, daysLow, yearHigh, yearLow, volume);
 			return theStock;
 		}
 
