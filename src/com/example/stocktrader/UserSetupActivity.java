@@ -61,7 +61,7 @@ public class UserSetupActivity extends Activity{
 				}catch(SQLException e){
 					e.printStackTrace();
 				}
-				db.addUser(username, "0", String.valueOf(startingCash), String.valueOf(startingCash));
+				db.addUser(username, "0", String.valueOf(startingCash), String.valueOf(startingCash), "0", "0", "0", "0", "0", "0");
 				db.close();
 				
 				//Start the main program
@@ -69,7 +69,7 @@ public class UserSetupActivity extends Activity{
 				startActivity(intent);
 				finish();
 				
-			}else if (username.length() <= 4){
+			}else if (username.length() < 4){
 				Toast.makeText(getBaseContext(), "Username must be longer than 4 characters", Toast.LENGTH_SHORT).show();
 			}else if (startingCash < 1000){
 				Toast.makeText(getBaseContext(), "Starting cash must more than $1,000", Toast.LENGTH_SHORT).show();
