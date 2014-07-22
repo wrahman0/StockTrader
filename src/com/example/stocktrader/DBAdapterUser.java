@@ -18,6 +18,12 @@ public class DBAdapterUser {
 	static final String KEY_STOCKS_BOUGHT = "stocksbought";
 	static final String KEY_STARTING_CASH = "startingcash";
 	static final String KEY_CURRENT_CASH = "currentcash";
+	static final String KEY_CURRENT_STOCK_VALUE = "currentstockvalue";
+	static final String KEY_GAIN_LOSS = "gainloss";
+	static final String KEY_STOCKS_OWNED = "stocksowned";
+	static final String KEY_TOTAL_TRANSACTIONS = "totaltransactions";
+	static final String KEY_POSITIVE_TRANSACTIONS = "positivetransactions";
+	static final String KEY_NEGATIVE_TRANSACTIONS = "negativetransactions";
 
 	//Database properties
 	static final String TAG = "DBAdapter";
@@ -30,7 +36,13 @@ public class DBAdapterUser {
 																	KEY_USERNAME + " text not null, "+ 
 																	KEY_STOCKS_BOUGHT + " text not null, " +
 																	KEY_STARTING_CASH + " text not null, "+ 
-																	KEY_CURRENT_CASH + " text not null);";
+																	KEY_CURRENT_CASH + " text not null, " +
+																	KEY_CURRENT_STOCK_VALUE + " text not null, " +
+																	KEY_GAIN_LOSS + " text not null, " +
+																	KEY_STOCKS_OWNED + " text not null, " +
+																	KEY_TOTAL_TRANSACTIONS + " text not null, " +
+																	KEY_POSITIVE_TRANSACTIONS + " text not null, " +
+																	KEY_NEGATIVE_TRANSACTIONS + " text not null);";
 	
 	final Context context;
 
@@ -73,7 +85,7 @@ public class DBAdapterUser {
 	}
 
 	//Inserts a stock into the database
-	public long addUser (String username, String stocksbought, String startingcash, String currentcash){
+	public long addUser (String username, String stocksbought, String startingcash, String currentcash, String currentstockvalue, String gainloss, String stocksowned, String totaltransactions, String positivetransactions, String negativetransactions){
 		Log.w(TAG, "INSERTING USER WITH NAME:"+ username +", STOCKS:" + stocksbought + "..." + ", START CAPITAL:" + startingcash + ", CURRENT CAPITAL:" + currentcash);
 		
 		ContentValues initialValues = new ContentValues ();
@@ -81,6 +93,12 @@ public class DBAdapterUser {
 		initialValues.put(KEY_STOCKS_BOUGHT, stocksbought);
 		initialValues.put(KEY_STARTING_CASH, startingcash);
 		initialValues.put(KEY_CURRENT_CASH, currentcash);
+		initialValues.put(KEY_CURRENT_STOCK_VALUE, currentstockvalue);
+		initialValues.put(KEY_GAIN_LOSS, gainloss);
+		initialValues.put(KEY_STOCKS_OWNED, stocksowned);
+		initialValues.put(KEY_TOTAL_TRANSACTIONS, totaltransactions);
+		initialValues.put(KEY_POSITIVE_TRANSACTIONS, positivetransactions);
+		initialValues.put(KEY_NEGATIVE_TRANSACTIONS, negativetransactions);
 		
 		return db.insert(DATABASE_TABLE, null, initialValues);
 
@@ -95,13 +113,13 @@ public class DBAdapterUser {
 	//Gets all the stocks
 	public Cursor getAllUsers(){
 		Log.w(TAG, "GETTING ALL USERS...");
-		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH}, null,null,null,null,null);
+		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH, KEY_CURRENT_STOCK_VALUE, KEY_GAIN_LOSS, KEY_STOCKS_OWNED, KEY_TOTAL_TRANSACTIONS, KEY_POSITIVE_TRANSACTIONS, KEY_NEGATIVE_TRANSACTIONS}, null,null,null,null,null);
 	}
 
 	//Gets particular stock
 	public Cursor getUser (long rowId) throws SQLException{
 		Log.w(TAG, "GETTING SINGLE USER WITH ID: " +  rowId +"...");
-		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH}, KEY_ROWID + "=" + rowId, null, null, null, null, null);
+		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH, KEY_CURRENT_STOCK_VALUE, KEY_GAIN_LOSS, KEY_STOCKS_OWNED, KEY_TOTAL_TRANSACTIONS, KEY_POSITIVE_TRANSACTIONS, KEY_NEGATIVE_TRANSACTIONS}, KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
 		}
@@ -109,7 +127,7 @@ public class DBAdapterUser {
 	}
 
 	//Edit a stock
-	public boolean updateUser(long rowId, String username, String stocksbought, String startingcash, String currentcash){
+	public boolean updateUser(long rowId, String username, String stocksbought, String startingcash, String currentcash, String currentstockvalue, String gainloss, String stocksowned, String totaltransactions, String positivetransactions, String negativetransactions){
 		Log.w(TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		
@@ -117,6 +135,12 @@ public class DBAdapterUser {
 		args.put(KEY_STOCKS_BOUGHT, stocksbought);
 		args.put(KEY_STARTING_CASH, startingcash);
 		args.put(KEY_CURRENT_CASH, currentcash);
+		args.put(KEY_CURRENT_STOCK_VALUE, currentstockvalue);
+		args.put(KEY_GAIN_LOSS, gainloss);
+		args.put(KEY_STOCKS_OWNED, stocksowned);
+		args.put(KEY_TOTAL_TRANSACTIONS, totaltransactions);
+		args.put(KEY_POSITIVE_TRANSACTIONS, positivetransactions);
+		args.put(KEY_NEGATIVE_TRANSACTIONS, negativetransactions);
 		
 		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
 		

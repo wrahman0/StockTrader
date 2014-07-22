@@ -77,6 +77,18 @@
     <string name="purchase_dialog_info_name">Name:</string>
     <string name="purchase_dialog_info_symbol">Symbol:</string>
     
+    <!-- My Accounts Page -->
+    <string name="account_username">Username</string>
+    <string name="account_starting_capital">Starting Capital</string>
+    <string name="account_current_capital">Current Balance</string>
+    <string name="account_current_stock_value">Current Stock Value</string>
+    <string name="account_gain_loss">Gain/Loss</string>
+    <string name="account_stocks_bought">Stocks Bought</string>
+    <string name="account_stocks_owned">Stocks Owned</string>
+    <string name="account_total_transactions">Total Transactions</string>
+    <string name="account_positive_transactions">Positive Transactions</string>
+    <string name="account_negative_transactions">Negative Transactions</string>
+    
     
     <!-- Extra stuff -->
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, 

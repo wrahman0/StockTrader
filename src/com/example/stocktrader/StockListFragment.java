@@ -50,16 +50,6 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		return view;
 	}
 
-
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onActivityCreated(savedInstanceState);
-		Toast.makeText(getActivity(), "Resume", Toast.LENGTH_SHORT).show();
-	}
-
-
-
 	private void openDB(){
 
 		//Open the db for stocks

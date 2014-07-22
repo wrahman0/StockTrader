@@ -25,5 +25,9 @@
     <dimen name="purchase_reciept_total">18sp</dimen>
     <dimen name="purchase_dialog_info_row_spacing">3dp</dimen>
     <dimen name="purchase_dialog_quantity_width">48dp</dimen>
+    
+    <!-- My Account Page -->
+    <dimen name="account_main_text_size">16sp</dimen>
+    <dimen name="account_info_spacing">2dp</dimen>
 
 </resources>
