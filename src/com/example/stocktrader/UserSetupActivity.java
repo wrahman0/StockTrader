@@ -52,7 +52,7 @@ public class UserSetupActivity extends Activity{
 			String username = signupUsername.getText().toString();
 			int startingCash = Integer.parseInt(signupStartingCash.getText().toString());
 			
-			if (username.length() > 4 && startingCash >= 1000){
+			if (username.length() >= 4 && startingCash >= 1000){
 				
 				//Enter the user to the database
 				DBAdapterUser db = new DBAdapterUser(UserSetupActivity.this);
@@ -85,11 +85,15 @@ public class UserSetupActivity extends Activity{
 		DBAdapterUser db = new DBAdapterUser(this);
 		try{
 			db.open();
-			Cursor c = db.getAllUsers();
-			//If it returns false, the user is not created in the database
-			if (!c.moveToFirst()){
+			try{
+				Cursor c = db.getAllUsers();
+				if (!c.moveToFirst()){
+					return false;
+				}
+			}catch(Exception e){
 				return false;
 			}
+			
 			db.close();
 			return true;
 		}catch (SQLException e){

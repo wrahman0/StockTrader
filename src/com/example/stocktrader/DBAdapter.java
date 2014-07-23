@@ -2,6 +2,7 @@ package com.example.stocktrader;
 
 import java.sql.SQLException;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -60,6 +61,7 @@ public class DBAdapter {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
+			Log.w(TAG,"Creating " + DATABASE_TABLE + " data");
 			db.execSQL(DATABASE_CREATE);
 		}
 
@@ -143,5 +145,12 @@ public class DBAdapter {
 		args.put(KEY_VOLUME, volume);
 		
 		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+	}
+	
+	public void deleteDb(){
+		Log.w(TAG, "DELETING " + DATABASE_TABLE + " DATABASE...");
+		db.execSQL("DROP TABLE " + DATABASE_TABLE);
+		Log.w(TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
+		db.execSQL(DATABASE_CREATE);
 	}
 }

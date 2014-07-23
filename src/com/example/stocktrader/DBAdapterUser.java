@@ -145,4 +145,11 @@ public class DBAdapterUser {
 		return db.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
 		
 	}
+	
+	public void deleteDb(){
+		Log.w(TAG, "DELETING " + DATABASE_TABLE + " DATABASE...");
+		db.execSQL("DROP TABLE " + DATABASE_TABLE);
+		Log.w(TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
+		db.execSQL(DATABASE_CREATE);
+	}
 }

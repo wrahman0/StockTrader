@@ -2,6 +2,9 @@ package com.example.stocktrader;
 
 import java.sql.SQLException;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +12,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyAccountFragment extends Fragment{
 	
@@ -26,6 +31,7 @@ public class MyAccountFragment extends Fragment{
 	private TextView accPositiveTransactions;
 	private TextView accNegativeTransactions;
 	
+	private Button accDeleteUserButton;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -37,14 +43,54 @@ public class MyAccountFragment extends Fragment{
 		getUser();
 		setStaticViews();
 		
+		accDeleteUserButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				new AlertDialog.Builder(getActivity())
+				.setTitle("Delete Account")
+				.setMessage("Do you want to permanently delete the user?")
+				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						DBAdapterUser dbUser = new DBAdapterUser(getActivity());
+						try{
+							dbUser.open();	
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
+						
+						DBAdapter db = new DBAdapter(getActivity());
+						try{
+							db.open();	
+						}catch(SQLException e){
+							e.printStackTrace();
+						}
+						
+						db.deleteDb();
+						dbUser.deleteDb();
+						
+						Intent intent = new Intent(getActivity(), UserSetupActivity.class);
+						getActivity().startActivity(intent);
+						Toast.makeText(getActivity(), "Deleting Account", Toast.LENGTH_SHORT).show();
+						getActivity().finish();
+					}
+				})
+				.setNegativeButton(android.R.string.no, null).show();
+				
+			}
+		});
+		
 		return view;
 	}
 	
 	private void setStaticViews(){
 		accUsername.setText(String.valueOf(theUser.getUsername()));
-		accStartingCapital.setText(String.valueOf(theUser.getStartingCash()));
-		accCurrentCapital.setText(String.valueOf(theUser.getCurrentCash()));
-		accCurrentStockValue.setText(String.valueOf(theUser.getCurrentStockValue()));
+		accStartingCapital.setText("$"+ String.format("%.2f", theUser.getStartingCash()));
+		accCurrentCapital.setText("$"+ String.format("%.2f", theUser.getCurrentCash()));
+		accCurrentStockValue.setText("$"+ String.format("%.2f", theUser.getCurrentStockValue()));
 		accGainLoss.setText(String.valueOf(theUser.getGainLoss()));
 		accStocksBought.setText(String.valueOf(theUser.getStocksBought()));
 		accStocksOwned.setText(String.valueOf(theUser.getStocksOwned()));
@@ -83,6 +129,7 @@ public class MyAccountFragment extends Fragment{
 		accTotalTransactions = (TextView) view.findViewById(R.id.accTotalTransactions);
 		accPositiveTransactions = (TextView) view.findViewById(R.id.accPositiveTransactions);
 		accNegativeTransactions = (TextView) view.findViewById(R.id.accNegativeTransactions);
+		accDeleteUserButton = (Button) view.findViewById(R.id.accDeleteUserButton);
 		
 	}
 	

@@ -88,6 +88,7 @@
     <string name="account_total_transactions">Total Transactions</string>
     <string name="account_positive_transactions">Positive Transactions</string>
     <string name="account_negative_transactions">Negative Transactions</string>
+    <string name="account_delete_button">Delete Account</string>
     
     
     <!-- Extra stuff -->
