@@ -2,10 +2,12 @@ package com.example.stocktrader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,8 +50,8 @@ public class XMLParser {
 		
 	}
 	
-	public void parseStock(String stock){
-		url = YQL_FIRST + stock + YQL_SECOND;
+	public void parseStock(String stock) throws UnsupportedEncodingException {
+		url = YQL_FIRST + URLEncoder.encode(stock, "UTF-8") + YQL_SECOND;
 		new MyAsyncTask().execute(url);
 	}
 

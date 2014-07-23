@@ -2,6 +2,7 @@ package com.example.stocktrader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -59,7 +60,12 @@ public class StockListAdapter extends ArrayAdapter<String> {
 				StockCardHolder stockCardHolder = (StockCardHolder)v.getTag();
 				String query = (String) stockCardHolder.symbol.getText();
 				
-				mXMLParser.parseStock(query);
+				try {
+					mXMLParser.parseStock(query);
+				} catch (UnsupportedEncodingException e) {
+					Log.e(StockTraderActivity.TAG, "Query cannot be encoded.");
+					e.printStackTrace();
+				}
 			}
 			
 			

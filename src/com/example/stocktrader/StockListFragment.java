@@ -106,7 +106,12 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 				Log.i(StockTraderActivity.TAG, stockSymbolTextView.getText().toString());
 
 				xml = new XMLParser(StockListFragment.this);
-				xml.parseStock(stockSymbolTextView.getText().toString());
+				try {
+					xml.parseStock(stockSymbolTextView.getText().toString());
+				} catch (UnsupportedEncodingException e) {
+					Log.e(StockTraderActivity.TAG, "Query cannot be encoded.");
+					e.printStackTrace();
+				}
 
 			}
 		});

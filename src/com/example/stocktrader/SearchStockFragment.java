@@ -2,6 +2,7 @@ package com.example.stocktrader;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -109,11 +110,11 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 	private class StockSymbolSuggester extends AsyncTask<String, Void, Void> {
 		private static final String TAG = "StockSymbolSuggester";
 
-		private static final String QUERY_PLACEHOLDER = "MYQUERY";
-		private String queryUrl = 
-				"http://d.yimg.com/autoc.finance.yahoo.com/autoc?query="
-						+QUERY_PLACEHOLDER
-						+"&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+		private String query = "";
+		
+		private static final String url_first = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=";
+		private static final String url_second = "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+		
 
 		// JSON Node names
 		private static final String RESULT_SET = "ResultSet";
@@ -136,14 +137,19 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 		@Override
 		protected Void doInBackground(String... arg0) {
-			String query = arg0[0];
-
+			try {
+				query = URLEncoder.encode(arg0[0], "UTF-8");
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			String url = url_first + query + url_second;
+			
 			// Creating service handler class instance
 			WebServiceHandler wsh = new WebServiceHandler();
 
 			//Making a request to url and getting response
-			String jsonStr = getJSONString(wsh.makeWebServiceGet(
-					queryUrl.replaceFirst(QUERY_PLACEHOLDER, query)));
+			String jsonStr = getJSONString(wsh.makeWebServiceGet(url));
 
 			if (jsonStr != null) {
 				try {
