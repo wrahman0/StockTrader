@@ -1,23 +1,14 @@
 package com.example.stocktrader;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class StockListAdapter extends ArrayAdapter<String> {
@@ -59,7 +50,6 @@ public class StockListAdapter extends ArrayAdapter<String> {
 			public void onClick(View v) {
 				StockCardHolder stockCardHolder = (StockCardHolder)v.getTag();
 				String query = (String) stockCardHolder.symbol.getText();
-				
 				try {
 					mXMLParser.parseStock(query);
 				} catch (UnsupportedEncodingException e) {
@@ -67,7 +57,6 @@ public class StockListAdapter extends ArrayAdapter<String> {
 					e.printStackTrace();
 				}
 			}
-			
 			
 		});
 		

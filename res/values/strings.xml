@@ -22,7 +22,8 @@
     <!-- Error Messages -->
     <string name="empty_search_alert">Please Enter a Valid Stock Symbol</string>
     <string name="invalid_search_alert">Please Enter a Valid Stock Symbol</string>
-
+	<string name="no_search_results">No Search Results Found</string>
+	 
     <!-- SearchStockFragment -->
     <string name="stock_search_bar_hint">Find Stocks &#8230;</string>
     <string name="news_not_found">No Recent News</string>

@@ -192,80 +192,81 @@ public final class R {
         public static final int main=0x7f090000;
     }
     public static final class string {
-        public static final int account_current_capital=0x7f070033;
-        public static final int account_current_stock_value=0x7f070034;
-        public static final int account_gain_loss=0x7f070035;
-        public static final int account_negative_transactions=0x7f07003a;
-        public static final int account_positive_transactions=0x7f070039;
-        public static final int account_starting_capital=0x7f070032;
-        public static final int account_stocks_bought=0x7f070036;
-        public static final int account_stocks_owned=0x7f070037;
-        public static final int account_total_transactions=0x7f070038;
+        public static final int account_current_capital=0x7f070034;
+        public static final int account_current_stock_value=0x7f070035;
+        public static final int account_gain_loss=0x7f070036;
+        public static final int account_negative_transactions=0x7f07003b;
+        public static final int account_positive_transactions=0x7f07003a;
+        public static final int account_starting_capital=0x7f070033;
+        public static final int account_stocks_bought=0x7f070037;
+        public static final int account_stocks_owned=0x7f070038;
+        public static final int account_total_transactions=0x7f070039;
         /**  My Accounts Page 
          */
-        public static final int account_username=0x7f070031;
+        public static final int account_username=0x7f070032;
         public static final int action_settings=0x7f070001;
         /**  General 
          */
         public static final int app_name=0x7f070000;
-        public static final int card_image_button_desc=0x7f07000e;
-        public static final int card_stock_change=0x7f07000d;
-        public static final int card_stock_exchange=0x7f07000b;
-        public static final int card_stock_last_trade_price_only=0x7f07000c;
+        public static final int card_image_button_desc=0x7f07000f;
+        public static final int card_stock_change=0x7f07000e;
+        public static final int card_stock_exchange=0x7f07000c;
+        public static final int card_stock_last_trade_price_only=0x7f07000d;
         /**  Card 
          */
-        public static final int card_stock_name=0x7f070009;
-        public static final int card_stock_symbol=0x7f07000a;
-        public static final int details_content=0x7f07001c;
-        public static final int details_news_URL=0x7f07001d;
-        public static final int details_published_date=0x7f07001f;
-        public static final int details_publisher=0x7f07001e;
-        public static final int details_stock_amount_to_buy=0x7f070022;
+        public static final int card_stock_name=0x7f07000a;
+        public static final int card_stock_symbol=0x7f07000b;
+        public static final int details_content=0x7f07001d;
+        public static final int details_news_URL=0x7f07001e;
+        public static final int details_published_date=0x7f070020;
+        public static final int details_publisher=0x7f07001f;
+        public static final int details_stock_amount_to_buy=0x7f070023;
         /**  Details Buy Section 
          */
-        public static final int details_stock_buy_button=0x7f070020;
-        public static final int details_stock_change=0x7f070016;
-        public static final int details_stock_days_high=0x7f070018;
-        public static final int details_stock_days_low=0x7f070017;
-        public static final int details_stock_exchange=0x7f070014;
-        public static final int details_stock_last_trade_price_only=0x7f070015;
-        public static final int details_stock_name=0x7f070012;
-        public static final int details_stock_symbol=0x7f070013;
-        public static final int details_stock_user_cash=0x7f070021;
-        public static final int details_stock_year_high=0x7f07001a;
-        public static final int details_stock_year_low=0x7f070019;
+        public static final int details_stock_buy_button=0x7f070021;
+        public static final int details_stock_change=0x7f070017;
+        public static final int details_stock_days_high=0x7f070019;
+        public static final int details_stock_days_low=0x7f070018;
+        public static final int details_stock_exchange=0x7f070015;
+        public static final int details_stock_last_trade_price_only=0x7f070016;
+        public static final int details_stock_name=0x7f070013;
+        public static final int details_stock_symbol=0x7f070014;
+        public static final int details_stock_user_cash=0x7f070022;
+        public static final int details_stock_year_high=0x7f07001b;
+        public static final int details_stock_year_low=0x7f07001a;
         /**  Details Stock View News 
          */
-        public static final int details_title=0x7f07001b;
-        public static final int details_title_buy=0x7f070011;
-        public static final int details_title_stock_news=0x7f070010;
+        public static final int details_title=0x7f07001c;
+        public static final int details_title_buy=0x7f070012;
+        public static final int details_title_stock_news=0x7f070011;
         /**  Details Stock View Stock 
          */
-        public static final int details_title_stock_quote=0x7f07000f;
+        public static final int details_title_stock_quote=0x7f070010;
         /**  Error Messages 
          */
         public static final int empty_search_alert=0x7f070005;
         public static final int invalid_search_alert=0x7f070006;
         /**  Extra stuff 
          */
-        public static final int lorem_ipsum=0x7f07003b;
-        public static final int news_not_found=0x7f070008;
-        public static final int purchase_dialog_info_broker_fee=0x7f07002b;
-        public static final int purchase_dialog_info_item_price=0x7f07002e;
-        public static final int purchase_dialog_info_name=0x7f07002f;
-        public static final int purchase_dialog_info_quantity=0x7f07002d;
-        public static final int purchase_dialog_info_symbol=0x7f070030;
-        public static final int purchase_dialog_info_tax=0x7f07002c;
-        public static final int purchase_dialog_info_total=0x7f070029;
-        public static final int purchase_dialog_info_user_bank=0x7f07002a;
-        public static final int purchase_dialog_info_volume=0x7f070027;
-        public static final int purchase_dialog_negative_button=0x7f070025;
-        public static final int purchase_dialog_positive_button=0x7f070024;
+        public static final int lorem_ipsum=0x7f07003c;
+        public static final int news_not_found=0x7f070009;
+        public static final int no_search_results=0x7f070007;
+        public static final int purchase_dialog_info_broker_fee=0x7f07002c;
+        public static final int purchase_dialog_info_item_price=0x7f07002f;
+        public static final int purchase_dialog_info_name=0x7f070030;
+        public static final int purchase_dialog_info_quantity=0x7f07002e;
+        public static final int purchase_dialog_info_symbol=0x7f070031;
+        public static final int purchase_dialog_info_tax=0x7f07002d;
+        public static final int purchase_dialog_info_total=0x7f07002a;
+        public static final int purchase_dialog_info_user_bank=0x7f07002b;
+        public static final int purchase_dialog_info_volume=0x7f070028;
+        public static final int purchase_dialog_negative_button=0x7f070026;
+        public static final int purchase_dialog_positive_button=0x7f070025;
         /**  Purchase Dialog 
          */
-        public static final int purchase_dialog_title=0x7f070023;
-        public static final int purchase_dialog_title_amount=0x7f070028;
-        public static final int purchase_dialog_title_item=0x7f070026;
+        public static final int purchase_dialog_title=0x7f070024;
+        public static final int purchase_dialog_title_amount=0x7f070029;
+        public static final int purchase_dialog_title_item=0x7f070027;
         public static final int signup_setup_complete=0x7f070004;
         public static final int signup_starting_cash=0x7f070003;
         /**  User Signup page 
@@ -273,7 +274,7 @@ public final class R {
         public static final int signup_username=0x7f070002;
         /**  SearchStockFragment 
          */
-        public static final int stock_search_bar_hint=0x7f070007;
+        public static final int stock_search_bar_hint=0x7f070008;
     }
     public static final class style {
         /** 
