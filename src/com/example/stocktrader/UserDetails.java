@@ -1,5 +1,8 @@
 package com.example.stocktrader;
 
+import java.sql.SQLException;
+
+import android.content.Context;
 import android.database.Cursor;
 
 public class UserDetails {
@@ -30,8 +33,31 @@ public class UserDetails {
 		this.negativeTransactions = Integer.parseInt(userRow.getString(10));
 	}
 	
-	public float getCurrentStockValue() {
-		return currentStockValue;
+	public float getCurrentStockValue(Context ctx) {
+		
+		setCurrentStockValue((float)0.0); 
+		
+		//Open stocklist db
+		DBAdapter db = new DBAdapter(ctx);
+		try{
+			db.open();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		Cursor allStocks = db.getAllStocks();
+		
+		if (!allStocks.moveToFirst()){
+			return (float) 0.0;
+		}
+		
+		//Calculate the value of the stocks
+		do {
+			this.currentStockValue += Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly")));
+		}while (allStocks.moveToNext());
+		
+		return this.currentStockValue;
+		
 	}
 
 
@@ -41,7 +67,7 @@ public class UserDetails {
 
 
 	public float getGainLoss() {
-		return gainLoss;
+		return currentCash + currentStockValue - startingCash;
 	}
 
 
