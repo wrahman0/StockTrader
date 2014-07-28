@@ -37,7 +37,7 @@ public class UserDetails {
 		
 		setCurrentStockValue((float)0.0); 
 		
-		//Open stocklist db
+		// Open stocklist db
 		DBAdapter db = new DBAdapter(ctx);
 		try{
 			db.open();
@@ -51,11 +51,10 @@ public class UserDetails {
 			return (float) 0.0;
 		}
 		
-		//Calculate the value of the stocks
+		// Calculate the value of the stocks
 		do {
-			this.currentStockValue += Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly")));
+			this.currentStockValue += Float.parseFloat( allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly"))) * Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("quantity")));
 		}while (allStocks.moveToNext());
-		
 		return this.currentStockValue;
 		
 	}
@@ -67,7 +66,8 @@ public class UserDetails {
 
 
 	public float getGainLoss() {
-		return currentCash + currentStockValue - startingCash;
+		gainLoss = currentCash + currentStockValue - startingCash;
+		return gainLoss;
 	}
 
 
