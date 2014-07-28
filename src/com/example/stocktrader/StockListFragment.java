@@ -48,6 +48,22 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		
 		return view;
 	}
+	
+	@Override
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+	    super.setUserVisibleHint(isVisibleToUser);
+
+	    // Make sure that we are currently visible
+	    if (this.isVisible()) {
+	        
+	    	stockList.removeAllViews();
+	    	if (openDB()){
+	    		populateView();	
+	    	}
+	    	
+	    }
+	    
+	}
 
 	private boolean openDB(){
 
