@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,13 +34,12 @@ public class MyAccountFragment extends Fragment{
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+		
 		View view = inflater.inflate(R.layout.my_account, null);
-
 		findViews(view);
 		getUser();
 		setStaticViews();
-
+		
 		accDeleteUserButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
