@@ -54,7 +54,6 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 				StockSymbolSuggester mSuggester = new StockSymbolSuggester();
 				mSuggester.execute(query);
 				//XMLParser xml = new XMLParser(query, SearchStockFragment.this);
-
 				return false;
 			}
 
@@ -65,13 +64,13 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			}
 
 		});
-
+		
 		mXMLParser = new XMLParser(SearchStockFragment.this);
 		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, mXMLParser);
 		mListView.setAdapter(mStockListAdapter);
 		return view;
 	}
-
+	
 	public void OnParseCompleted(StockDetails theStock){
 		if (theStock == null) {
 			Toast.makeText(getActivity().getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
@@ -139,9 +138,8 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		protected Void doInBackground(String... arg0) {
 			try {
 				query = URLEncoder.encode(arg0[0], "UTF-8");
-			} catch (UnsupportedEncodingException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
 			}
 			String url = url_first + query + url_second;
 			
@@ -183,7 +181,11 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			for(String stock_symbol:stockList){
 				Log.i(TAG, stock_symbol);
 			}
-
+			
+			if(stockList.size() == 0) {
+				Toast.makeText(getActivity().getBaseContext(), R.string.no_search_results, Toast.LENGTH_LONG).show();
+			}
+			
 			suggestedStockList.clear();
 			suggestedStockList.addAll(stockList);
 			updateStockListing();
