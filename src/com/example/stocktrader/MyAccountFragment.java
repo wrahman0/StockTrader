@@ -36,8 +36,11 @@ public class MyAccountFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 =======
+=======
+>>>>>>> Stashed changes
 		
 >>>>>>> Stashed changes
 		View view = inflater.inflate(R.layout.my_account, null);
