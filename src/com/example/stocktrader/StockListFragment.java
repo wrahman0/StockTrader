@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,24 +46,24 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		if (openDB()){
 			populateView();	
 		}
-		
+
 		return view;
 	}
-	
+
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
-	    super.setUserVisibleHint(isVisibleToUser);
+		super.setUserVisibleHint(isVisibleToUser);
 
-	    // Make sure that we are currently visible
-	    if (this.isVisible()) {
-	        
-	    	stockList.removeAllViews();
-	    	if (openDB()){
-	    		populateView();	
-	    	}
-	    	
-	    }
-	    
+		// Make sure that we are currently visible
+		if (this.isVisible()) {
+
+			stockList.removeAllViews();
+			if (openDB()){
+				populateView();	
+			}
+
+		}
+
 	}
 
 	private boolean openDB(){
@@ -94,32 +95,40 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		LayoutInflater inflater = (LayoutInflater) getActivity()
 				.getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 
-		View card = inflater.inflate(R.layout.stock_card, null);
-		ImageButton detailsButton = (ImageButton) card.findViewById(R.id.stockDetailsButton);
+		View card = inflater.inflate(R.layout.stock_bought_card, null);
 
-		TextView cardStockName = (TextView) card.findViewById (R.id.cardStockName);
-		TextView cardStockSymbol = (TextView) card.findViewById (R.id.cardStockSymbol);
-		TextView cardExchange = (TextView) card.findViewById (R.id.detailsLastTradePriceOnly);
-		TextView cardLastTradePriceOnly = (TextView) card.findViewById (R.id.detailsSymbol);
-		TextView cardChange = (TextView) card.findViewById (R.id.detailsChange);
-
-		cardStockName.setText(stockRow.getString(1));
-		cardStockSymbol.setText(stockRow.getString(2));
-		cardChange.setText(stockRow.getString(3));
-		cardExchange.setText(stockRow.getString(4));
-		cardLastTradePriceOnly.setText(stockRow.getString(5));
-
+		ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
+		ImageView gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
+		
+		TextView stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
+		TextView stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
+		TextView lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
+		TextView changeTextView = (TextView) card.findViewById (R.id.changeTextView);
+		TextView stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
+		TextView gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
+		
+		
+		
+		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
+		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
+		changeTextView.setText(stockRow.getString(stockRow.getColumnIndex("change")));
+		lastTradePriceTextView.setText(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")));
+		stockQuantityTextView.setText("x" + stockRow.getString(stockRow.getColumnIndex("quantity")));
+		
+		Log.d("FORMULA", "First:" + Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) + ", Second:" +  Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))));
+		
+		gainLossTextView.setText( String.valueOf( (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) + "%");
+		
 		this.theStock = new StockDetails(stockRow.getString(1),stockRow.getString(2), stockRow.getString(3), stockRow.getString(4), stockRow.getString(5), stockRow.getString(6), stockRow.getString(7), stockRow.getString(8), stockRow.getString(9), stockRow.getString(10));
 
-		detailsButton.setOnClickListener(new OnClickListener(){
+		stockSell.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 
 				//Get the stock symbol from the card which is the parent of the imageButton
 				TableRow cardTableRow = (TableRow) v.getParent();
-				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById(R.id.cardStockSymbol);
-				Log.i(StockTraderActivity.TAG, stockSymbolTextView.getText().toString());
+				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById (R.id.stockSymbolTextView);
 
 				xml = new XMLParser(StockListFragment.this);
 				try {

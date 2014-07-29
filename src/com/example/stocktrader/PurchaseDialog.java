@@ -186,7 +186,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 			//Check if the user has enough money
 			if (totalCost < theUser.getCurrentCash()){
 				//Allow the purchase
-				db.insertStock(theStock.getName(), theStock.getSymbol(), theStock.getChange(), theStock.getExchange(),theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), theStock.getDaysLow(), theStock.getYearHigh(), theStock.getYearLow(), theStock.getVolume(), String.valueOf(quantity));
+				db.insertStock(theStock.getName(), theStock.getSymbol(), theStock.getChange(), theStock.getExchange(),theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), theStock.getDaysLow(), theStock.getYearHigh(), theStock.getYearLow(), theStock.getVolume(), String.valueOf(quantity), theStock.getLastTradePriceOnly());
 				dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() - totalCost ), "0", "0", String.valueOf(theUser.getStocksOwned()+1), String.valueOf(theUser.getTotalTransactions()+1), String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));
 			}else{
 				//Decline the purchase
