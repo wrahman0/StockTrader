@@ -84,13 +84,16 @@ public final class R {
         public static final int purchase_reciept_total=0x7f050012;
     }
     public static final class drawable {
-        public static final int ic_action_forward=0x7f020000;
-        public static final int ic_action_new=0x7f020001;
-        public static final int ic_action_new_event=0x7f020002;
-        public static final int ic_action_next_item=0x7f020003;
-        public static final int ic_action_view_as_list=0x7f020004;
-        public static final int ic_action_web_site=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
+        public static final int arrow_negative=0x7f020000;
+        public static final int arrow_positive=0x7f020001;
+        public static final int ic_action_discard=0x7f020002;
+        public static final int ic_action_forward=0x7f020003;
+        public static final int ic_action_new=0x7f020004;
+        public static final int ic_action_new_event=0x7f020005;
+        public static final int ic_action_next_item=0x7f020006;
+        public static final int ic_action_view_as_list=0x7f020007;
+        public static final int ic_action_web_site=0x7f020008;
+        public static final int ic_launcher=0x7f020009;
     }
     public static final class id {
         public static final int ImageView01=0x7f0a000f;
@@ -123,9 +126,10 @@ public final class R {
         public static final int accStocksOwned=0x7f0a0028;
         public static final int accTotalTransactions=0x7f0a002b;
         public static final int accUsername=0x7f0a0016;
-        public static final int cardStockName=0x7f0a004b;
-        public static final int cardStockSymbol=0x7f0a004c;
-        public static final int cardTableRow=0x7f0a004a;
+        public static final int cardStockName=0x7f0a0055;
+        public static final int cardStockSymbol=0x7f0a0056;
+        public static final int cardTableRow=0x7f0a0054;
+        public static final int changeTextView=0x7f0a004f;
         public static final int detailsBuyButton=0x7f0a0004;
         public static final int detailsChange=0x7f0a0009;
         public static final int detailsDaysHigh=0x7f0a000a;
@@ -136,12 +140,17 @@ public final class R {
         public static final int detailsSymbol=0x7f0a0002;
         public static final int detailsYearHigh=0x7f0a000c;
         public static final int detailsYearLow=0x7f0a000d;
+        public static final int gainLossImageTableRow=0x7f0a0050;
+        public static final int gainLossNumberTableRow=0x7f0a0052;
+        public static final int imageButton1=0x7f0a004a;
+        public static final int imageView1=0x7f0a0051;
         public static final int infoRow1=0x7f0a0034;
         public static final int infoRow2=0x7f0a000e;
         public static final int infoRow3=0x7f0a003c;
         public static final int infoRow4=0x7f0a003e;
         public static final int infoRow5=0x7f0a0040;
         public static final int infoRow6=0x7f0a0041;
+        public static final int lastTradePriceTextView=0x7f0a004e;
         public static final int negativeButton=0x7f0a0045;
         public static final int newsCardBody=0x7f0a0007;
         public static final int newsCardImageView=0x7f0a0006;
@@ -149,7 +158,7 @@ public final class R {
         public static final int newsNotFound=0x7f0a0035;
         public static final int newsScrollView=0x7f0a0011;
         public static final int newsTableRow=0x7f0a0033;
-        public static final int pager=0x7f0a004f;
+        public static final int pager=0x7f0a0059;
         public static final int positiveButton=0x7f0a0046;
         public static final int purchaseBrokerFee=0x7f0a0010;
         public static final int purchaseOverallTotal=0x7f0a0044;
@@ -165,17 +174,21 @@ public final class R {
         public static final int scrollView1=0x7f0a0013;
         public static final int searchListView=0x7f0a0049;
         public static final int searchView=0x7f0a0048;
-        public static final int signupStartingCash=0x7f0a0051;
-        public static final int signupUsername=0x7f0a0050;
+        public static final int sellButtonTableRow=0x7f0a0014;
+        public static final int signupStartingCash=0x7f0a005b;
+        public static final int signupUsername=0x7f0a005a;
         public static final int stockCardLinearLayout=0x7f0a0047;
-        public static final int stockDetailsButton=0x7f0a004d;
-        public static final int stockList=0x7f0a004e;
-        public static final int tableRow1=0x7f0a0014;
+        public static final int stockDetailsButton=0x7f0a0057;
+        public static final int stockInfoTableRow=0x7f0a004b;
+        public static final int stockList=0x7f0a0058;
+        public static final int stockNameTextView=0x7f0a0015;
+        public static final int stockQuantityTextView=0x7f0a004c;
+        public static final int tableRow1=0x7f0a004d;
         public static final int tableRow2=0x7f0a0005;
-        public static final int textView1=0x7f0a0015;
+        public static final int textView1=0x7f0a0053;
         public static final int textView2=0x7f0a0036;
         public static final int textView3=0x7f0a0037;
-        public static final int userSetupComplete=0x7f0a0052;
+        public static final int userSetupComplete=0x7f0a005c;
     }
     public static final class layout {
         public static final int details_redesigned=0x7f030000;
@@ -184,10 +197,11 @@ public final class R {
         public static final int news_no_recent_news=0x7f030003;
         public static final int purchase_dialog=0x7f030004;
         public static final int search_stock=0x7f030005;
-        public static final int stock_card=0x7f030006;
-        public static final int stock_list=0x7f030007;
-        public static final int stock_trader_main=0x7f030008;
-        public static final int user_signup=0x7f030009;
+        public static final int stock_bought_card=0x7f030006;
+        public static final int stock_card=0x7f030007;
+        public static final int stock_list=0x7f030008;
+        public static final int stock_trader_main=0x7f030009;
+        public static final int user_signup=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f090000;
