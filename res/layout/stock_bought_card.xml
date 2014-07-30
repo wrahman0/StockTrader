@@ -3,160 +3,150 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+    <TableRow
+        android:id="@+id/sellButtonTableRow"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
 
-        <TableRow
-            android:id="@+id/sellButtonTableRow"
+        <ImageButton
+            android:id="@+id/stockSell"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:src="@drawable/ic_action_discard" />
+    </TableRow>
 
-            <ImageButton
-                android:id="@+id/stockSell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:padding="5dp"
-                android:src="@drawable/ic_action_discard" />
-        </TableRow>
+    <TableRow
+        android:id="@+id/stockBlock"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
 
-        <TableRow
-            android:id="@+id/stockBlock"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <TableRow
-                android:id="@+id/stockInfoTableRow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <TableRow
-                        android:id="@+id/tableRow2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/stockNameTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLength="15"
-                            android:maxLines="1"
-                            android:paddingTop="3dp"
-                            android:text="Microsoft Corporation Inc."
-                            android:textColor="@color/main_text_color"
-                            android:textSize="@dimen/details_important" />
-
-                        <View
-                            android:layout_width="5dp"
-                            android:layout_height="0dp" />
-
-                        <TextView
-                            android:id="@+id/stockQuantityTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="3dp"
-                            android:text="x80"
-                            android:textColor="@color/main_text_color"
-                            android:textSize="@dimen/details_secondary_info" />
-                    </TableRow>
-
-                    <TableRow
-                        android:id="@+id/tableRow1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <TextView
-                            android:id="@+id/stockSymbolTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="GOOG"
-                            android:textColor="@color/main_text_color"
-                            android:textSize="@dimen/details_secondary_info" />
-
-                        <View
-                            android:layout_width="2dp"
-                            android:layout_height="0dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="|"
-                            android:textSize="@dimen/details_secondary_info" />
-
-                        <View
-                            android:layout_width="2dp"
-                            android:layout_height="0dp" />
-
-                        <TextView
-                            android:id="@+id/lastTradePriceTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="585.13"
-                            android:textColor="@color/main_text_color"
-                            android:textSize="@dimen/details_secondary_info" />
-
-                        <View
-                            android:layout_width="2dp"
-                            android:layout_height="0dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="|"
-                            android:textSize="@dimen/details_secondary_info" />
-
-                        <View
-                            android:layout_width="2dp"
-                            android:layout_height="0dp" />
-
-                        <TextView
-                            android:id="@+id/changeTextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+2.54"
-                            android:textColor="@color/main_text_color"
-                            android:textSize="@dimen/details_secondary_info" />
-                    </TableRow>
-                </LinearLayout>
-            </TableRow>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TableRow
-                android:id="@+id/gainLossImageTableRow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center" >
-
-                <ImageView
-                    android:id="@+id/gainLossImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_negative" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/gainLossNumberTableRow"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center" >
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/gainLossTextView"
+                    android:id="@+id/stockNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1.24%"
+                    android:ellipsize="end"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:paddingTop="3dp"
+                    android:text="Microsoft Corporation Inc."
+                    android:textColor="@color/main_text_color"
                     android:textSize="@dimen/details_important" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/stockQuantityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="3dp"
+                    android:text="x80"
+                    android:textSize="@dimen/details_secondary_info" />
             </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/stockSymbolTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GOOG"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/details_secondary_info" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:textSize="@dimen/details_secondary_info" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/lastTradePriceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="585.13"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/details_secondary_info" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:textSize="@dimen/details_secondary_info" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/changeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+2.54"
+                    android:textColor="@color/main_text_color"
+                    android:textSize="@dimen/details_secondary_info" />
+            </TableRow>
+        </LinearLayout>
+
+        <TableRow
+            android:id="@+id/gainLossImageTableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/gainLossImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_negative" />
         </TableRow>
-    </LinearLayout>
+
+        <TableRow
+            android:id="@+id/gainLossNumberTableRow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingRight="5dp" >
+
+            <TextView
+                android:id="@+id/gainLossTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.24%"
+                android:textSize="@dimen/details_important" />
+        </TableRow>
+    </TableRow>
 
 </TableRow>

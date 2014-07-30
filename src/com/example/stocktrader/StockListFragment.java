@@ -99,6 +99,9 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 
 		ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
 		ImageView gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
+		float percentGained =  (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))) * 100;
+		
+		TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
 		
 		TextView stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
 		TextView stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
@@ -107,29 +110,34 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		TextView stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
 		TextView gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
 		
-		
-		
 		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
 		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
 		changeTextView.setText(stockRow.getString(stockRow.getColumnIndex("change")));
 		lastTradePriceTextView.setText(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")));
+		
+		if (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("change"))) > 0.0){
+			changeTextView.setTextColor(getResources().getColor(R.color.card_color_positive));
+		}else {
+			changeTextView.setTextColor(getResources().getColor(R.color.card_color_negative));
+		}
+		
 		stockQuantityTextView.setText("x" + stockRow.getString(stockRow.getColumnIndex("quantity")));
+		gainLossTextView.setText(String.format("%.2f",percentGained) + "%");
 		
-		Log.d("FORMULA", "First:" + Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) + ", Second:" +  Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))));
-		
-		gainLossTextView.setText( String.valueOf( (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) + "%");
+		//Setting the gained lost indicator based on the percentGained
+		if (percentGained <= 0.0){
+			//Set it to lost indicator
+			gainLossImageView.setImageResource(R.drawable.arrow_negative);
+		}
 		
 		this.theStock = new StockDetails(stockRow.getString(1),stockRow.getString(2), stockRow.getString(3), stockRow.getString(4), stockRow.getString(5), stockRow.getString(6), stockRow.getString(7), stockRow.getString(8), stockRow.getString(9), stockRow.getString(10));
-
-		stockSell.setOnClickListener(new OnClickListener(){
+		stockBlock.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-
 				//Get the stock symbol from the card which is the parent of the imageButton
-				TableRow cardTableRow = (TableRow) v.getParent();
+				TableRow cardTableRow = (TableRow) v.getParent().getParent();
 				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById (R.id.stockSymbolTextView);
-
 				xml = new XMLParser(StockListFragment.this);
 				try {
 					xml.parseStock(stockSymbolTextView.getText().toString());
@@ -137,8 +145,19 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 					Log.e(StockTraderActivity.TAG, "Query cannot be encoded.");
 					e.printStackTrace();
 				}
-
 			}
+			
+		});
+		
+		stockSell.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				
+				
+				
+			}
+			
 		});
 
 		tableLayout.addView(card);
