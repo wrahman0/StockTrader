@@ -128,6 +128,9 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		Cursor userCursor = dbUser.getAllUsers();
 		userCursor.moveToFirst();
 		this.theUser = new UserDetails(userCursor);	
+		
+		
+		
 	}
 
 	private void findViews(){
@@ -136,7 +139,9 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		sellStockSymbol = (TextView) dialogView.findViewById(R.id.sellStockSymbol);
 		sellStockPrice = (TextView) dialogView.findViewById(R.id.sellStockPrice);
 		sellUserBank = (TextView) dialogView.findViewById(R.id.sellUserBank);
-
+		sellStockQuantity = (TextView) dialogView.findViewById(R.id.sellStockQuantity);
+		
+		
 		//	Dynamic Information
 		sellTotalStockPrice = (TextView) dialogView.findViewById(R.id.sellTotalStockPrice);
 		sellOverallTotal = (TextView) dialogView.findViewById(R.id.sellOverallTotal);
@@ -153,12 +158,10 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		sellStockQuantity.setText(String.valueOf(volume));
 	}
 
-	private void setDynamicInfo(StockDetails theStock){
-
+	private void setDynamicInfo(StockDetails theStock){ // Gets called on quantity edit text change
 		totalCost = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity;
 		sellTotalStockPrice.setText("$"+String.format("%.2f", Float.parseFloat(theStock.getLastTradePriceOnly())));
 		sellOverallTotal.setText("$"+ String.format("%.2f", totalCost));
-
 	}
 
 	public void onClick(View v){
