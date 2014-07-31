@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,10 +25,22 @@ import android.widget.Toast;
 
 public class StockListFragment extends Fragment implements OnParseComplete, Serializable{
 
+	private static final String STOCK_QUANTITY = "stock quantity";
+	
 	private static final long serialVersionUID = 1L;
 	private DBAdapter db;
 	private Cursor allStocks;
-
+	
+	//Views
+	private TextView stockNameTextView;
+	private TextView stockSymbolTextView;
+	private TextView lastTradePriceTextView;
+	private TextView changeTextView;
+	private TextView stockQuantityTextView;
+	private TextView gainLossTextView;
+	
+	private boolean parsingNews = true;
+	
 	private XMLParser xml;
 
 	//The bundle that will hold the stock and news class
@@ -61,6 +74,8 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 			if (openDB()){
 				populateView();	
 			}
+			
+			db.close();
 
 		}
 
@@ -103,12 +118,12 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		
 		TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
 		
-		TextView stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
-		TextView stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
-		TextView lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
-		TextView changeTextView = (TextView) card.findViewById (R.id.changeTextView);
-		TextView stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
-		TextView gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
+		stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
+		stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
+		lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
+		changeTextView = (TextView) card.findViewById (R.id.changeTextView);
+		stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
+		gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
 		
 		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
 		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
@@ -154,7 +169,9 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 			@Override
 			public void onClick(View v) {
 				
-				
+				parsingNews = false;
+				Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
+				showSellDialog(v);
 				
 			}
 			
@@ -162,19 +179,46 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 
 		tableLayout.addView(card);
 	}
-
+	
+	private void showSellDialog(View v){
+		
+		XMLParser xml = new XMLParser(StockListFragment.this);
+		TableRow stockRow = (TableRow) v.getParent().getParent();
+		TextView stockSymbol = (TextView) stockRow.findViewById(R.id.stockSymbolTextView);
+		try {
+			xml.parseStock(stockSymbol.getText().toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public void OnParseCompleted(StockDetails theStock) {
+		
 		if (theStock == null) {
 			Toast.makeText(getActivity().getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
 		}else {
+			
 			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
-			try {
-				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), StockListFragment.this);
-			} catch (UnsupportedEncodingException e) {
-				Log.e(StockTraderActivity.TAG, "Company Name can not be encoded");
+			
+			if (parsingNews){
+				try {
+					XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), StockListFragment.this);
+				} catch (UnsupportedEncodingException e) {
+					Log.e(StockTraderActivity.TAG, "Company Name can not be encoded");
+				}	
+			}else{
+				//Bundle all thats needed for the sell dialog
+				bundle.putInt(STOCK_QUANTITY, Integer.parseInt(stockQuantityTextView.getText().toString().substring(1, stockQuantityTextView.getText().toString().length())));
+				FragmentManager manager = getActivity().getFragmentManager();
+				SellDialog sellDialog = new SellDialog();
+				sellDialog.setArguments(bundle);
+				sellDialog.show(manager, "SellDialog");
 			}
+			
+			parsingNews = true;
+			
 		}
 
 	}

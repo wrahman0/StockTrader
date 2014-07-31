@@ -36,7 +36,20 @@ public class MyAccountFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		
 		View view = inflater.inflate(R.layout.my_account, null);
-		findViews(view);
+
+		// Find the views
+		accUsername = (TextView) view.findViewById(R.id.accUsername);
+		accStartingCapital = (TextView) view.findViewById(R.id.accStartingCapital);
+		accCurrentCapital = (TextView) view.findViewById(R.id.accCurrentCapital);
+		accCurrentStockValue = (TextView) view.findViewById(R.id.accCurrentStockValue);
+		accGainLoss = (TextView) view.findViewById(R.id.accGainLoss);
+		accStocksBought = (TextView) view.findViewById(R.id.accStocksBought);
+		accStocksOwned = (TextView) view.findViewById(R.id.accStocksOwned);
+		accTotalTransactions = (TextView) view.findViewById(R.id.accTotalTransactions);
+		accPositiveTransactions = (TextView) view.findViewById(R.id.accPositiveTransactions);
+		accNegativeTransactions = (TextView) view.findViewById(R.id.accNegativeTransactions);
+		accDeleteUserButton = (Button) view.findViewById(R.id.accDeleteUserButton);
+		
 		getUser();
 		setStaticViews();
 		
@@ -68,6 +81,8 @@ public class MyAccountFragment extends Fragment{
 
 						db.deleteDb();
 						dbUser.deleteDb();
+						db.close();
+						dbUser.close();
 
 						Intent intent = new Intent(getActivity(), UserSetupActivity.class);
 						getActivity().startActivity(intent);
@@ -100,7 +115,6 @@ public class MyAccountFragment extends Fragment{
 	private void setStaticViews(){
 
 		setTextViewColors();
-
 		accUsername.setText(String.valueOf(theUser.getUsername()));
 		accStartingCapital.setText("$"+ String.format("%.2f", theUser.getStartingCash()));
 		accCurrentCapital.setText("$"+ String.format("%.2f", theUser.getCurrentCash()));
@@ -146,22 +160,8 @@ public class MyAccountFragment extends Fragment{
 		userCursor.moveToFirst();
 
 		theUser = new UserDetails (userCursor);
-
-	}
-
-	private void findViews(View view){
-
-		accUsername = (TextView) view.findViewById(R.id.accUsername);
-		accStartingCapital = (TextView) view.findViewById(R.id.accStartingCapital);
-		accCurrentCapital = (TextView) view.findViewById(R.id.accCurrentCapital);
-		accCurrentStockValue = (TextView) view.findViewById(R.id.accCurrentStockValue);
-		accGainLoss = (TextView) view.findViewById(R.id.accGainLoss);
-		accStocksBought = (TextView) view.findViewById(R.id.accStocksBought);
-		accStocksOwned = (TextView) view.findViewById(R.id.accStocksOwned);
-		accTotalTransactions = (TextView) view.findViewById(R.id.accTotalTransactions);
-		accPositiveTransactions = (TextView) view.findViewById(R.id.accPositiveTransactions);
-		accNegativeTransactions = (TextView) view.findViewById(R.id.accNegativeTransactions);
-		accDeleteUserButton = (Button) view.findViewById(R.id.accDeleteUserButton);
+		
+		dbUser.close();
 
 	}
 
