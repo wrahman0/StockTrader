@@ -151,7 +151,7 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 			@Override
 			public void onClick(View v) {
 				//Get the stock symbol from the card which is the parent of the imageButton
-				TableRow cardTableRow = (TableRow) v.getParent().getParent();
+				TableRow cardTableRow = (TableRow) v.getParent();
 				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById (R.id.stockSymbolTextView);
 				xml = new XMLParser(StockListFragment.this);
 				try {

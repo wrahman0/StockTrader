@@ -82,11 +82,12 @@
     <string name="sell_dialog_title">Sell Projections</string>
     <string name="sell_dialog_text_sell">Sell</string>
     <string name="sell_dialog_text_cancel">Cancel</string>
-    <string name="sell_dialog_text_quantity">Quantity:</string>
+    <string name="sell_dialog_text_quantity">Remaining Stocks:</string>
     <string name="sell_dialog_text_name">Name:</string>
     <string name="sell_dialog_text_symbol">Symbol:</string>
-    <string name="sell_dialog_text_balance">Balance:</string>
+    <string name="sell_dialog_text_balance">Current Balance:</string>
     <string name="sell_dialog_text_unit_price">Unit Price:</string>
+    <string name="sell_dialog_text_updated_balance">Updated Balance:</string>
      
     
     <!-- My Accounts Page -->

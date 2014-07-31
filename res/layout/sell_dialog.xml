@@ -219,33 +219,6 @@
         android:layout_height="@dimen/purchase_dialog_info_row_spacing" />
 
     <TableRow
-        android:id="@+id/TableRow04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/purchase_dialog_info_user_bank"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_total" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/sellUserBank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-    </TableRow>
-
-    <TableRow
         android:id="@+id/TableRow01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -265,6 +238,60 @@
 
         <TextView
             android:id="@+id/sellOverallTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_items" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/TableRow04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_dialog_text_balance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_total" />
+
+        <View
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/sellUserBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_items" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/TableRow03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_dialog_text_updated_balance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_total" />
+
+        <View
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/sellUserUpdatedBank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"

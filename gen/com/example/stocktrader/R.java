@@ -106,6 +106,7 @@ public final class R {
         public static final int TableRow07=0x7f0a0029;
         public static final int TableRow08=0x7f0a002c;
         public static final int TableRow09=0x7f0a002f;
+        public static final int TextView01=0x7f0a0054;
         public static final int TextView02=0x7f0a004f;
         public static final int TextView03=0x7f0a001b;
         public static final int TextView04=0x7f0a001e;
@@ -126,10 +127,10 @@ public final class R {
         public static final int accStocksOwned=0x7f0a0028;
         public static final int accTotalTransactions=0x7f0a002b;
         public static final int accUsername=0x7f0a0016;
-        public static final int cardStockName=0x7f0a005f;
-        public static final int cardStockSymbol=0x7f0a0060;
-        public static final int cardTableRow=0x7f0a005e;
-        public static final int changeTextView=0x7f0a0059;
+        public static final int cardStockName=0x7f0a0061;
+        public static final int cardStockSymbol=0x7f0a0062;
+        public static final int cardTableRow=0x7f0a0060;
+        public static final int changeTextView=0x7f0a005b;
         public static final int detailsBuyButton=0x7f0a0004;
         public static final int detailsChange=0x7f0a0009;
         public static final int detailsDaysHigh=0x7f0a000a;
@@ -140,17 +141,17 @@ public final class R {
         public static final int detailsSymbol=0x7f0a0002;
         public static final int detailsYearHigh=0x7f0a000c;
         public static final int detailsYearLow=0x7f0a000d;
-        public static final int gainLossImageTableRow=0x7f0a005a;
-        public static final int gainLossImageView=0x7f0a005b;
-        public static final int gainLossNumberTableRow=0x7f0a005c;
-        public static final int gainLossTextView=0x7f0a005d;
+        public static final int gainLossImageTableRow=0x7f0a005c;
+        public static final int gainLossImageView=0x7f0a005d;
+        public static final int gainLossNumberTableRow=0x7f0a005e;
+        public static final int gainLossTextView=0x7f0a005f;
         public static final int infoRow1=0x7f0a0034;
         public static final int infoRow2=0x7f0a000e;
         public static final int infoRow3=0x7f0a003c;
         public static final int infoRow4=0x7f0a003e;
         public static final int infoRow5=0x7f0a0040;
         public static final int infoRow6=0x7f0a0041;
-        public static final int lastTradePriceTextView=0x7f0a0058;
+        public static final int lastTradePriceTextView=0x7f0a005a;
         public static final int negativeButton=0x7f0a0045;
         public static final int newsCardBody=0x7f0a0007;
         public static final int newsCardImageView=0x7f0a0006;
@@ -158,7 +159,7 @@ public final class R {
         public static final int newsNotFound=0x7f0a0035;
         public static final int newsScrollView=0x7f0a0011;
         public static final int newsTableRow=0x7f0a0033;
-        public static final int pager=0x7f0a0063;
+        public static final int pager=0x7f0a0065;
         public static final int positiveButton=0x7f0a0046;
         public static final int purchaseBrokerFee=0x7f0a0010;
         public static final int purchaseOverallTotal=0x7f0a0044;
@@ -175,30 +176,31 @@ public final class R {
         public static final int searchListView=0x7f0a0049;
         public static final int searchView=0x7f0a0048;
         public static final int sellButtonTableRow=0x7f0a0014;
-        public static final int sellOverallTotal=0x7f0a0053;
+        public static final int sellOverallTotal=0x7f0a0052;
         public static final int sellQuantityEditText=0x7f0a0051;
         public static final int sellStockName=0x7f0a004a;
         public static final int sellStockPrice=0x7f0a004e;
         public static final int sellStockQuantity=0x7f0a0050;
         public static final int sellStockSymbol=0x7f0a004d;
         public static final int sellTotalStockPrice=0x7f0a004b;
-        public static final int sellUserBank=0x7f0a0052;
-        public static final int signupStartingCash=0x7f0a0065;
-        public static final int signupUsername=0x7f0a0064;
-        public static final int stockBlock=0x7f0a0055;
+        public static final int sellUserBank=0x7f0a0053;
+        public static final int sellUserUpdatedBank=0x7f0a0055;
+        public static final int signupStartingCash=0x7f0a0067;
+        public static final int signupUsername=0x7f0a0066;
+        public static final int stockBlock=0x7f0a0057;
         public static final int stockCardLinearLayout=0x7f0a0047;
-        public static final int stockDetailsButton=0x7f0a0061;
-        public static final int stockList=0x7f0a0062;
+        public static final int stockDetailsButton=0x7f0a0063;
+        public static final int stockList=0x7f0a0064;
         public static final int stockNameTextView=0x7f0a0015;
-        public static final int stockQuantityTextView=0x7f0a0056;
-        public static final int stockSell=0x7f0a0054;
+        public static final int stockQuantityTextView=0x7f0a0058;
+        public static final int stockSell=0x7f0a0056;
         public static final int stockSymbolTextView=0x7f0a0018;
-        public static final int tableRow1=0x7f0a0057;
+        public static final int tableRow1=0x7f0a0059;
         public static final int tableRow2=0x7f0a0005;
         public static final int textView=0x7f0a004c;
         public static final int textView2=0x7f0a0036;
         public static final int textView3=0x7f0a0037;
-        public static final int userSetupComplete=0x7f0a0066;
+        public static final int userSetupComplete=0x7f0a0068;
     }
     public static final class layout {
         public static final int details_redesigned=0x7f030000;
@@ -218,19 +220,19 @@ public final class R {
         public static final int main=0x7f090000;
     }
     public static final class string {
-        public static final int account_current_capital=0x7f07003c;
-        public static final int account_current_stock_value=0x7f07003d;
-        public static final int account_delete_button=0x7f070044;
-        public static final int account_gain_loss=0x7f07003e;
-        public static final int account_negative_transactions=0x7f070043;
-        public static final int account_positive_transactions=0x7f070042;
-        public static final int account_starting_capital=0x7f07003b;
-        public static final int account_stocks_bought=0x7f07003f;
-        public static final int account_stocks_owned=0x7f070040;
-        public static final int account_total_transactions=0x7f070041;
+        public static final int account_current_capital=0x7f07003d;
+        public static final int account_current_stock_value=0x7f07003e;
+        public static final int account_delete_button=0x7f070045;
+        public static final int account_gain_loss=0x7f07003f;
+        public static final int account_negative_transactions=0x7f070044;
+        public static final int account_positive_transactions=0x7f070043;
+        public static final int account_starting_capital=0x7f07003c;
+        public static final int account_stocks_bought=0x7f070040;
+        public static final int account_stocks_owned=0x7f070041;
+        public static final int account_total_transactions=0x7f070042;
         /**  My Accounts Page 
          */
-        public static final int account_username=0x7f07003a;
+        public static final int account_username=0x7f07003b;
         public static final int action_settings=0x7f070001;
         /**  General 
          */
@@ -275,7 +277,7 @@ public final class R {
         public static final int invalid_search_alert=0x7f070006;
         /**  Extra stuff 
          */
-        public static final int lorem_ipsum=0x7f070045;
+        public static final int lorem_ipsum=0x7f070046;
         public static final int news_not_found=0x7f070009;
         public static final int no_search_results=0x7f070007;
         public static final int purchase_dialog_info_broker_fee=0x7f07002c;
@@ -301,6 +303,7 @@ public final class R {
         public static final int sell_dialog_text_sell=0x7f070033;
         public static final int sell_dialog_text_symbol=0x7f070037;
         public static final int sell_dialog_text_unit_price=0x7f070039;
+        public static final int sell_dialog_text_updated_balance=0x7f07003a;
         /**  Sell Dialog 
          */
         public static final int sell_dialog_title=0x7f070032;
