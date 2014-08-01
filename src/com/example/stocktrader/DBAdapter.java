@@ -28,7 +28,6 @@ public class DBAdapter {
 	private static final String KEY_BUY_PRICE = "buyprice";
 
 	//Database properties
-	private static final String TAG = "DBAdapter";
 	private static final String DATABASE_NAME = "StockTrader.db";
 	private static final String DATABASE_TABLE = "stockinfo";
 	private static final int DATABASE_VERSION = 10;
@@ -65,13 +64,13 @@ public class DBAdapter {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			Log.w(TAG,"Creating " + DATABASE_TABLE + " data");
+			Log.w(StockTraderActivity.STOCK_DATABASE_TAG,"Creating " + DATABASE_TABLE + " data");
 			db.execSQL(DATABASE_CREATE);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG,"Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all data");
+			Log.w(StockTraderActivity.STOCK_DATABASE_TAG,"Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all data");
 			db.execSQL("DROP TABLE IF EXISTS stockinfo");
 			onCreate(db);
 		}
@@ -79,19 +78,19 @@ public class DBAdapter {
 
 	//Open DB
 	public DBAdapter open() throws SQLException {
-		Log.w(TAG, "OPENNING DB...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "OPENNING DB...");
 		db = DBHelper.getWritableDatabase();
 		return this;
 	}
 
 	public void close(){
-		Log.w(TAG, "CLOSING DB...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "CLOSING DB...");
 		DBHelper.close();
 	}
 
 	//Inserts a stock into the database
 	public long insertStock (String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow, String volume, String quantity, String buyprice){
-		Log.w(TAG, "INSERTING STOCK WITH NAME:"+name+", SYMBOL:" + symbol + "..." + ", CHANGE:" + change + ", EXCHANGE:" + exchange + ", LAST TRADE PRICE ONLY:" + lasttradepriceonly + ", DAYS HIGH:" + dayshigh + 
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "INSERTING STOCK WITH NAME:"+name+", SYMBOL:" + symbol + "..." + ", CHANGE:" + change + ", EXCHANGE:" + exchange + ", LAST TRADE PRICE ONLY:" + lasttradepriceonly + ", DAYS HIGH:" + dayshigh + 
 				", DAYS LOW:" + dayslow + ", YEAR HIGH" + yearhigh + ", YEAR LOW" + yearlow + ", VOLUME" + volume);
 		ContentValues initialValues = new ContentValues ();
 		initialValues.put(KEY_NAME, name);
@@ -113,20 +112,20 @@ public class DBAdapter {
 
 	//deletes a particular stock
 	public boolean deleteStock (long rowId){
-		Log.w(TAG, "DELETING STOCK WITH ID: " +  rowId + "...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "DELETING STOCK WITH ID: " +  rowId + "...");
 		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	//Gets all the stocks
 	public Cursor getAllStocks(){
-		Log.w(TAG, "GETTING ALL STOCKS...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "GETTING ALL STOCKS...");
 		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME, KEY_QUANTITY, KEY_BUY_PRICE}, 
 				null,null,null,null,null);
 	}
 
 	//Gets particular stock
 	public Cursor getStock (long rowId) throws SQLException{
-		Log.w(TAG, "GETTING SINGLE STOCK WITH ID: " +  rowId +"...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "GETTING SINGLE STOCK WITH ID: " +  rowId +"...");
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME, KEY_QUANTITY, KEY_BUY_PRICE},
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
@@ -137,7 +136,7 @@ public class DBAdapter {
 
 	//Edit a stock
 	public boolean updateStock(long rowId, String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow, String volume, String quantity, String buyprice){
-		Log.w(TAG, "UPGRADING DATABASE...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		args.put(KEY_NAME, name);
 		args.put(KEY_SYMBOL, symbol);
@@ -156,9 +155,9 @@ public class DBAdapter {
 	}
 	
 	public void deleteDb(){
-		Log.w(TAG, "DELETING " + DATABASE_TABLE + " DATABASE...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "DELETING " + DATABASE_TABLE + " DATABASE...");
 		db.execSQL("DROP TABLE " + DATABASE_TABLE);
-		Log.w(TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
 		db.execSQL(DATABASE_CREATE);
 	}
 }

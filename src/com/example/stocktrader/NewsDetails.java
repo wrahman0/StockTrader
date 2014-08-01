@@ -3,6 +3,8 @@ package com.example.stocktrader;
 import java.io.Serializable;
 
 public class NewsDetails implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private String content;
 	private String newsURL;
 	private String title;

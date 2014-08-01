@@ -65,6 +65,7 @@ public class MyAccountFragment extends Fragment{
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						
 						DBAdapterUser dbUser = new DBAdapterUser(getActivity());
 						try{
 							dbUser.open();	
@@ -88,10 +89,9 @@ public class MyAccountFragment extends Fragment{
 						getActivity().startActivity(intent);
 						Toast.makeText(getActivity(), "Deleting Account", Toast.LENGTH_SHORT).show();
 						getActivity().finish();
+						
 					}
-				})
-				.setNegativeButton(android.R.string.no, null).show();
-
+				}).setNegativeButton(android.R.string.no, null).show();
 			}
 		});
 
@@ -100,14 +100,12 @@ public class MyAccountFragment extends Fragment{
 
 	@Override
 	public void setUserVisibleHint(boolean isVisibleToUser) {
-		super.setUserVisibleHint(isVisibleToUser);
 
+		super.setUserVisibleHint(isVisibleToUser);
 		// Make sure that we are currently visible
 		if (this.isVisible()) {
-
 			getUser();
 			setStaticViews();
-
 		}
 
 	}
@@ -148,19 +146,14 @@ public class MyAccountFragment extends Fragment{
 	private void getUser(){
 
 		DBAdapterUser dbUser = new DBAdapterUser (getActivity());
-
 		try{
 			dbUser.open();
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-
 		Cursor userCursor = dbUser.getAllUsers();
-
 		userCursor.moveToFirst();
-
 		theUser = new UserDetails (userCursor);
-		
 		dbUser.close();
 
 	}

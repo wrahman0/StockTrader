@@ -29,7 +29,7 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 	private DBAdapter db;
 	private Cursor allStocks;
 	
-	StockDetails theStock; //TODO:Why does making this private make it unused?
+	public StockDetails theStock;
 	
 	//Views
 	private TextView stockNameTextView;

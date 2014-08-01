@@ -17,6 +17,7 @@ public class StockTraderActivity extends FragmentActivity {
 	public static final String APP_NAME_TAG = "StockTrader";
 	public static final String STOCK_NAME_TAG = "stock name";
 	public static final String STOCK_QUANTITY_TAG = "stock quantity";
+	public static final String STOCK_DATABASE_TAG = "DBAdapter";
 
 	private ViewPager mViewPager;
 	private TabFragmentPagerAdapter mPagerAdapter;
@@ -25,7 +26,6 @@ public class StockTraderActivity extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 
-		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		setContentView(R.layout.stock_trader_main);

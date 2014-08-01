@@ -21,7 +21,6 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 
 	private StockDetails theStock;
 	private UserDetails theUser;
-
 	private DBAdapterUser dbUser;
 	private DBAdapter db;
 
@@ -103,7 +102,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					}
 					setDynamicInfo(theStock);
 				}
-
+				
 			}
 
 		});

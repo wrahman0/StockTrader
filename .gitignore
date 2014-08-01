@@ -1,14 +1,10 @@
 *.dex
-
 *.class
-
 *.apk
-
-.classpath
+*.classpath
 bin/StockTrader.apk
 bin/resources.ap_
 bin/classes.dex
 bin/StockTrader.apk
 bin/StockTrader.apk
-
 .classpath
