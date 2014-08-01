@@ -18,9 +18,6 @@ public class StockTraderActivity extends FragmentActivity {
 	public static final String STOCK_NAME_TAG = "stock name";
 	public static final String STOCK_QUANTITY_TAG = "stock quantity";
 
-//	private ArrayList<String>mTabLabels = new ArrayList<String>();
-//	private ArrayList<Fragment>mTabFragments = new ArrayList<Fragment>();
-
 	private ViewPager mViewPager;
 	private TabFragmentPagerAdapter mPagerAdapter;
 
