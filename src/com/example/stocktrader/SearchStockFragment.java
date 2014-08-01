@@ -82,7 +82,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			try {
 				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), SearchStockFragment.this);
 			} catch (UnsupportedEncodingException e) {
-				Log.e(StockTraderActivity.TAG, "Company Name can not be encoded");
+				Log.e(StockTraderActivity.APP_NAME_TAG, "Company Name can not be encoded");
 			}
 		}
 	}

@@ -1,7 +1,5 @@
 package com.example.stocktrader;
 
-import java.util.ArrayList;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -15,10 +13,13 @@ import android.support.v4.view.ViewPager;
 import android.view.WindowManager;
 
 public class StockTraderActivity extends FragmentActivity {
-	public static final String TAG = "StockTraderActivity";
+	
+	public static final String APP_NAME_TAG = "StockTrader";
+	public static final String STOCK_NAME_TAG = "stock name";
+	public static final String STOCK_QUANTITY_TAG = "stock quantity";
 
-	private ArrayList<String>mTabLabels = new ArrayList<String>();
-	private ArrayList<Fragment>mTabFragments = new ArrayList<Fragment>();
+//	private ArrayList<String>mTabLabels = new ArrayList<String>();
+//	private ArrayList<Fragment>mTabFragments = new ArrayList<Fragment>();
 
 	private ViewPager mViewPager;
 	private TabFragmentPagerAdapter mPagerAdapter;

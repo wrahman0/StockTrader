@@ -24,12 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StockListFragment extends Fragment implements OnParseComplete, Serializable{
-
-	private static final String STOCK_QUANTITY = "stock quantity";
 	
 	private static final long serialVersionUID = 1L;
 	private DBAdapter db;
 	private Cursor allStocks;
+	
+	StockDetails theStock; //TODO:Why does making this private make it unused?
 	
 	//Views
 	private TextView stockNameTextView;
@@ -38,16 +38,14 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 	private TextView changeTextView;
 	private TextView stockQuantityTextView;
 	private TextView gainLossTextView;
+	private TableLayout stockList;
 	
 	private boolean parsingNews = true;
 	
 	private XMLParser xml;
 
 	//The bundle that will hold the stock and news class
-	Bundle bundle = new Bundle();
-
-	TableLayout stockList;
-	StockDetails theStock;
+	private Bundle bundle = new Bundle();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -118,6 +116,7 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		
 		TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
 		
+		//Find the views
 		stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
 		stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
 		lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
@@ -125,11 +124,13 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 		stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
 		gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
 		
+		//Set the views
 		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
 		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
 		changeTextView.setText(stockRow.getString(stockRow.getColumnIndex("change")));
 		lastTradePriceTextView.setText(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")));
 		
+		//Set the color accordingly
 		if (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("change"))) > 0.0){
 			changeTextView.setTextColor(getResources().getColor(R.color.card_color_positive));
 		}else {
@@ -145,7 +146,15 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 			gainLossImageView.setImageResource(R.drawable.arrow_negative);
 		}
 		
-		this.theStock = new StockDetails(stockRow.getString(1),stockRow.getString(2), stockRow.getString(3), stockRow.getString(4), stockRow.getString(5), stockRow.getString(6), stockRow.getString(7), stockRow.getString(8), stockRow.getString(9), stockRow.getString(10));
+		theStock = new StockDetails(
+				stockRow.getString(stockRow.getColumnIndex("name")), stockRow.getString(stockRow.getColumnIndex("symbol")), 
+				stockRow.getString(stockRow.getColumnIndex("exchange")), stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")), 
+				stockRow.getString(stockRow.getColumnIndex("change")), stockRow.getString(stockRow.getColumnIndex("dayshigh")), 
+				stockRow.getString(stockRow.getColumnIndex("dayslow")), stockRow.getString(stockRow.getColumnIndex("yearhigh")), 
+				stockRow.getString(stockRow.getColumnIndex("yearlow")),stockRow.getString(stockRow.getColumnIndex("volume"))
+				);
+		
+		//Set the listener for the stock card
 		stockBlock.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -157,13 +166,14 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 				try {
 					xml.parseStock(stockSymbolTextView.getText().toString());
 				} catch (UnsupportedEncodingException e) {
-					Log.e(StockTraderActivity.TAG, "Query cannot be encoded.");
+					Log.e(StockTraderActivity.APP_NAME_TAG, "Query cannot be encoded.");
 					e.printStackTrace();
 				}
 			}
 			
 		});
 		
+		//Set the listener for the stock card sell button
 		stockSell.setOnClickListener(new OnClickListener(){
 
 			@Override
@@ -204,13 +214,13 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 			
 			if (parsingNews){
 				try {
-					XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), StockListFragment.this);
+					XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), StockListFragment.this); //TODO:Change News parser to have a .parse method
 				} catch (UnsupportedEncodingException e) {
-					Log.e(StockTraderActivity.TAG, "Company Name can not be encoded");
+					Log.e(StockTraderActivity.APP_NAME_TAG, "Company Name can not be encoded");
 				}	
 			}else{
 				//Bundle all thats needed for the sell dialog
-				bundle.putInt(STOCK_QUANTITY, Integer.parseInt(stockQuantityTextView.getText().toString().substring(1, stockQuantityTextView.getText().toString().length())));
+				bundle.putInt(StockTraderActivity.STOCK_QUANTITY_TAG, Integer.parseInt(stockQuantityTextView.getText().toString().substring(1, stockQuantityTextView.getText().toString().length())));
 				FragmentManager manager = getActivity().getFragmentManager();
 				SellDialog sellDialog = new SellDialog();
 				sellDialog.setArguments(bundle);

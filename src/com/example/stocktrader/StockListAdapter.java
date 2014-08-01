@@ -53,7 +53,7 @@ public class StockListAdapter extends ArrayAdapter<String> {
 				try {
 					mXMLParser.parseStock(query);
 				} catch (UnsupportedEncodingException e) {
-					Log.e(StockTraderActivity.TAG, "Query cannot be encoded.");
+					Log.e(StockTraderActivity.APP_NAME_TAG, "Query cannot be encoded.");
 					e.printStackTrace();
 				}
 			}

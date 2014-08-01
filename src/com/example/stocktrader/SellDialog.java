@@ -54,7 +54,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		dialogView = view;
 		
 		//Get the volume
-		volume = getArguments().getInt("stock quantity"); //TODO: Replace with the variable
+		volume = getArguments().getInt(StockTraderActivity.STOCK_QUANTITY_TAG);
 		openDB();
 		findViews();
 
@@ -191,11 +191,9 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 			
 			if (quantity == volume){
 				//Delete the stock from the db
-				Log.e("PENIS", "5");
 				db.deleteStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))));
 			}else{
 				//Update the stock with the new quantity
-				Log.e("PENIS", "6");
 				db.updateStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))), theStock.getName(), 
 						theStock.getSymbol(), theStock.getChange(), theStock.getExchange(), theStock.getLastTradePriceOnly(), 
 						theStock.getDaysHigh(), theStock.getDaysLow(), theStock.getYearHigh(), theStock.getYearLow(),
