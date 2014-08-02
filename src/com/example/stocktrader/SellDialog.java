@@ -132,9 +132,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 
 		Cursor userCursor = dbUser.getAllUsers();
 		userCursor.moveToFirst();
-		this.theUser = new UserDetails(userCursor);	
-		
-		
+		this.theUser = new UserDetails(userCursor);
 		
 	}
 
@@ -201,11 +199,11 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 						cursor.getString(cursor.getColumnIndex("buyprice")));
 				
 			}
-			
 			dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() + totalCost ), "0", "0", String.valueOf(theUser.getStocksOwned()-1), String.valueOf(theUser.getTotalTransactions()+1), String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));
 			dbUser.close();
 			db.close();
 			dismiss();
+			
 		}
 	}
 

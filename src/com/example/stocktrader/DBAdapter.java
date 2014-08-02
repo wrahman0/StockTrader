@@ -160,4 +160,28 @@ public class DBAdapter {
 		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
 		db.execSQL(DATABASE_CREATE);
 	}
+	
+	public Long findStockIfExists(String name){
+		
+		Cursor stockNames = db.query(DATABASE_TABLE, 
+				new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME, KEY_QUANTITY, KEY_BUY_PRICE}, 
+				null,null,null,null,null);
+		
+		if (stockNames.moveToFirst()){
+			
+			do{
+				if (stockNames.getString(stockNames.getColumnIndex(KEY_NAME)).equals(name)){
+					return Long.parseLong(stockNames.getString(stockNames.getColumnIndex(KEY_ROWID)));
+				}
+			}while (stockNames.moveToNext());
+			
+		}
+		
+		return null;
+		
+	}	
 }
+
+
+
+
