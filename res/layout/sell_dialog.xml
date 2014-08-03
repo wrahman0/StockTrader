@@ -64,7 +64,7 @@
             android:layout_height="0dp" />
 
         <TextView
-            android:id="@+id/purchaseStockName"
+            android:id="@+id/sellStockName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLength="15"
@@ -77,7 +77,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/purchaseTotalStockPrice"
+            android:id="@+id/sellTotalStockPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/accStartingCapital"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/purchase_dialog_info_symbol"
@@ -108,7 +108,7 @@
             android:layout_height="0dp" />
 
         <TextView
-            android:id="@+id/purchaseStockSymbol"
+            android:id="@+id/sellStockSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -119,33 +119,6 @@
     <View
         android:layout_width="0dp"
         android:layout_height="@dimen/purchase_dialog_info_row_spacing" />
-
-    <TableRow
-        android:id="@+id/TableRow02"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView08"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/purchase_dialog_info_volume"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-
-        <View
-            android:layout_width="4dp"
-            android:layout_height="0dp" />
-
-        <TextView
-            android:id="@+id/purchaseStockVolume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-    </TableRow>
 
     <TableRow
         android:id="@+id/infoRow3"
@@ -166,7 +139,7 @@
             android:layout_height="0dp" />
 
         <TextView
-            android:id="@+id/purchaseStockPrice"
+            android:id="@+id/sellStockPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -177,6 +150,33 @@
     <View
         android:layout_width="0dp"
         android:layout_height="@dimen/purchase_dialog_info_row_spacing" />
+
+    <TableRow
+        android:id="@+id/TableRow02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_dialog_text_quantity"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_items" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/sellStockQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_items" />
+    </TableRow>
 
     <TableRow
         android:id="@+id/infoRow4"
@@ -197,14 +197,15 @@
             android:layout_height="0dp" />
 
         <EditText
-            android:id="@+id/purchaseQuantityEditText"
+            android:id="@+id/sellQuantityEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minEms="2"
-            android:maxLength="5"
             android:gravity="center"
             android:inputType="number"
+            android:maxLength="5"
+            android:minEms="2"
             android:text="1" >
+
         </EditText>
     </TableRow>
 
@@ -213,95 +214,9 @@
         android:layout_height="1dp"
         android:background="#000000" />
 
-    <TableRow
-        android:id="@+id/infoRow5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView05"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/purchase_dialog_info_broker_fee"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/purchaseBrokerFee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-    </TableRow>
-
     <View
         android:layout_width="0dp"
         android:layout_height="@dimen/purchase_dialog_info_row_spacing" />
-
-    <TableRow
-        android:id="@+id/infoRow6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView06"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/purchase_dialog_info_tax"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/purchaseTax"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-    </TableRow>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="#000000" />
-
-    <TableRow
-        android:id="@+id/TableRow04"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/TextView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/purchase_dialog_info_user_bank"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_total" />
-
-        <View
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/purchaseUserBank"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/main_text_color"
-            android:textSize="@dimen/purchase_reciept_items" />
-    </TableRow>
 
     <TableRow
         android:id="@+id/TableRow01"
@@ -322,7 +237,61 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/purchaseOverallTotal"
+            android:id="@+id/sellOverallTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_items" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/TableRow04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_dialog_text_balance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_total" />
+
+        <View
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/sellUserBank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_items" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/TableRow03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sell_dialog_text_updated_balance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/main_text_color"
+            android:textSize="@dimen/purchase_reciept_total" />
+
+        <View
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/sellUserUpdatedBank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -341,7 +310,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/purchase_dialog_negative_button" />
+            android:text="@string/sell_dialog_text_cancel" />
 
         <Button
             android:id="@+id/positiveButton"
@@ -349,7 +318,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/purchase_dialog_positive_button" />
+            android:text="@string/sell_dialog_text_sell" />
     </TableRow>
 
 </LinearLayout>

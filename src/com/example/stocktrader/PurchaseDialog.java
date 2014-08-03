@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,6 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 
 	private StockDetails theStock;
 	private UserDetails theUser;
-
 	private DBAdapterUser dbUser;
 	private DBAdapter db;
 
@@ -103,7 +103,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					}
 					setDynamicInfo(theStock);
 				}
-
+				
 			}
 
 		});
@@ -180,14 +180,48 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 
 	public void onClick(View v){
 		if (v.getId()==R.id.negativeButton){
+			
 			dismiss();
+			
 		}else if (v.getId()==R.id.positiveButton){
 
 			//Check if the user has enough money
 			if (totalCost < theUser.getCurrentCash()){
 				//Allow the purchase
-				db.insertStock(theStock.getName(), theStock.getSymbol(), theStock.getChange(), theStock.getExchange(),theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), theStock.getDaysLow(), theStock.getYearHigh(), theStock.getYearLow(), theStock.getVolume(), String.valueOf(quantity));
-				dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() - totalCost ), "0", "0", String.valueOf(theUser.getStocksOwned()+1), String.valueOf(theUser.getTotalTransactions()+1), String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));
+				//Check if the stock exists
+				Long rowId = db.findStockIfExists(theStock.getName());
+				if (rowId!=null){
+					
+					//Get all the stocks
+					Cursor allStock = db.getAllStocks();
+					allStock.moveToFirst();
+					
+					db.updateStock(rowId,theStock.getName(), theStock.getSymbol(), 
+							theStock.getChange(), theStock.getExchange(),
+							theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), 
+							theStock.getDaysLow(), theStock.getYearHigh(), 
+							theStock.getYearLow(), theStock.getVolume(), 
+							String.valueOf(Integer.parseInt(allStock.getString(allStock.getColumnIndex("quantity"))) + quantity), 
+							theStock.getLastTradePriceOnly()
+					);
+					
+				}else{
+					Log.e("DEBUGGING", "INSERTING NEW STOCK");
+					db.insertStock(
+							theStock.getName(), theStock.getSymbol(), 
+							theStock.getChange(), theStock.getExchange(),
+							theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), 
+							theStock.getDaysLow(), theStock.getYearHigh(), 
+							theStock.getYearLow(), theStock.getVolume(), 
+							String.valueOf(quantity), theStock.getLastTradePriceOnly()
+					);
+					dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), 
+							String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() - totalCost ), 
+							"0", "0", String.valueOf(theUser.getStocksOwned()+1), String.valueOf(theUser.getTotalTransactions()+1), 
+							String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));	
+				}
+				
+				
 			}else{
 				//Decline the purchase
 				Toast.makeText(getActivity(), "Not Enough Money", Toast.LENGTH_SHORT).show();

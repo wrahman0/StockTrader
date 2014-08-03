@@ -84,13 +84,13 @@ public class XMLParser {
 					}
 				}
 			}catch (MalformedURLException e) {
-				Log.e(StockTraderActivity.TAG, "MalformedURLException", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "MalformedURLException", e);
 			} catch (IOException e) {
-				Log.e(StockTraderActivity.TAG, "IOException", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "IOException", e);
 			} catch (ParserConfigurationException e) {
-				Log.e(StockTraderActivity.TAG, "Parser Configuration Exception", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
-				Log.e(StockTraderActivity.TAG, "SAX Exception", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "SAX Exception", e);
 			}
 			finally {
 			}

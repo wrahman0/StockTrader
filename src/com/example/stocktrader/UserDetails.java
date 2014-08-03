@@ -55,6 +55,8 @@ public class UserDetails {
 		do {
 			this.currentStockValue += Float.parseFloat( allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly"))) * Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("quantity")));
 		}while (allStocks.moveToNext());
+		
+		db.close();
 		return this.currentStockValue;
 		
 	}

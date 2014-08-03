@@ -3,6 +3,8 @@ package com.example.stocktrader;
 import java.io.Serializable;
 
 public class StockDetails implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private String symbol;
 	private String exchange;

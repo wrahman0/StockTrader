@@ -26,7 +26,6 @@ public class DBAdapterUser {
 	static final String KEY_NEGATIVE_TRANSACTIONS = "negativetransactions";
 
 	//Database properties
-	static final String TAG = "DBAdapter";
 	static final String DATABASE_NAME = "UserData.db";
 	static final String DATABASE_TABLE = "userinfo";
 	static final int DATABASE_VERSION = 4;
@@ -66,7 +65,7 @@ public class DBAdapterUser {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG,"Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all data");
+			Log.w(StockTraderActivity.STOCK_DATABASE_TAG,"Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
 		}
@@ -74,19 +73,19 @@ public class DBAdapterUser {
 
 	//Open DB
 	public DBAdapterUser open() throws SQLException {
-		Log.w(TAG, "OPENNING DB...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "OPENNING DB...");
 		db = DBHelper.getWritableDatabase();
 		return this;
 	}
 
 	public void close(){
-		Log.w(TAG, "CLOSING DB...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "CLOSING DB...");
 		DBHelper.close();
 	}
 
 	//Inserts a stock into the database
 	public long addUser (String username, String stocksbought, String startingcash, String currentcash, String currentstockvalue, String gainloss, String stocksowned, String totaltransactions, String positivetransactions, String negativetransactions){
-		Log.w(TAG, "INSERTING USER WITH NAME:"+ username +", STOCKS:" + stocksbought + "..." + ", START CAPITAL:" + startingcash + ", CURRENT CAPITAL:" + currentcash);
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "INSERTING USER WITH NAME:"+ username +", STOCKS:" + stocksbought + "..." + ", START CAPITAL:" + startingcash + ", CURRENT CAPITAL:" + currentcash);
 		
 		ContentValues initialValues = new ContentValues ();
 		initialValues.put(KEY_USERNAME, username);
@@ -106,19 +105,19 @@ public class DBAdapterUser {
 
 	//deletes a particular stock
 	public boolean removeUser (long rowId){
-		Log.w(TAG, "DELETING USER WITH ID: " +  rowId + "...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "DELETING USER WITH ID: " +  rowId + "...");
 		return db.delete(DATABASE_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
 	}
 
 	//Gets all the stocks
 	public Cursor getAllUsers(){
-		Log.w(TAG, "GETTING ALL USERS...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "GETTING ALL USERS...");
 		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH, KEY_CURRENT_STOCK_VALUE, KEY_GAIN_LOSS, KEY_STOCKS_OWNED, KEY_TOTAL_TRANSACTIONS, KEY_POSITIVE_TRANSACTIONS, KEY_NEGATIVE_TRANSACTIONS}, null,null,null,null,null);
 	}
 
 	//Gets particular stock
 	public Cursor getUser (long rowId) throws SQLException{
-		Log.w(TAG, "GETTING SINGLE USER WITH ID: " +  rowId +"...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "GETTING SINGLE USER WITH ID: " +  rowId +"...");
 		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_USERNAME, KEY_STOCKS_BOUGHT, KEY_STARTING_CASH, KEY_CURRENT_CASH, KEY_CURRENT_STOCK_VALUE, KEY_GAIN_LOSS, KEY_STOCKS_OWNED, KEY_TOTAL_TRANSACTIONS, KEY_POSITIVE_TRANSACTIONS, KEY_NEGATIVE_TRANSACTIONS}, KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
@@ -128,7 +127,7 @@ public class DBAdapterUser {
 
 	//Edit a stock
 	public boolean updateUser(long rowId, String username, String stocksbought, String startingcash, String currentcash, String currentstockvalue, String gainloss, String stocksowned, String totaltransactions, String positivetransactions, String negativetransactions){
-		Log.w(TAG, "UPGRADING DATABASE...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		
 		args.put(KEY_USERNAME, username);
@@ -147,9 +146,9 @@ public class DBAdapterUser {
 	}
 	
 	public void deleteDb(){
-		Log.w(TAG, "DELETING " + DATABASE_TABLE + " DATABASE...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "DELETING " + DATABASE_TABLE + " DATABASE...");
 		db.execSQL("DROP TABLE " + DATABASE_TABLE);
-		Log.w(TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
+		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "CREATING " + DATABASE_TABLE + " DATABASE...");
 		db.execSQL(DATABASE_CREATE);
 	}
 }

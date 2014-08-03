@@ -52,7 +52,7 @@ public class XMLNewsParser {
 	public XMLNewsParser(String companyName, OnParseComplete listener) throws UnsupportedEncodingException {
 		this.listener = listener;
 		url = YQL_FIRST + URLEncoder.encode(companyName, "UTF-8") + YQL_SECOND;
-		Log.i(StockTraderActivity.TAG, url);
+		Log.i(StockTraderActivity.APP_NAME_TAG, url);
 		new MyAsyncTask().execute(url);
 	}
 
@@ -90,30 +90,31 @@ public class XMLNewsParser {
 						NodeList newsResults = results.getElementsByTagName("item");
 						if (newsResults != null && newsResults.getLength() > 0) {
 							for(int i = 0; i < newsResults.getLength(); i++) {
-								Log.i(StockTraderActivity.TAG, String.valueOf(i));
+								Log.i(StockTraderActivity.APP_NAME_TAG, String.valueOf(i));
 								theNews = extractNewsInformation((Element) newsResults.item(i));
 								if(theNews != null) {
 									news.add(theNews);
 								}
 							}
 						} else {
-							Log.e(StockTraderActivity.TAG, "Could not find any news related to this company.");
+							Log.e(StockTraderActivity.APP_NAME_TAG, "Could not find any news related to this company.");
 						}
 					} else {
-						Log.e(StockTraderActivity.TAG, "Could not find the results tag while parsing News.");
+						Log.e(StockTraderActivity.APP_NAME_TAG, "Could not find the results tag while parsing News.");
 					}
 				}
 			}catch (MalformedURLException e) {
-				Log.e(StockTraderActivity.TAG, "MalformedURLException", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "MalformedURLException", e);
 			} catch (IOException e) {
-				Log.e(StockTraderActivity.TAG, "IOException", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "IOException", e);
 			} catch (ParserConfigurationException e) {
-				Log.e(StockTraderActivity.TAG, "Parser Configuration Exception", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
 				Log.e(StockTraderActivity.TAG, "SAX Exception", e);
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Log.e(StockTraderActivity.APP_NAME_TAG, "SAX Exception", e);
 			}
 			finally {
 			}
@@ -139,6 +140,13 @@ public class XMLNewsParser {
 				Log.i(StockTraderActivity.TAG, newsLink);
 				Log.i(StockTraderActivity.TAG, publishedDate);
 				Log.i(StockTraderActivity.TAG, description);
+
+				Log.i(StockTraderActivity.APP_NAME_TAG, content);
+				Log.i(StockTraderActivity.APP_NAME_TAG, newsURL);
+				Log.i(StockTraderActivity.APP_NAME_TAG, title);
+				Log.i(StockTraderActivity.APP_NAME_TAG, publisher);
+				Log.i(StockTraderActivity.APP_NAME_TAG, publishedDate);
+				//theImage = extractImageInformation(result.getElementsByTagName("image"));
 			} catch (final NullPointerException e) {
 				theNews = null;
 				return theNews;

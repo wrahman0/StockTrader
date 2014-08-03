@@ -7,14 +7,21 @@
 
     <ScrollView
         android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <TableLayout
             android:id="@+id/stockList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
         </TableLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/stockListRefreshButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stocklist_refresh" />
 
 </LinearLayout>

@@ -78,6 +78,18 @@
     <string name="purchase_dialog_info_name">Name:</string>
     <string name="purchase_dialog_info_symbol">Symbol:</string>
     
+    <!-- Sell Dialog -->
+    <string name="sell_dialog_title">Sell Projections</string>
+    <string name="sell_dialog_text_sell">Sell</string>
+    <string name="sell_dialog_text_cancel">Cancel</string>
+    <string name="sell_dialog_text_quantity">Remaining Stocks:</string>
+    <string name="sell_dialog_text_name">Name:</string>
+    <string name="sell_dialog_text_symbol">Symbol:</string>
+    <string name="sell_dialog_text_balance">Current Balance:</string>
+    <string name="sell_dialog_text_unit_price">Unit Price:</string>
+    <string name="sell_dialog_text_updated_balance">Updated Balance:</string>
+     
+    
     <!-- My Accounts Page -->
     <string name="account_username">Username</string>
     <string name="account_starting_capital">Starting Capital</string>
@@ -91,6 +103,8 @@
     <string name="account_negative_transactions">Negative Transactions</string>
     <string name="account_delete_button">Delete Account</string>
     
+    <!-- Stock list -->
+    <string name="stocklist_refresh">Refresh</string>
     
     <!-- Extra stuff -->
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, 

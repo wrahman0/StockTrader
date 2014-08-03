@@ -18,12 +18,12 @@
             android:orientation="vertical" >
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/sellButtonTableRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/stockNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/account_username"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
-                    android:id="@+id/TextView01"
+                    android:id="@+id/stockSymbolTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/account_starting_capital"
