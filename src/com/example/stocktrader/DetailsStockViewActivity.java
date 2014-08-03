@@ -38,9 +38,9 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private StockDetails theStock;
 	private ArrayList<NewsDetails> news;
 	private NewsDetails theNews;
-	
+
 	private LinearLayout newsLinearLayout;
-	
+
 	//Get the views for stock that we will modify later
 	private TextView detailsName;
 	private TextView detailsSymbol;
@@ -71,7 +71,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 
 		// Find the views
 		findViews();
-		
+
 		detailsBuyStock.setOnClickListener(new BuyStockListener());
 
 		//Setting the stock information
@@ -90,21 +90,21 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 			for (int i = 0; i < news.size(); i++){
 				theNews=news.get(i);
 				if (theNews!=null){
-					
+
 					LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 					View newsCard = inflater.inflate(R.layout.news_card, null);
-					
+
 					//Get the news card views
 					TextView newsCardBody = (TextView) newsCard.findViewById(R.id.newsCardBody);
 					ImageView newsImage = (ImageView) newsCard.findViewById(R.id.newsCardImageView);
-					
+
 					//Set the news card views
 					newsCardBody.setText(Jsoup.parse(theNews.getDescription()).text());
-					
+
 					if(!(theNews.getImage().getSource().isEmpty() || theNews.getImage().getSource() == null)) {
 						new DownloadImageTask(newsImage).execute("http:" + theNews.getImage().getSource()); 
 					}
-					
+
 					newsCard.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
@@ -113,8 +113,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 							startActivity(intent);
 						}
 					});
-				
-					
+
 					//Add the views to the table layout thats found in the details stock view activity
 					newsLinearLayout.addView(newsCard);
 				}
@@ -125,9 +124,9 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 			//Add the views to the table layout thats found in the details stock view activity
 			newsLinearLayout.addView(newsCard);
 		}
-		
+
 	}
-	
+
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		ImageView bmImage;
 
@@ -152,7 +151,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 			bmImage.setImageBitmap(result);
 		}
 	}
-	
+
 	private void findViews(){
 		//TextViews for Stock
 		detailsName = (TextView) findViewById (R.id.detailsName);
@@ -198,7 +197,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 			showPurchaseDialog();
 		}
 	}
-	
+
 	private void showPurchaseDialog(){
 		FragmentManager manager = getFragmentManager();
 		PurchaseDialog purchaseDialog = new PurchaseDialog();
