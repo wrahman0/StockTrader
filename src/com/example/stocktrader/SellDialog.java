@@ -38,7 +38,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 	private TextView sellTotalStockPrice;
 	private TextView sellOverallTotal;
 	private TextView sellUserUpdatedBank;
-	
+
 	//	Quantity information
 	private EditText sellQuantityEditText;
 	private int volume; // Volume is the maximum amount of stocks that user can sell
@@ -49,10 +49,10 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.sell_dialog, null);
 		theStock = (StockDetails) getArguments().getSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA);
-		
+
 		//Set the global view
 		dialogView = view;
-		
+
 		//Get the volume
 		volume = getArguments().getInt(StockTraderActivity.STOCK_QUANTITY_TAG);
 		openDB();
@@ -133,7 +133,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		Cursor userCursor = dbUser.getAllUsers();
 		userCursor.moveToFirst();
 		this.theUser = new UserDetails(userCursor);
-		
+
 	}
 
 	private void findViews(){
@@ -143,13 +143,13 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		sellStockPrice = (TextView) dialogView.findViewById(R.id.sellStockPrice);
 		sellUserBank = (TextView) dialogView.findViewById(R.id.sellUserBank);
 		sellStockQuantity = (TextView) dialogView.findViewById(R.id.sellStockQuantity);
-		
-		
+
+
 		//	Dynamic Information
 		sellTotalStockPrice = (TextView) dialogView.findViewById(R.id.sellTotalStockPrice);
 		sellOverallTotal = (TextView) dialogView.findViewById(R.id.sellOverallTotal);
 		sellUserUpdatedBank = (TextView) dialogView.findViewById(R.id.sellUserUpdatedBank);
-		
+
 		//	Quantity information
 		sellQuantityEditText = (EditText) dialogView.findViewById(R.id.sellQuantityEditText);
 	}
@@ -173,20 +173,20 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		if (v.getId()==R.id.negativeButton){
 			dismiss();
 		}else if (v.getId()==R.id.positiveButton){
-			
+
 			openDB();
 
 			//Find the stock that we are dealing with
 			Cursor cursor = db.getAllStocks();
 			cursor.moveToFirst();
-			
+
 			//Find the stock
 			do{
 				if (cursor.getString(cursor.getColumnIndex("symbol")).equals(theStock.getSymbol())){
 					break;
 				}
 			}while (cursor.moveToNext());
-			
+
 			if (quantity == volume){
 				//Delete the stock from the db
 				db.deleteStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))));
@@ -197,13 +197,13 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 						theStock.getDaysHigh(), theStock.getDaysLow(), theStock.getYearHigh(), theStock.getYearLow(),
 						theStock.getVolume(), String.valueOf(Integer.parseInt(cursor.getString(cursor.getColumnIndex("quantity"))) - quantity ), 
 						cursor.getString(cursor.getColumnIndex("buyprice")));
-				
+
 			}
 			dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() + totalCost ), "0", "0", String.valueOf(theUser.getStocksOwned()-1), String.valueOf(theUser.getTotalTransactions()+1), String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));
 			dbUser.close();
 			db.close();
 			dismiss();
-			
+
 		}
 	}
 

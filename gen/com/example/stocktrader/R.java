@@ -159,7 +159,7 @@ public final class R {
         public static final int newsNotFound=0x7f0a0035;
         public static final int newsScrollView=0x7f0a0011;
         public static final int newsTableRow=0x7f0a0033;
-        public static final int pager=0x7f0a0065;
+        public static final int pager=0x7f0a0066;
         public static final int positiveButton=0x7f0a0046;
         public static final int purchaseBrokerFee=0x7f0a0010;
         public static final int purchaseOverallTotal=0x7f0a0044;
@@ -185,12 +185,13 @@ public final class R {
         public static final int sellTotalStockPrice=0x7f0a004b;
         public static final int sellUserBank=0x7f0a0053;
         public static final int sellUserUpdatedBank=0x7f0a0055;
-        public static final int signupStartingCash=0x7f0a0067;
-        public static final int signupUsername=0x7f0a0066;
+        public static final int signupStartingCash=0x7f0a0068;
+        public static final int signupUsername=0x7f0a0067;
         public static final int stockBlock=0x7f0a0057;
         public static final int stockCardLinearLayout=0x7f0a0047;
         public static final int stockDetailsButton=0x7f0a0063;
         public static final int stockList=0x7f0a0064;
+        public static final int stockListRefreshButton=0x7f0a0065;
         public static final int stockNameTextView=0x7f0a0015;
         public static final int stockQuantityTextView=0x7f0a0058;
         public static final int stockSell=0x7f0a0056;
@@ -200,7 +201,7 @@ public final class R {
         public static final int textView=0x7f0a004c;
         public static final int textView2=0x7f0a0036;
         public static final int textView3=0x7f0a0037;
-        public static final int userSetupComplete=0x7f0a0068;
+        public static final int userSetupComplete=0x7f0a0069;
     }
     public static final class layout {
         public static final int details_redesigned=0x7f030000;
@@ -277,7 +278,7 @@ public final class R {
         public static final int invalid_search_alert=0x7f070006;
         /**  Extra stuff 
          */
-        public static final int lorem_ipsum=0x7f070046;
+        public static final int lorem_ipsum=0x7f070047;
         public static final int news_not_found=0x7f070009;
         public static final int no_search_results=0x7f070007;
         public static final int purchase_dialog_info_broker_fee=0x7f07002c;
@@ -315,6 +316,9 @@ public final class R {
         /**  SearchStockFragment 
          */
         public static final int stock_search_bar_hint=0x7f070008;
+        /**  Stock list 
+         */
+        public static final int stocklist_refresh=0x7f070046;
     }
     public static final class style {
         /** 

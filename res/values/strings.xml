@@ -103,6 +103,8 @@
     <string name="account_negative_transactions">Negative Transactions</string>
     <string name="account_delete_button">Delete Account</string>
     
+    <!-- Stock list -->
+    <string name="stocklist_refresh">Refresh</string>
     
     <!-- Extra stuff -->
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, 
