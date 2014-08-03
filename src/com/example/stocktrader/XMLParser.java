@@ -45,9 +45,7 @@ public class XMLParser {
 	String volume = "";
 
 	public XMLParser(OnParseComplete listener) {
-
 		this.listener = listener;
-		
 	}
 	
 	public void parseStock(String stock) throws UnsupportedEncodingException {

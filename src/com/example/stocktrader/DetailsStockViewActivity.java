@@ -1,5 +1,6 @@
 package com.example.stocktrader;
 
+import java.io.InputStream;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,13 +12,19 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,28 +69,9 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		theStock = (StockDetails) bundle.getSerializable(STOCK_NAME_EXTRA);
 		news = ((DataWrapper) bundle.getSerializable(NEWS_ARRAYLIST_EXTRA)).getNews();
 
-		if (news==null){
-			theNews=null;
-		}else{
-			theNews = news.get(0);	
-		}
-
-		//TextViews for Stock
-		detailsName = (TextView) findViewById (R.id.detailsName);
-		detailsSymbol = (TextView) findViewById (R.id.detailsSymbol);
-		detailsExchange = (TextView) findViewById (R.id.detailsExchange);
-		detailsLastTradePriceOnly = (TextView) findViewById (R.id.detailsLastTradePriceOnly);
-		detailsChange = (TextView) findViewById (R.id.detailsChange);
-		detailsDaysHigh = (TextView) findViewById (R.id.detailsDaysHigh);
-		detailsDaysLow = (TextView) findViewById (R.id.detailsDaysLow);
-		detailsYearHigh = (TextView) findViewById (R.id.detailsYearHigh);
-		detailsYearLow = (TextView) findViewById (R.id.detailsYearLow);
+		// Find the views
+		findViews();
 		
-		//LinearLayout for the news
-		newsLinearLayout = (LinearLayout) findViewById(R.id.newsLinearLayout);
-
-		//Button
-		detailsBuyStock = (ImageButton) findViewById (R.id.detailsBuyButton);
 		detailsBuyStock.setOnClickListener(new BuyStockListener());
 
 		//Setting the stock information
@@ -108,13 +96,27 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 					
 					//Get the news card views
 					TextView newsCardBody = (TextView) newsCard.findViewById(R.id.newsCardBody);
+					ImageView newsImage = (ImageView) newsCard.findViewById(R.id.newsCardImageView);
 					
 					//Set the news card views
-					newsCardBody.setText(Jsoup.parse(theNews.getContent()).text());
+					newsCardBody.setText(Jsoup.parse(theNews.getDescription()).text());
+					
+					if(!(theNews.getImage().getSource().isEmpty() || theNews.getImage().getSource() == null)) {
+						new DownloadImageTask(newsImage).execute("http:" + theNews.getImage().getSource()); 
+					}
+					
+					newsCard.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Uri uri = Uri.parse(theNews.getLink());
+							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+							startActivity(intent);
+						}
+					});
+				
 					
 					//Add the views to the table layout thats found in the details stock view activity
 					newsLinearLayout.addView(newsCard);
-					
 				}
 			}
 		}else{
@@ -124,6 +126,50 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 			newsLinearLayout.addView(newsCard);
 		}
 		
+	}
+	
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
+	}
+	
+	private void findViews(){
+		//TextViews for Stock
+		detailsName = (TextView) findViewById (R.id.detailsName);
+		detailsSymbol = (TextView) findViewById (R.id.detailsSymbol);
+		detailsExchange = (TextView) findViewById (R.id.detailsExchange);
+		detailsLastTradePriceOnly = (TextView) findViewById (R.id.detailsLastTradePriceOnly);
+		detailsChange = (TextView) findViewById (R.id.detailsChange);
+		detailsDaysHigh = (TextView) findViewById (R.id.detailsDaysHigh);
+		detailsDaysLow = (TextView) findViewById (R.id.detailsDaysLow);
+		detailsYearHigh = (TextView) findViewById (R.id.detailsYearHigh);
+		detailsYearLow = (TextView) findViewById (R.id.detailsYearLow);
+
+		//LinearLayout for the news
+		newsLinearLayout = (LinearLayout) findViewById(R.id.newsLinearLayout);
+
+		//Button
+		detailsBuyStock = (ImageButton) findViewById (R.id.detailsBuyButton);
 	}
 
 	//Gets the current user

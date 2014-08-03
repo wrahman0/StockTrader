@@ -88,7 +88,6 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 	}
 
 	public void OnParseCompleted(ArrayList<NewsDetails> news){
-		
 		if (news.isEmpty()) {
 			Toast.makeText(getActivity().getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
 			news = null;
@@ -99,7 +98,6 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
 		intent.putExtras(bundle);
 		startActivity(intent);
-		
 	}
 
 	private void updateStockListing() {

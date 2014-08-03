@@ -2,6 +2,9 @@ package com.example.stocktrader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -13,6 +16,12 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -31,25 +40,20 @@ public class XMLNewsParser {
 	NewsDetails theNews;
 	ArrayList<NewsDetails> news = new ArrayList<NewsDetails>();
 	
-	private static final String YQL_FIRST = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20google.news%20where%20q%20%3D%20%22";
-	private static final String YQL_SECOND = "%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+	private static final String YQL_FIRST = "https://news.google.com/news/feeds?q=";
+	private static final String YQL_SECOND = "&output=rss";
 	
 	//Needed for the constructor call to the NewsDetails
-	String content = "";
-	String newsURL = "";
-	String title = "";
-	String publisher = "";
-	String publishedDate = "";
-//	String imageURL = "";
-//	String imagePublisher = "";
-//	String imageWidth = "";
-//	String imageHeight = "";
+	private String newsTitle = "";
+	private String newsLink = "";
+	private String publishedDate = "";
+	private String description = "";
 
 	public XMLNewsParser(String companyName, OnParseComplete listener) throws UnsupportedEncodingException {
+		this.listener = listener;
 		url = YQL_FIRST + URLEncoder.encode(companyName, "UTF-8") + YQL_SECOND;
 		Log.i(StockTraderActivity.TAG, url);
 		new MyAsyncTask().execute(url);
-		this.listener = listener;
 	}
 
 	private class MyAsyncTask extends AsyncTask<String, String, String>{
@@ -70,17 +74,20 @@ public class XMLNewsParser {
 
 					//Getting the DOM
 					Document dom = db.parse(in);
-
+					
+					String xml = printDocument(dom);
+					Log.i(StockTraderActivity.TAG, xml);
+					
 					//Root
 					Element ele = dom.getDocumentElement();
 
 					//Getting the quote tag
-					NodeList nl = ele.getElementsByTagName("results");
+					NodeList nl = ele.getElementsByTagName("channel");
 					
 					//Make sure that we indeed got the quote tag
 					if (nl != null && nl.getLength() > 0){
 						Element results = (Element) nl.item(0);
-						NodeList newsResults = results.getElementsByTagName("results");
+						NodeList newsResults = results.getElementsByTagName("item");
 						if (newsResults != null && newsResults.getLength() > 0) {
 							for(int i = 0; i < newsResults.getLength(); i++) {
 								Log.i(StockTraderActivity.TAG, String.valueOf(i));
@@ -104,6 +111,9 @@ public class XMLNewsParser {
 				Log.e(StockTraderActivity.TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
 				Log.e(StockTraderActivity.TAG, "SAX Exception", e);
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			finally {
 			}
@@ -120,43 +130,23 @@ public class XMLNewsParser {
 			NewsDetails theNews;
 			//ImageDetails theImage;
 			try {
-				content = getTextValue (result, "content");			
-				newsURL = getTextValue (result, "unescapedUrl");
-				title = getTextValue (result, "title");
-				publisher = getTextValue (result, "publisher");
-				publishedDate = getTextValue (result, "publishedDate");
+				newsTitle = getTextValue (result, "title");			
+				newsLink = getTextValue (result, "link");
+				publishedDate = getTextValue (result, "pubDate");
+				description = getTextValue (result, "description");
 				
-				Log.i(StockTraderActivity.TAG, content);
-				Log.i(StockTraderActivity.TAG, newsURL);
-				Log.i(StockTraderActivity.TAG, title);
-				Log.i(StockTraderActivity.TAG, publisher);
+				Log.i(StockTraderActivity.TAG, newsTitle);
+				Log.i(StockTraderActivity.TAG, newsLink);
 				Log.i(StockTraderActivity.TAG, publishedDate);
-				//theImage = extractImageInformation(result.getElementsByTagName("image"));
+				Log.i(StockTraderActivity.TAG, description);
 			} catch (final NullPointerException e) {
 				theNews = null;
 				return theNews;
 			} 
-			//ImageDetails theImage = new ImageDetails(imageURL, imagePublisher, Integer.parseInt(imageWidth), 
-					//Integer.parseInt(imageHeight));
-			theNews = new NewsDetails (content, newsURL, title, publisher, publishedDate);
+			theNews = new NewsDetails (newsTitle, newsLink, publishedDate, description);
 			return theNews;
 		}
 		
-//		private ImageDetails extractImageInformation (Element result) {
-//			ImageDetails theImage;
-//			try {
-//				imageURL = getTextValue (result, "DaysHigh");
-//				imagePublisher = getTextValue (result, "DaysHigh");
-//				imageWidth = getTextValue (result, "DaysHigh");
-//				imageHeight = getTextValue (result, "DaysHigh");
-//			} catch (final NullPointerException e) {
-//				theImage = null;
-//				return theImage;
-//			} 
-//			ImageDetails theImage = new ImageDetails(imageURL, imagePublisher, Integer.parseInt(imageWidth), 
-//					Integer.parseInt(imageHeight));
-//			return theImage;
-//		}
 
 		//Given the root and the tag name within the root, returns the value inside the tag
 		private String getTextValue (Element root, String tag) {
@@ -172,6 +162,17 @@ public class XMLNewsParser {
 				}
 			}
 			return result;
+		}
+		
+		private String printDocument(Document doc) throws IOException, TransformerException{
+		    Transformer transformer = TransformerFactory.newInstance().newTransformer();
+		    transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		    transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+		    transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+		    StreamResult result = new StreamResult(new StringWriter());
+		    transformer.transform(new DOMSource(doc), result);
+		    String xmlString = result.getWriter().toString();
+		    return xmlString;
 		}
 	}
 }

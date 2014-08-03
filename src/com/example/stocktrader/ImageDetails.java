@@ -1,33 +1,24 @@
 package com.example.stocktrader;
 
-public class ImageDetails {
-	private String url;
-	private String publisher;
+import java.io.Serializable;
+
+public class ImageDetails implements Serializable{
+	private String source;
 	private int width;
 	private int height;
 	
-	public ImageDetails(String url, String publisher, int width,
-			int height) {
-		this.url = url;
-		this.publisher = publisher;
+	public ImageDetails(String source, int width, int height) {
+		this.source = source;
 		this.width = width;
 		this.height = height;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getSource() {
+		return source;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public int getWidth() {

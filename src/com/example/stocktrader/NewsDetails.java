@@ -2,38 +2,26 @@ package com.example.stocktrader;
 
 import java.io.Serializable;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import android.util.Log;
+
 public class NewsDetails implements Serializable{
-	private String content;
-	private String newsURL;
 	private String title;
-	private String publisher;
+	private String link;
 	private String publishedDate;
-	//private ImageDetails image;
+	private String description;
+	private ImageDetails image; 
 	
-	public NewsDetails(String content, String newsURL, String title,
-			String publisher, String publishedDate) {
-		super();
-		this.content = content;
-		this.newsURL = newsURL;
+	public NewsDetails(String title, String link, String publishedDate, String description) {
 		this.title = title;
-		this.publisher = publisher;
+		this.link = link;
 		this.publishedDate = publishedDate;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getUrl() {
-		return newsURL;
-	}
-
-	public void setUrl(String newsURL) {
-		this.newsURL = newsURL;
+		this.description = description;
+		getImageURL();
 	}
 
 	public String getTitle() {
@@ -44,12 +32,12 @@ public class NewsDetails implements Serializable{
 		this.title = title;
 	}
 
-	public String getPublisher() {
-		return publisher;
+	public String getLink() {
+		return link;
 	}
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	public String getPublishedDate() {
@@ -58,5 +46,32 @@ public class NewsDetails implements Serializable{
 
 	public void setPublishedDate(String publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public ImageDetails getImage() {
+		return image;
+	}
+
+	public void setImage(ImageDetails image) {
+		this.image = image;
+	}
+	
+	private void getImageURL() {
+		Document doc = Jsoup.parse(description);
+		Element image = doc.select("img").get(0);
+		 
+		Log.i("NewsDetails", "\nsrc : " + image.attr("src"));
+		Log.i("NewsDetails", "height : " + image.attr("width"));
+		Log.i("NewsDetails", "height : " + image.attr("height"));
+		
+		this.image = new ImageDetails(image.attr("src"), Integer.parseInt(image.attr("width")), Integer.parseInt(image.attr("height")));
 	}
 }
