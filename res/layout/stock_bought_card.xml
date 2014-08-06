@@ -9,14 +9,11 @@
         android:layout_height="match_parent" >
 
         <ImageButton
-            android:contentDescription="@string/card_image_button_desc"
             android:id="@+id/stockSell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:paddingBottom="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="5dp"
+            android:contentDescription="@string/card_image_button_desc"
+            android:padding="5dp"
             android:src="@drawable/ic_action_discard" />
     </TableRow>
 
@@ -30,7 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingLeft="5dp" >
 
             <TableRow
                 android:id="@+id/tableRow2"
@@ -44,6 +42,7 @@
                     android:ellipsize="end"
                     android:maxLength="12"
                     android:paddingTop="3dp"
+                    android:text="Sample Inc."
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/details_important" />
 
@@ -56,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="3dp"
+                    android:text="x80"
                     android:textSize="@dimen/details_secondary_info" />
             </TableRow>
 
@@ -68,6 +68,7 @@
                     android:id="@+id/stockSymbolTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="SAMP"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/details_secondary_info" />
 
@@ -89,6 +90,7 @@
                     android:id="@+id/lastTradePriceTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="95.63"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/details_secondary_info" />
 
@@ -110,6 +112,7 @@
                     android:id="@+id/changeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="+2.54"
                     android:textColor="@color/main_text_color"
                     android:textSize="@dimen/details_secondary_info" />
             </TableRow>
@@ -140,6 +143,7 @@
                 android:id="@+id/gainLossTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="1.5%"
                 android:textSize="@dimen/details_important" />
         </TableRow>
     </TableRow>
