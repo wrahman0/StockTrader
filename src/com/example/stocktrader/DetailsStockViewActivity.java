@@ -51,7 +51,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private TextView detailsDaysLow;
 	private TextView detailsYearHigh;
 	private TextView detailsYearLow;
-
+	
 	//Buttons
 	private ImageButton detailsBuyStock;
 
@@ -93,7 +93,9 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 
 					LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
 					View newsCard = inflater.inflate(R.layout.news_card, null);
-
+					
+					newsCard.setTag(theNews);
+					
 					//Get the news card views
 					TextView newsCardBody = (TextView) newsCard.findViewById(R.id.newsCardBody);
 					ImageView newsImage = (ImageView) newsCard.findViewById(R.id.newsCardImageView);
@@ -101,14 +103,14 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 					//Set the news card views
 					newsCardBody.setText(Jsoup.parse(theNews.getDescription()).text());
 
-					if(!(theNews.getImage().getSource().isEmpty() || theNews.getImage().getSource() == null)) {
+					if(!(theNews.getImage().getSource() == null || theNews.getImage().getSource().isEmpty())) {
 						new DownloadImageTask(newsImage).execute("http:" + theNews.getImage().getSource()); 
 					}
 
 					newsCard.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							Uri uri = Uri.parse(theNews.getLink());
+							Uri uri = Uri.parse(((NewsDetails) v.getTag()).getLink());
 							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 							startActivity(intent);
 						}

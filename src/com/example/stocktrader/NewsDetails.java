@@ -5,14 +5,11 @@ import java.io.Serializable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import android.util.Log;
 
 public class NewsDetails implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String content;
-	private String newsURL;
 	private String title;
 	private String link;
 	private String publishedDate;

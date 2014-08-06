@@ -2,8 +2,6 @@ package com.example.stocktrader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -76,7 +74,7 @@ public class XMLNewsParser {
 					Document dom = db.parse(in);
 					
 					String xml = printDocument(dom);
-					Log.i(StockTraderActivity.TAG, xml);
+					Log.i(StockTraderActivity.APP_NAME_TAG, xml);
 					
 					//Root
 					Element ele = dom.getDocumentElement();
@@ -110,7 +108,7 @@ public class XMLNewsParser {
 			} catch (ParserConfigurationException e) {
 				Log.e(StockTraderActivity.APP_NAME_TAG, "Parser Configuration Exception", e);
 			} catch (SAXException e) {
-				Log.e(StockTraderActivity.TAG, "SAX Exception", e);
+				Log.e(StockTraderActivity.APP_NAME_TAG, "SAX Exception", e);
 			} catch (TransformerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -136,16 +134,11 @@ public class XMLNewsParser {
 				publishedDate = getTextValue (result, "pubDate");
 				description = getTextValue (result, "description");
 				
-				Log.i(StockTraderActivity.TAG, newsTitle);
-				Log.i(StockTraderActivity.TAG, newsLink);
-				Log.i(StockTraderActivity.TAG, publishedDate);
-				Log.i(StockTraderActivity.TAG, description);
-
-				Log.i(StockTraderActivity.APP_NAME_TAG, content);
-				Log.i(StockTraderActivity.APP_NAME_TAG, newsURL);
-				Log.i(StockTraderActivity.APP_NAME_TAG, title);
-				Log.i(StockTraderActivity.APP_NAME_TAG, publisher);
+				Log.i(StockTraderActivity.APP_NAME_TAG, newsTitle);
+				Log.i(StockTraderActivity.APP_NAME_TAG, newsLink);
 				Log.i(StockTraderActivity.APP_NAME_TAG, publishedDate);
+				Log.i(StockTraderActivity.APP_NAME_TAG, description);
+
 				//theImage = extractImageInformation(result.getElementsByTagName("image"));
 			} catch (final NullPointerException e) {
 				theNews = null;

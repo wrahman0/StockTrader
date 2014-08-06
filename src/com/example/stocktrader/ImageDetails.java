@@ -3,6 +3,7 @@ package com.example.stocktrader;
 import java.io.Serializable;
 
 public class ImageDetails implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String source;
 	private int width;
 	private int height;
