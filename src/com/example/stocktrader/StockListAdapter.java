@@ -18,7 +18,6 @@ public class StockListAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private ArrayList<String>suggestedStockList;
 	private HashMap<String, StockCardHolder> mStockHashMap = new HashMap<String, StockCardHolder>();
-	private XMLParser mXMLParser;
 	
 	private static class StockCardHolder {
 		public TextView symbol;
@@ -30,11 +29,10 @@ public class StockListAdapter extends ArrayAdapter<String> {
 		}
 	}
 	
-	public StockListAdapter(Context context, ArrayList<String>suggestedStockList, XMLParser parser){
+	public StockListAdapter(Context context, ArrayList<String>suggestedStockList){
 		super(context, R.layout.stock_card, suggestedStockList);
 		this.context = context;
 		this.suggestedStockList = suggestedStockList;
-		this.mXMLParser = parser;
 	}
 
 	@Override
@@ -69,8 +67,6 @@ public class StockListAdapter extends ArrayAdapter<String> {
 
 					if(stockDetails!=null){
 						Bundle b = new Bundle();
-						DataWrapper newsData = new DataWrapper(null);
-						b.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
 						b.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, stockDetails);
 						Intent intent = new Intent(context, DetailsStockViewActivity.class);
 						intent.putExtras(b);

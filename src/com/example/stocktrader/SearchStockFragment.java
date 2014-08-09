@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-public class SearchStockFragment extends Fragment implements OnParseComplete,Serializable{
+public class SearchStockFragment extends Fragment{
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +31,6 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 	Bundle bundle = new Bundle();
 
 	private StockListAdapter mStockListAdapter;
-	private XMLParser mXMLParser;
 
 	private ArrayList<String>suggestedStockList = new ArrayList<String>();
 
@@ -67,8 +66,7 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 		});
 		
-		mXMLParser = new XMLParser(SearchStockFragment.this);
-		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, mXMLParser);
+		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList);
 		mListView.setAdapter(mStockListAdapter);
 		return view;
 	}
@@ -89,35 +87,6 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			StockDetailsUpdater.startUpdater();
 		}
 
-	}
-	
-	public void OnParseCompleted(StockDetails theStock){
-		if (theStock == null) {
-			Toast.makeText(getActivity().getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
-		}else {
-			//Empty the search bar
-			mSearchView.setQuery("", false);
-
-			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
-			try {
-				XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), SearchStockFragment.this);
-			} catch (UnsupportedEncodingException e) {
-				Log.e(StockTraderActivity.APP_NAME_TAG, "Company Name can not be encoded");
-			}
-		}
-	}
-
-	public void OnParseCompleted(ArrayList<NewsDetails> news){
-		if (news.isEmpty()) {
-			Toast.makeText(getActivity().getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
-			news = null;
-		}
-		
-		Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
-		DataWrapper newsData = new DataWrapper(news);
-		bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
-		intent.putExtras(bundle);
-		startActivity(intent);
 	}
 
 	private void updateStockListing() {
@@ -207,14 +176,14 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			suggestedStockList.clear();
 			suggestedStockList.addAll(stockList);
 			
-//			StockDetailsUpdater.createUpdater(suggestedStockList,
-//					new StockDetailsUpdater.UpdateListener() {
-//
-//				@Override
-//				public void onUpdate(String stockSymbol, StockDetails stockDetails){
-//					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
-//				}
-//			});
+			StockDetailsUpdater.createUpdater(suggestedStockList,
+					new StockDetailsUpdater.UpdateListener() {
+
+				@Override
+				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
+				}
+			});
 			StockDetailsUpdater.startUpdater();
 			
 			updateStockListing();

@@ -2,6 +2,7 @@ package com.example.stocktrader;
 
 import java.io.InputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,18 +29,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class DetailsStockViewActivity extends Activity implements Serializable{
+public class DetailsStockViewActivity extends Activity implements OnParseComplete{
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String STOCK_NAME_EXTRA = "stock name";
-	public static final String NEWS_ARRAYLIST_EXTRA = "news arraylist";
-	
+
 	private ArrayList<String> mStockSymbol = new ArrayList<String>();
-	private ArrayList<NewsDetails> news;
-	
 	private StockDetails theStock;
-	private NewsDetails theNews;
 
 	private LinearLayout newsLinearLayout;
 
@@ -53,7 +50,7 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 	private TextView detailsDaysLow;
 	private TextView detailsYearHigh;
 	private TextView detailsYearLow;
-	
+
 	//Buttons
 	private ImageButton detailsBuyStock;
 
@@ -69,61 +66,25 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		theStock = (StockDetails) bundle.getSerializable(STOCK_NAME_EXTRA);
-		news = ((DataWrapper) bundle.getSerializable(NEWS_ARRAYLIST_EXTRA)).getNews();
 
 		// Find the views
 		findViews();
-		
+
 		mStockSymbol.add(theStock.getSymbol());
-		
+
 		detailsBuyStock.setOnClickListener(new BuyStockListener());
-		
+
 		displayStockInfo();
-
-		//Setting the news information. Jsoup.parse removes all the HTML tags
-		if (news!=null){
-			for (int i = 0; i < news.size(); i++){
-				theNews=news.get(i);
-				if (theNews!=null){
-
-					LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-					View newsCard = inflater.inflate(R.layout.news_card, null);
-					
-					newsCard.setTag(theNews);
-					
-					//Get the news card views
-					TextView newsCardBody = (TextView) newsCard.findViewById(R.id.newsCardBody);
-					ImageView newsImage = (ImageView) newsCard.findViewById(R.id.newsCardImageView);
-
-					//Set the news card views
-					newsCardBody.setText(Jsoup.parse(theNews.getDescription()).text());
-
-					if(!(theNews.getImage().getSource() == null || theNews.getImage().getSource().isEmpty())) {
-						new DownloadImageTask(newsImage).execute("http:" + theNews.getImage().getSource()); 
-					}
-
-					newsCard.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							Uri uri = Uri.parse(((NewsDetails) v.getTag()).getLink());
-							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-							startActivity(intent);
-						}
-					});
-
-					//Add the views to the table layout thats found in the details stock view activity
-					newsLinearLayout.addView(newsCard);
-				}
-			}
-		}else{
-			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-			View newsCard = inflater.inflate(R.layout.news_no_recent_news, null);
-			//Add the views to the table layout thats found in the details stock view activity
-			newsLinearLayout.addView(newsCard);
+		
+		try {
+			new XMLNewsParser(theStock.getSymbol(),this);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
-	
+
 	private void displayStockInfo() {
 		//Setting the stock information
 		detailsName.setText(theStock.getName());
@@ -151,11 +112,11 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 					displayStockInfo();
 				}
 			}
-			
+
 		});
 		StockDetailsUpdater.startUpdater();
 	}
-	
+
 	@Override
 	public void onPause(){
 		super.onPause();
@@ -240,5 +201,51 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 		bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
 		purchaseDialog.setArguments(bundle);
 		purchaseDialog.show(manager, "PurchaseDialog");
+	}
+
+	@Override
+	public void OnParseCompleted(ArrayList<NewsDetails> news) {
+		//Setting the news information. Jsoup.parse removes all the HTML tags
+		if (news!=null){
+			NewsDetails theNews;
+			for (int i = 0; i < news.size(); i++){
+				theNews=news.get(i);
+				if (theNews!=null){
+
+					LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+					View newsCard = inflater.inflate(R.layout.news_card, null);
+
+					newsCard.setTag(theNews);
+
+					//Get the news card views
+					TextView newsCardBody = (TextView) newsCard.findViewById(R.id.newsCardBody);
+					ImageView newsImage = (ImageView) newsCard.findViewById(R.id.newsCardImageView);
+
+					//Set the news card views
+					newsCardBody.setText(Jsoup.parse(theNews.getDescription()).text());
+
+					if(!(theNews.getImage().getSource() == null || theNews.getImage().getSource().isEmpty())) {
+						new DownloadImageTask(newsImage).execute("http:" + theNews.getImage().getSource()); 
+					}
+
+					newsCard.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Uri uri = Uri.parse(((NewsDetails) v.getTag()).getLink());
+							Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+							startActivity(intent);
+						}
+					});
+
+					//Add the views to the table layout thats found in the details stock view activity
+					newsLinearLayout.addView(newsCard);
+				}
+			}
+		}else{
+			LayoutInflater inflater = (LayoutInflater) getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+			View newsCard = inflater.inflate(R.layout.news_no_recent_news, null);
+			//Add the views to the table layout thats found in the details stock view activity
+			newsLinearLayout.addView(newsCard);
+		}
 	}
 }

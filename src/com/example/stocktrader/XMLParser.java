@@ -100,7 +100,7 @@ public class XMLParser {
 
 		@Override
 		protected void onPostExecute(String result) {
-			listener.OnParseCompleted(theStock);
+			//listener.OnParseCompleted(theStock);
 		}
 
 		private StockDetails extractStockInformation (Element root) {

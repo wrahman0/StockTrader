@@ -37,8 +37,6 @@ public class StockListFragment extends Fragment{
 	private TableLayout stockList;
 	
 	private boolean parsingNews = true;
-	
-	private XMLParser xml;
 
 	//The bundle that will hold the stock and news class
 	private Bundle bundle = new Bundle();
@@ -145,8 +143,6 @@ public class StockListFragment extends Fragment{
 				
 				if(stockDetails!=null){
 					Bundle b = new Bundle();
-					DataWrapper newsData = new DataWrapper(null);
-					b.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
 					b.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, stockDetails);
 					Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);
 					intent.putExtras(b);
