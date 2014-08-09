@@ -68,7 +68,22 @@ public class StockListFragment extends Fragment{
 		
 		public void refreshViews(){
 			if(mStockDetails!=null){
-				lastTradePriceTextView.setText(mStockDetails.getLastTradePriceOnly());
+				double currentPrice = Double.parseDouble(mStockDetails.getLastTradePriceOnly());
+				double priceChange = currentPrice - boughtPrice;
+				double percentGained =  priceChange/ boughtPrice * 100;
+				
+				changeTextView.setText(String.format("%.2f",priceChange));
+				lastTradePriceTextView.setText(String.format("%.2f",currentPrice));
+				gainLossTextView.setText(String.format("%.2f",percentGained) + "%");
+				
+				if (percentGained > 0.0){
+					changeTextView.setTextColor(getResources().getColor(R.color.card_color_positive));
+					gainLossImageView.setImageResource(R.drawable.arrow_positive);
+				}else {
+					changeTextView.setTextColor(getResources().getColor(R.color.card_color_negative));
+					gainLossImageView.setImageResource(R.drawable.arrow_negative);
+				}
+
 			}
 		}
 		
