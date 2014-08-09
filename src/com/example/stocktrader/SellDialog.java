@@ -235,7 +235,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 			}
 			dbUser.updateUser(theUser.get_id(), 
 					theUser.getUsername(), 
-					String.valueOf(theUser.getStocksBought()+1), 
+					String.valueOf(theUser.getStocksBought()), 
 					String.valueOf(theUser.getStartingCash()), 
 					String.valueOf(theUser.getCurrentCash() + totalCost ), 
 					String.valueOf(theUser.getCurrentStockValue()), 

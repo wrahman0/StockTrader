@@ -241,18 +241,19 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 							theStock.getName(), theStock.getSymbol(), 
 							String.valueOf(quantity), theStock.getLastTradePriceOnly()
 					);
-					dbUser.updateUser(theUser.get_id(), 
-							theUser.getUsername(), 
-							String.valueOf(theUser.getStocksBought()+1), 
-							String.valueOf(theUser.getStartingCash()), 
-							String.valueOf(theUser.getCurrentCash() - totalCost ), 
-							String.valueOf(theUser.getCurrentStockValue()), 
-							String.valueOf(theUser.getGainLoss()), 
-							String.valueOf(theUser.getStocksOwned()+1), 
-							String.valueOf(theUser.getTotalTransactions()+1), 
-							String.valueOf(theUser.getPositiveTransactions()), 
-							String.valueOf(theUser.getNegativeTransactions()));	
 				}
+				
+				dbUser.updateUser(theUser.get_id(), 
+						theUser.getUsername(), 
+						String.valueOf(theUser.getStocksBought()+1), 
+						String.valueOf(theUser.getStartingCash()), 
+						String.valueOf(theUser.getCurrentCash() - totalCost ), 
+						String.valueOf(theUser.getCurrentStockValue()), 
+						String.valueOf(theUser.getGainLoss()), 
+						String.valueOf(theUser.getStocksOwned()+1), 
+						String.valueOf(theUser.getTotalTransactions()+1), 
+						String.valueOf(theUser.getPositiveTransactions()), 
+						String.valueOf(theUser.getNegativeTransactions()));	
 				
 				
 			}else{
