@@ -51,6 +51,8 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
+				StockDetailsUpdater.stopUpdater();
+				
 				StockSymbolSuggester mSuggester = new StockSymbolSuggester();
 				mSuggester.execute(query);
 				//XMLParser xml = new XMLParser(query, SearchStockFragment.this);
@@ -69,6 +71,24 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, mXMLParser);
 		mListView.setAdapter(mStockListAdapter);
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		if(isVisible()){
+			StockDetailsUpdater.createUpdater(suggestedStockList,
+					new StockDetailsUpdater.UpdateListener() {
+
+				@Override
+				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
+				}
+			});
+			StockDetailsUpdater.startUpdater();
+		}
+
 	}
 	
 	public void OnParseCompleted(StockDetails theStock){
@@ -186,6 +206,17 @@ public class SearchStockFragment extends Fragment implements OnParseComplete,Ser
 			
 			suggestedStockList.clear();
 			suggestedStockList.addAll(stockList);
+			
+//			StockDetailsUpdater.createUpdater(suggestedStockList,
+//					new StockDetailsUpdater.UpdateListener() {
+//
+//				@Override
+//				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+//					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
+//				}
+//			});
+			StockDetailsUpdater.startUpdater();
+			
 			updateStockListing();
 		}
 

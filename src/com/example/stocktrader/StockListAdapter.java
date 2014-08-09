@@ -2,8 +2,11 @@ package com.example.stocktrader;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +17,17 @@ import android.widget.TextView;
 public class StockListAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private ArrayList<String>suggestedStockList;
+	private HashMap<String, StockCardHolder> mStockHashMap = new HashMap<String, StockCardHolder>();
 	private XMLParser mXMLParser;
 	
 	private static class StockCardHolder {
 		public TextView symbol;
+		public StockDetails mStockDetails;
+		
+		public void refreshViews(){
+			if(mStockDetails!=null){
+			}
+		}
 	}
 	
 	public StockListAdapter(Context context, ArrayList<String>suggestedStockList, XMLParser parser){
@@ -39,6 +49,7 @@ public class StockListAdapter extends ArrayAdapter<String> {
 			StockCardHolder stockCardHolder = new StockCardHolder();
 			stockCardHolder.symbol = (TextView) stockCardView.findViewById(R.id.cardStockName);
 			stockCardView.setTag(stockCardHolder);
+			
 		}
 		
 		StockCardHolder stockCardHolder = (StockCardHolder)stockCardView.getTag();
@@ -49,18 +60,46 @@ public class StockListAdapter extends ArrayAdapter<String> {
 			@Override
 			public void onClick(View v) {
 				StockCardHolder stockCardHolder = (StockCardHolder)v.getTag();
-				String query = (String) stockCardHolder.symbol.getText();
-				try {
-					mXMLParser.parseStock(query);
-				} catch (UnsupportedEncodingException e) {
-					Log.e(StockTraderActivity.APP_NAME_TAG, "Query cannot be encoded.");
-					e.printStackTrace();
+				String stockSymbol = (String) stockCardHolder.symbol.getText();
+				
+				if(mStockHashMap.containsKey(stockSymbol)){
+					StockDetails stockDetails = mStockHashMap.get(stockSymbol).mStockDetails;
+
+					Log.d(StockTraderActivity.APP_NAME_TAG, "Clicked: "+stockSymbol);
+
+					if(stockDetails!=null){
+						Bundle b = new Bundle();
+						DataWrapper newsData = new DataWrapper(null);
+						b.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
+						b.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, stockDetails);
+						Intent intent = new Intent(context, DetailsStockViewActivity.class);
+						intent.putExtras(b);
+						context.startActivity(intent);
+					}
 				}
 			}
 			
 		});
-		
+
 		return stockCardView;
 	}
+	
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        mStockHashMap.clear();
+        
+        for(String stockSymbol:suggestedStockList){
+        	mStockHashMap.put(stockSymbol, new StockCardHolder());
+        }
+    }
+    
+    public void updateStockToHashMap(String stockSymbol, StockDetails stockDetails){
+		StockCardHolder holder = mStockHashMap.get(stockSymbol);
+		if(stockDetails!=null && holder!=null){
+			holder.mStockDetails = stockDetails;
+			holder.refreshViews();
+		}
+    }
 
 } 

@@ -34,9 +34,11 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 
 	public static final String STOCK_NAME_EXTRA = "stock name";
 	public static final String NEWS_ARRAYLIST_EXTRA = "news arraylist";
-
-	private StockDetails theStock;
+	
+	private ArrayList<String> mStockSymbol = new ArrayList<String>();
 	private ArrayList<NewsDetails> news;
+	
+	private StockDetails theStock;
 	private NewsDetails theNews;
 
 	private LinearLayout newsLinearLayout;
@@ -71,19 +73,12 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 
 		// Find the views
 		findViews();
-
+		
+		mStockSymbol.add(theStock.getSymbol());
+		
 		detailsBuyStock.setOnClickListener(new BuyStockListener());
-
-		//Setting the stock information
-		detailsName.setText(theStock.getName());
-		detailsSymbol.setText(theStock.getSymbol());
-		detailsChange.setText("Change: " + theStock.getChange());
-		detailsExchange.setText(theStock.getExchange());
-		detailsLastTradePriceOnly.setText("Last Trade Price: " + theStock.getLastTradePriceOnly());
-		detailsDaysHigh.setText("Days High: " + theStock.getDaysHigh());
-		detailsDaysLow.setText("Days Low: " + theStock.getDaysLow());
-		detailsYearHigh.setText("Year High: " + theStock.getYearHigh());
-		detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
+		
+		displayStockInfo();
 
 		//Setting the news information. Jsoup.parse removes all the HTML tags
 		if (news!=null){
@@ -127,6 +122,44 @@ public class DetailsStockViewActivity extends Activity implements Serializable{
 			newsLinearLayout.addView(newsCard);
 		}
 
+	}
+	
+	private void displayStockInfo() {
+		//Setting the stock information
+		detailsName.setText(theStock.getName());
+		detailsSymbol.setText(theStock.getSymbol());
+		detailsChange.setText("Change: " + theStock.getChange());
+		detailsExchange.setText(theStock.getExchange());
+		detailsLastTradePriceOnly.setText("Last Trade Price: " + theStock.getLastTradePriceOnly());
+		detailsDaysHigh.setText("Days High: " + theStock.getDaysHigh());
+		detailsDaysLow.setText("Days Low: " + theStock.getDaysLow());
+		detailsYearHigh.setText("Year High: " + theStock.getYearHigh());
+		detailsYearLow.setText("Year Low: " + theStock.getYearLow());	
+	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
+
+		StockDetailsUpdater.createUpdater(mStockSymbol,
+				new StockDetailsUpdater.UpdateListener() {
+
+			@Override
+			public void onUpdate(String stockSymbol, StockDetails stockDetails){
+				if(stockDetails!=null && stockSymbol.equals(mStockSymbol.get(0))){
+					theStock = stockDetails;
+					displayStockInfo();
+				}
+			}
+			
+		});
+		StockDetailsUpdater.startUpdater();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		StockDetailsUpdater.stopUpdater();
 	}
 
 	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

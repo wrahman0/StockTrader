@@ -13,19 +13,11 @@ import android.util.Log;
 public class DBAdapter {
 
 	//Database columns
-	private static final String KEY_ROWID = "_id";
-	private static final String KEY_NAME = "name";
-	private static final String KEY_SYMBOL = "symbol";
-	private static final String KEY_EXCHANGE = "exchange";
-	private static final String KEY_LAST_TRADE_PRICE_ONLY = "lasttradepriceonly";
-	private static final String KEY_CHANGE = "change";
-	private static final String KEY_DAYS_HIGH = "dayshigh";
-	private static final String KEY_DAYS_LOW = "dayslow";
-	private static final String KEY_YEAR_HIGH = "yearhigh";
-	private static final String KEY_YEAR_LOW = "yearlow";
-	private static final String KEY_VOLUME = "volume";
-	private static final String KEY_QUANTITY = "quantity";
-	private static final String KEY_BUY_PRICE = "buyprice";
+	public static final String KEY_ROWID = "_id";
+	public static final String KEY_NAME = "name";
+	public static final String KEY_SYMBOL = "symbol";
+	public static final String KEY_QUANTITY = "quantity";
+	public static final String KEY_BUY_PRICE = "buyprice";
 
 	//Database properties
 	private static final String DATABASE_NAME = "StockTrader.db";
@@ -36,14 +28,6 @@ public class DBAdapter {
 	private static final String DATABASE_CREATE = "create table stockinfo ("+ KEY_ROWID + " integer primary key autoincrement, " + 
 																	KEY_NAME + " text not null, "+ 
 																	KEY_SYMBOL + " text not null, " +
-																	KEY_CHANGE + " text not null, "+ 
-																	KEY_EXCHANGE + " text not null, "+ 
-																	KEY_LAST_TRADE_PRICE_ONLY + " text not null, "+ 
-																	KEY_DAYS_HIGH + " text not null, "+ 
-																	KEY_DAYS_LOW + " text not null, "+ 
-																	KEY_YEAR_HIGH + " text not null, "+ 
-																	KEY_YEAR_LOW + " text not null," + 
-																	KEY_VOLUME + " text not null," +
 																	KEY_QUANTITY + " text not null," + 
 																	KEY_BUY_PRICE + " text not null);";
 	
@@ -89,20 +73,12 @@ public class DBAdapter {
 	}
 
 	//Inserts a stock into the database
-	public long insertStock (String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow, String volume, String quantity, String buyprice){
-		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "INSERTING STOCK WITH NAME:"+name+", SYMBOL:" + symbol + "..." + ", CHANGE:" + change + ", EXCHANGE:" + exchange + ", LAST TRADE PRICE ONLY:" + lasttradepriceonly + ", DAYS HIGH:" + dayshigh + 
-				", DAYS LOW:" + dayslow + ", YEAR HIGH" + yearhigh + ", YEAR LOW" + yearlow + ", VOLUME" + volume);
+	public long insertStock (String name, String symbol, 
+			String quantity, String buyprice){
+
 		ContentValues initialValues = new ContentValues ();
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_SYMBOL, symbol);
-		initialValues.put(KEY_CHANGE, change);
-		initialValues.put(KEY_EXCHANGE, exchange);
-		initialValues.put(KEY_LAST_TRADE_PRICE_ONLY, lasttradepriceonly);
-		initialValues.put(KEY_DAYS_HIGH, dayshigh);
-		initialValues.put(KEY_DAYS_LOW, dayslow);
-		initialValues.put(KEY_YEAR_HIGH, yearhigh);
-		initialValues.put(KEY_YEAR_LOW, yearlow);
-		initialValues.put(KEY_VOLUME, volume);
 		initialValues.put(KEY_QUANTITY, quantity);
 		initialValues.put(KEY_BUY_PRICE, buyprice);
 		
@@ -119,14 +95,14 @@ public class DBAdapter {
 	//Gets all the stocks
 	public Cursor getAllStocks(){
 		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "GETTING ALL STOCKS...");
-		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME, KEY_QUANTITY, KEY_BUY_PRICE}, 
+		return  db.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_QUANTITY, KEY_BUY_PRICE}, 
 				null,null,null,null,null);
 	}
 
 	//Gets particular stock
 	public Cursor getStock (long rowId) throws SQLException{
 		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "GETTING SINGLE STOCK WITH ID: " +  rowId +"...");
-		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME, KEY_QUANTITY, KEY_BUY_PRICE},
+		Cursor mCursor = db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_QUANTITY, KEY_BUY_PRICE},
 				KEY_ROWID + "=" + rowId, null, null, null, null, null);
 		if (mCursor != null){
 			mCursor.moveToFirst();
@@ -135,19 +111,12 @@ public class DBAdapter {
 	}
 
 	//Edit a stock
-	public boolean updateStock(long rowId, String name, String symbol, String change, String exchange, String lasttradepriceonly, String dayshigh, String dayslow, String yearhigh, String yearlow, String volume, String quantity, String buyprice){
+	public boolean updateStock(long rowId, String name, String symbol, 
+			String quantity, String buyprice){
 		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		args.put(KEY_NAME, name);
 		args.put(KEY_SYMBOL, symbol);
-		args.put(KEY_CHANGE, change);
-		args.put(KEY_EXCHANGE, exchange);
-		args.put(KEY_LAST_TRADE_PRICE_ONLY, lasttradepriceonly);
-		args.put(KEY_DAYS_HIGH, dayshigh);
-		args.put(KEY_DAYS_LOW, dayslow);
-		args.put(KEY_YEAR_HIGH, yearhigh);
-		args.put(KEY_YEAR_LOW, yearlow);
-		args.put(KEY_VOLUME, volume);
 		args.put(KEY_QUANTITY, quantity);
 		args.put(KEY_BUY_PRICE, buyprice);
 		
@@ -164,7 +133,7 @@ public class DBAdapter {
 	public Long findStockIfExists(String name){
 		
 		Cursor stockNames = db.query(DATABASE_TABLE, 
-				new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_CHANGE, KEY_EXCHANGE, KEY_LAST_TRADE_PRICE_ONLY, KEY_DAYS_HIGH, KEY_DAYS_LOW, KEY_YEAR_HIGH, KEY_YEAR_LOW, KEY_VOLUME, KEY_QUANTITY, KEY_BUY_PRICE}, 
+				new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_QUANTITY, KEY_BUY_PRICE}, 
 				null,null,null,null,null);
 		
 		if (stockNames.moveToFirst()){

@@ -1,10 +1,12 @@
 package com.example.stocktrader;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import android.app.DialogFragment;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,6 +17,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class SellDialog extends DialogFragment implements View.OnClickListener{
+	
+	private Fragment mParentFragment;
+	
+	private ArrayList<String> mStockSymbol = new ArrayList<String>();
 
 	private View dialogView;
 
@@ -43,6 +49,10 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 	private int volume; // Volume is the maximum amount of stocks that user can sell
 	private int quantity = 1; // Quantity is the amount of stocks that user is wanting to sell at the moment
 	private float totalCost;
+	
+	public SellDialog (Fragment f){
+		mParentFragment = f;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,10 +66,12 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		volume = getArguments().getInt(StockTraderActivity.STOCK_QUANTITY_TAG);
 		openDB();
 		findViews();
-
+		
+		mStockSymbol.add(theStock.getSymbol());
+		
 		//Set the text
-		setStaticInfo(theStock);
-		setDynamicInfo(theStock);
+		setStaticInfo();
+		setDynamicInfo();
 
 		//Set title of the dialog box
 		getDialog().setTitle(R.string.sell_dialog_title);
@@ -97,7 +109,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 					}else{
 						quantity = Integer.parseInt(s.toString());
 					}
-					setDynamicInfo(theStock);
+					setDynamicInfo();
 				}
 
 			}
@@ -108,6 +120,31 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		setCancelable(false);
 
 		return view; 
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+
+		StockDetailsUpdater.createUpdater(mStockSymbol,
+				new StockDetailsUpdater.UpdateListener() {
+
+			@Override
+			public void onUpdate(String stockSymbol, StockDetails stockDetails){
+				if(stockDetails!=null && stockSymbol.equals(mStockSymbol.get(0))){
+					theStock = stockDetails;
+					setDynamicInfo();
+				}
+			}
+			
+		});
+		StockDetailsUpdater.startUpdater();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		StockDetailsUpdater.stopUpdater();
 	}
 
 	private void openDB(){
@@ -153,7 +190,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		sellQuantityEditText = (EditText) dialogView.findViewById(R.id.sellQuantityEditText);
 	}
 
-	private void setStaticInfo(StockDetails theStock){
+	private void setStaticInfo(){
 		sellStockName.setText(theStock.getName());
 		sellStockSymbol.setText(theStock.getSymbol());
 		sellStockPrice.setText("$"+theStock.getLastTradePriceOnly());
@@ -161,7 +198,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		sellStockQuantity.setText(String.valueOf(volume));
 	}
 
-	private void setDynamicInfo(StockDetails theStock){ // Gets called on quantity edit text change
+	private void setDynamicInfo(){ // Gets called on quantity edit text change
 		totalCost = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity;
 		sellTotalStockPrice.setText("$"+String.format("%.2f", Float.parseFloat(theStock.getLastTradePriceOnly())*quantity));
 		sellOverallTotal.setText("$"+ String.format("%.2f", totalCost));
@@ -169,9 +206,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 	}
 
 	public void onClick(View v){
-		if (v.getId()==R.id.negativeButton){
-			dismiss();
-		}else if (v.getId()==R.id.positiveButton){
+		if (v.getId()==R.id.positiveButton){
 
 			openDB();
 
@@ -192,18 +227,19 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 			}else{
 				//Update the stock with the new quantity
 				db.updateStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))), theStock.getName(), 
-						theStock.getSymbol(), theStock.getChange(), theStock.getExchange(), theStock.getLastTradePriceOnly(), 
-						theStock.getDaysHigh(), theStock.getDaysLow(), theStock.getYearHigh(), theStock.getYearLow(),
-						theStock.getVolume(), String.valueOf(Integer.parseInt(cursor.getString(cursor.getColumnIndex("quantity"))) - quantity ), 
+						theStock.getSymbol(), String.valueOf(Integer.parseInt(cursor.getString(cursor.getColumnIndex("quantity"))) - quantity ), 
 						cursor.getString(cursor.getColumnIndex("buyprice")));
 
 			}
 			dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() + totalCost ), "0", "0", String.valueOf(theUser.getStocksOwned()-1), String.valueOf(theUser.getTotalTransactions()+1), String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));
 			dbUser.close();
 			db.close();
-			dismiss();
 
 		}
+		if(mParentFragment!=null){
+			mParentFragment.onResume();
+		}
+		dismiss();
 	}
 
 }

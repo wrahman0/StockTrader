@@ -1,6 +1,7 @@
 package com.example.stocktrader;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import android.app.DialogFragment;
 import android.database.Cursor;
@@ -17,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PurchaseDialog extends DialogFragment implements View.OnClickListener{
-
-	View dialogView;
+	
+	private ArrayList<String> mStockSymbol = new ArrayList<String>();
+	
+	private View dialogView;
 
 	private StockDetails theStock;
 	private UserDetails theUser;
@@ -32,21 +35,21 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 	private TextView purchaseStockSymbol;
 	private TextView purchaseStockPrice;
 	private TextView purchaseStockVolume;
-	private TextView purchaseBrokerFee;
+	//private TextView purchaseBrokerFee;
 	private TextView purchaseUserBank;
 
 	//	Dynamic Information
 	private TextView purchaseTotalStockPrice;
-	private TextView purchaseTax;
+	//private TextView purchaseTax;
 	private TextView purchaseOverallTotal;
 
 	//	Quantity information
 	private EditText purchaseQuantityEditText;
 	private int volume;
-	private float taxRate = (float) 0.13;
-	private float brokerFee = (float) 9.95;
+//	private float taxRate = (float) 0.13;
+//	private float brokerFee = (float) 9.95;
 	private int quantity = 1;
-	private float tax;
+	//private float tax;
 	private float totalCost;
 
 	@Override
@@ -59,10 +62,12 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		theStock = (StockDetails) getArguments().getSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA);
 
 		findViews();
+		
+		mStockSymbol.add(theStock.getSymbol());
 
 		//Set the text
-		setStaticInfo(theStock);
-		setDynamicInfo(theStock);
+		setStaticInfo();
+		setDynamicInfo();
 
 		//Set title of the dialog box
 		getDialog().setTitle(R.string.purchase_dialog_title);
@@ -101,7 +106,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					}else{
 						quantity = Integer.parseInt(s.toString());
 					}
-					setDynamicInfo(theStock);
+					setDynamicInfo();
 				}
 				
 			}
@@ -112,6 +117,31 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		setCancelable(false);
 
 		return view; 
+	}
+	
+	@Override
+	public void onResume(){
+		super.onResume();
+
+		StockDetailsUpdater.createUpdater(mStockSymbol,
+				new StockDetailsUpdater.UpdateListener() {
+
+			@Override
+			public void onUpdate(String stockSymbol, StockDetails stockDetails){
+				if(stockDetails!=null && stockSymbol.equals(mStockSymbol.get(0))){
+					theStock = stockDetails;
+					setDynamicInfo();
+				}
+			}
+			
+		});
+		StockDetailsUpdater.startUpdater();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		StockDetailsUpdater.stopUpdater();
 	}
 
 	private void openDB(){
@@ -144,40 +174,41 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		purchaseStockSymbol = (TextView) dialogView.findViewById(R.id.purchaseStockSymbol);
 		purchaseStockPrice = (TextView) dialogView.findViewById(R.id.purchaseStockPrice);
 		purchaseStockVolume = (TextView) dialogView.findViewById(R.id.purchaseStockVolume);
-		purchaseBrokerFee = (TextView) dialogView.findViewById(R.id.purchaseBrokerFee);
+		//purchaseBrokerFee = (TextView) dialogView.findViewById(R.id.purchaseBrokerFee);
 		purchaseUserBank = (TextView) dialogView.findViewById(R.id.purchaseUserBank);
 
 		//	Dynamic Information
 		purchaseTotalStockPrice = (TextView) dialogView.findViewById(R.id.purchaseTotalStockPrice);
-		purchaseTax = (TextView) dialogView.findViewById(R.id.purchaseTax);
+		//purchaseTax = (TextView) dialogView.findViewById(R.id.purchaseTax);
 		purchaseOverallTotal = (TextView) dialogView.findViewById(R.id.purchaseOverallTotal);
 
 		//	Quantity information
 		purchaseQuantityEditText = (EditText) dialogView.findViewById(R.id.purchaseQuantityEditText);
 	}
 
-	private void setStaticInfo(StockDetails theStock){
+	private void setStaticInfo(){
 		purchaseStockName.setText(theStock.getName());
 		purchaseStockSymbol.setText(theStock.getSymbol());
 		purchaseStockPrice.setText("$"+theStock.getLastTradePriceOnly());
-		purchaseBrokerFee.setText("$"+String.valueOf(brokerFee));
+		//purchaseBrokerFee.setText("$"+String.valueOf(brokerFee));
 		purchaseStockVolume.setText(theStock.getVolume());
 		purchaseUserBank.setText("$"+String.valueOf(theUser.getCurrentCash()));
 
 		volume = Integer.parseInt(theStock.getVolume());
 	}
 
-	private void setDynamicInfo(StockDetails theStock){
+	private void setDynamicInfo(){
 
-		tax = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity * taxRate;
-		totalCost = tax + Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity + brokerFee;
+		//tax = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity * taxRate;
+		totalCost = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity;
 
 		purchaseTotalStockPrice.setText("$"+String.format("%.2f", Float.parseFloat(theStock.getLastTradePriceOnly())));
-		purchaseTax.setText("$"+String.format("%.2f", tax));
+		//purchaseTax.setText("$"+String.format("%.2f", tax));
 		purchaseOverallTotal.setText("$"+ String.format("%.2f", totalCost));
 
 	}
 
+	@Override
 	public void onClick(View v){
 		if (v.getId()==R.id.negativeButton){
 			
@@ -197,10 +228,6 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					allStock.moveToFirst();
 					
 					db.updateStock(rowId,theStock.getName(), theStock.getSymbol(), 
-							theStock.getChange(), theStock.getExchange(),
-							theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), 
-							theStock.getDaysLow(), theStock.getYearHigh(), 
-							theStock.getYearLow(), theStock.getVolume(), 
 							String.valueOf(Integer.parseInt(allStock.getString(allStock.getColumnIndex("quantity"))) + quantity), 
 							theStock.getLastTradePriceOnly()
 					);
@@ -209,10 +236,6 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					Log.e("DEBUGGING", "INSERTING NEW STOCK");
 					db.insertStock(
 							theStock.getName(), theStock.getSymbol(), 
-							theStock.getChange(), theStock.getExchange(),
-							theStock.getLastTradePriceOnly(), theStock.getDaysHigh(), 
-							theStock.getDaysLow(), theStock.getYearHigh(), 
-							theStock.getYearLow(), theStock.getVolume(), 
 							String.valueOf(quantity), theStock.getLastTradePriceOnly()
 					);
 					dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), 

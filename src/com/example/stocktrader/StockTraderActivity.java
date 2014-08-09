@@ -1,5 +1,7 @@
 package com.example.stocktrader;
 
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
@@ -21,6 +23,7 @@ public class StockTraderActivity extends FragmentActivity {
 
 	private ViewPager mViewPager;
 	private TabFragmentPagerAdapter mPagerAdapter;
+	private ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -31,7 +34,11 @@ public class StockTraderActivity extends FragmentActivity {
 		setContentView(R.layout.stock_trader_main);
 
 		mViewPager = (ViewPager)findViewById(R.id.pager);
-
+		
+		mFragments.add(new SearchStockFragment());
+		mFragments.add(new StockListFragment());
+		mFragments.add(new SearchStockFragment());
+		
 		mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
 		mViewPager.setOffscreenPageLimit(2);
 		mViewPager.setAdapter(mPagerAdapter);
@@ -42,6 +49,7 @@ public class StockTraderActivity extends FragmentActivity {
 				// When swiping between pages, select the
 				// corresponding tab.
 				getActionBar().setSelectedNavigationItem(position);
+				mFragments.get(position).onResume();
 			}
 		});
 
@@ -80,7 +88,19 @@ public class StockTraderActivity extends FragmentActivity {
 					.setText(tabLabel)
 					.setTabListener(tabListener));
 		}
-
+		
+	}
+	
+	@Override
+	public void onResume(){
+		super.onPause();
+		StockDetailsUpdater.startUpdater();
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		StockDetailsUpdater.stopUpdater();
 	}
 
 	public class TabFragmentPagerAdapter extends FragmentStatePagerAdapter {
@@ -90,14 +110,7 @@ public class StockTraderActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int i) {
-			Fragment fragment = null;
-			if (i == 0){
-				fragment = new SearchStockFragment();	
-			}else if (i == 1){
-				fragment = new StockListFragment();	
-			}else if (i == 2){
-				fragment = new MyAccountFragment();	
-			}
+			Fragment fragment = mFragments.get(i);
 
 			return fragment;
 			
@@ -105,7 +118,7 @@ public class StockTraderActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return 3;
+			return mFragments.size();
 		}
 
 	}

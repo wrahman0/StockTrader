@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.FragmentManager;
 import android.content.Context;
@@ -23,21 +24,16 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StockListFragment extends Fragment implements OnParseComplete, Serializable{
+public class StockListFragment extends Fragment{
 	
 	private static final long serialVersionUID = 1L;
 	private DBAdapter db;
 	private Cursor allStocks;
 	
-	public StockDetails theStock;
+	private ArrayList<String> mTrackedStockList = new ArrayList<String>();
+	private HashMap<String, BoughtStockCardHolder> mStockHashMap = new HashMap<String, BoughtStockCardHolder>();
 	
 	//Views
-	private TextView stockNameTextView;
-	private TextView stockSymbolTextView;
-	private TextView lastTradePriceTextView;
-	private TextView changeTextView;
-	private TextView stockQuantityTextView;
-	private TextView gainLossTextView;
 	private TableLayout stockList;
 	
 	private boolean parsingNews = true;
@@ -46,6 +42,45 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 
 	//The bundle that will hold the stock and news class
 	private Bundle bundle = new Bundle();
+	
+	private class BoughtStockCardHolder {
+		public String stockName;
+		public String stockSymbol;
+		public int quantity;
+		public double boughtPrice;
+		public StockDetails mStockDetails;
+		
+		private ImageView gainLossImageView;
+		private TextView stockNameTextView;
+		private TextView stockSymbolTextView;
+		private TextView lastTradePriceTextView;
+		private TextView changeTextView;
+		private TextView stockQuantityTextView;
+		private TextView gainLossTextView;
+		
+		public BoughtStockCardHolder(View card){
+			gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
+			stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
+			stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
+			lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
+			changeTextView = (TextView) card.findViewById (R.id.changeTextView);
+			stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
+			gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
+		}
+		
+		public void refreshViews(){
+			if(mStockDetails!=null){
+				lastTradePriceTextView.setText(mStockDetails.getLastTradePriceOnly());
+			}
+		}
+		
+		public void initViews(View card){
+			//Find the views
+			stockNameTextView.setText(stockName);
+			stockSymbolTextView.setText(stockSymbol);
+			stockQuantityTextView.setText("x" + quantity);
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,20 +97,17 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 	}
 
 	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
-		super.setUserVisibleHint(isVisibleToUser);
+	public void onResume() {
+		super.onResume();
 
-		// Make sure that we are currently visible
-		if (this.isVisible()) {
-
-			stockList.removeAllViews();
-			if (openDB()){
-				populateView();	
-			}
-			
-			db.close();
-
+		mTrackedStockList.clear();
+		mStockHashMap.clear();
+		stockList.removeAllViews();
+		if (openDB()){
+			populateView();	
 		}
+
+		db.close();
 
 	}
 
@@ -96,158 +128,201 @@ public class StockListFragment extends Fragment implements OnParseComplete, Seri
 	}
 
 	private void populateView(){
-
-		do{
-			renderStockCard(stockList, allStocks);
-		}while(allStocks.moveToNext());
-
-	}
-
-	private void renderStockCard(TableLayout tableLayout, Cursor stockRow){
-
 		LayoutInflater inflater = (LayoutInflater) getActivity()
 				.getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-
-		View card = inflater.inflate(R.layout.stock_bought_card, null);
-
-		ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
-		ImageView gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
-		float percentGained =  (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))) * 100;
 		
-		TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
-		
-		//Find the views
-		stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
-		stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
-		lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
-		changeTextView = (TextView) card.findViewById (R.id.changeTextView);
-		stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
-		gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
-		
-		//Set the views
-		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
-		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
-		changeTextView.setText(stockRow.getString(stockRow.getColumnIndex("change")));
-		lastTradePriceTextView.setText(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")));
-		
-		//Set the color accordingly
-		if (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("change"))) > 0.0){
-			changeTextView.setTextColor(getResources().getColor(R.color.card_color_positive));
-		}else {
-			changeTextView.setTextColor(getResources().getColor(R.color.card_color_negative));
-		}
-		
-		stockQuantityTextView.setText("x" + stockRow.getString(stockRow.getColumnIndex("quantity")));
-		gainLossTextView.setText(String.format("%.2f",percentGained) + "%");
-		
-		//Setting the gained lost indicator based on the percentGained
-		if (percentGained <= 0.0){
-			//Set it to lost indicator
-			gainLossImageView.setImageResource(R.drawable.arrow_negative);
-		}
-		
-		theStock = new StockDetails(
-				stockRow.getString(stockRow.getColumnIndex("name")), stockRow.getString(stockRow.getColumnIndex("symbol")), 
-				stockRow.getString(stockRow.getColumnIndex("exchange")), stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")), 
-				stockRow.getString(stockRow.getColumnIndex("change")), stockRow.getString(stockRow.getColumnIndex("dayshigh")), 
-				stockRow.getString(stockRow.getColumnIndex("dayslow")), stockRow.getString(stockRow.getColumnIndex("yearhigh")), 
-				stockRow.getString(stockRow.getColumnIndex("yearlow")),stockRow.getString(stockRow.getColumnIndex("volume"))
-				);
-		
-		//Set the listener for the stock card
-		stockBlock.setOnClickListener(new OnClickListener(){
+		OnClickListener stockCardListener = new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				//Get the stock symbol from the card which is the parent of the imageButton
 				TableRow cardTableRow = (TableRow) v.getParent();
-				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById (R.id.stockSymbolTextView);
-				xml = new XMLParser(StockListFragment.this);
-				try {
-					xml.parseStock(stockSymbolTextView.getText().toString());
-				} catch (UnsupportedEncodingException e) {
-					Log.e(StockTraderActivity.APP_NAME_TAG, "Query cannot be encoded.");
-					e.printStackTrace();
+				String stockSymbol = ((TextView)cardTableRow.findViewById (R.id.stockSymbolTextView))
+						.getText()
+						.toString();
+				
+				StockDetails stockDetails = mStockHashMap.get(stockSymbol).mStockDetails;
+				
+				if(stockDetails!=null){
+					Bundle b = new Bundle();
+					DataWrapper newsData = new DataWrapper(null);
+					b.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
+					b.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, stockDetails);
+					Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);
+					intent.putExtras(b);
+					startActivity(intent);
 				}
 			}
 			
-		});
+		};
 		
-		//Set the listener for the stock card sell button
-		stockSell.setOnClickListener(new OnClickListener(){
+		OnClickListener sellButtonListener = new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				
-				parsingNews = false;
-				Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
 				showSellDialog(v);
 				
 			}
 			
-		});
+		};
 
-		tableLayout.addView(card);
+		do{
+			//Get values from database
+			String symbol = allStocks.getString(allStocks.getColumnIndex(DBAdapter.KEY_SYMBOL));
+			String name = allStocks.getString(allStocks.getColumnIndex(DBAdapter.KEY_NAME));
+			int quantity = allStocks.getInt(allStocks.getColumnIndex(DBAdapter.KEY_QUANTITY));
+			Double buyPrice  = allStocks.getDouble(allStocks.getColumnIndex(DBAdapter.KEY_BUY_PRICE));
+			
+			mTrackedStockList.add(symbol);
+			
+
+			View card = inflater.inflate(R.layout.stock_bought_card, null);
+			BoughtStockCardHolder stockHolder = new BoughtStockCardHolder(card);
+
+			ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
+			//float percentGained =  (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))) * 100;
+			
+			TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
+			
+			//Set the views/info
+			stockHolder.stockName = name;
+			stockHolder.stockSymbol = symbol;
+			stockHolder.quantity = quantity;
+			stockHolder.boughtPrice = buyPrice;
+			
+			stockHolder.initViews(card);
+			
+
+			//Set the listener for the stock card
+			stockBlock.setOnClickListener(stockCardListener);
+			
+			//Set the listener for the stock card sell button
+			stockSell.setOnClickListener(sellButtonListener);
+			
+			mStockHashMap.put(symbol, stockHolder);
+			stockList.addView(card);
+		}while(allStocks.moveToNext());
+
+
+		StockDetailsUpdater.createUpdater(mTrackedStockList,
+				new StockDetailsUpdater.UpdateListener() {
+
+			@Override
+			public void onUpdate(String stockSymbol, StockDetails stockDetails){
+				if(stockDetails!=null){
+					BoughtStockCardHolder holder = mStockHashMap.get(stockSymbol);
+					holder.mStockDetails = stockDetails;
+					holder.refreshViews();
+				}
+
+			}
+		});
+		StockDetailsUpdater.startUpdater();
+
+	}
+
+	private void renderStockCard(TableLayout tableLayout, Cursor stockRow){
+//
+//		LayoutInflater inflater = (LayoutInflater) getActivity()
+//				.getSystemService (Context.LAYOUT_INFLATER_SERVICE);
+//
+//		View card = inflater.inflate(R.layout.stock_bought_card, null);
+//
+//		ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
+//		ImageView gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
+//		//float percentGained =  (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))) * 100;
+//		
+//		TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
+//		
+//		//Find the views
+//		stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
+//		stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
+//		lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
+//		changeTextView = (TextView) card.findViewById (R.id.changeTextView);
+//		stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
+//		gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
+//		
+//		//Set the views
+//		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
+//		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
+//		//changeTextView.setText(stockRow.getString(stockRow.getColumnIndex("change")));
+//		//lastTradePriceTextView.setText(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")));
+//		
+//		//Set the color accordingly
+////		if (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("change"))) > 0.0){
+////			changeTextView.setTextColor(getResources().getColor(R.color.card_color_positive));
+////		}else {
+////			changeTextView.setTextColor(getResources().getColor(R.color.card_color_negative));
+////		}
+//		
+//		stockQuantityTextView.setText("x" + stockRow.getString(stockRow.getColumnIndex("quantity")));
+//		//gainLossTextView.setText(String.format("%.2f",percentGained) + "%");
+//		
+//		//Setting the gained lost indicator based on the percentGained
+////		if (percentGained <= 0.0){
+////			//Set it to lost indicator
+////			gainLossImageView.setImageResource(R.drawable.arrow_negative);
+////		}
+//		
+//		mTrackedStockList.add(stockRow.getString(stockRow.getColumnIndex("symbol")));
+//		
+//		//Set the listener for the stock card
+//		stockBlock.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				//Get the stock symbol from the card which is the parent of the imageButton
+//				TableRow cardTableRow = (TableRow) v.getParent();
+//				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById (R.id.stockSymbolTextView);
+//				xml = new XMLParser(StockListFragment.this);
+//				try {
+//					xml.parseStock(stockSymbolTextView.getText().toString());
+//				} catch (UnsupportedEncodingException e) {
+//					Log.e(StockTraderActivity.APP_NAME_TAG, "Query cannot be encoded.");
+//					e.printStackTrace();
+//				}
+//			}
+//			
+//		});
+//		
+//		//Set the listener for the stock card sell button
+//		stockSell.setOnClickListener(new OnClickListener(){
+//
+//			@Override
+//			public void onClick(View v) {
+//				
+//				parsingNews = false;
+//				Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
+//				showSellDialog(v);
+//				
+//			}
+//			
+//		});
+//
+//		tableLayout.addView(card);
 	}
 	
 	private void showSellDialog(View v){
 		
-		XMLParser xml = new XMLParser(StockListFragment.this);
 		TableRow stockRow = (TableRow) v.getParent().getParent();
-		TextView stockSymbol = (TextView) stockRow.findViewById(R.id.stockSymbolTextView);
-		try {
-			xml.parseStock(stockSymbol.getText().toString());
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		String stockSymbol = ((TextView) stockRow.findViewById(R.id.stockSymbolTextView))
+				.getText()
+				.toString();
 		
-	}
-
-	@Override
-	public void OnParseCompleted(StockDetails theStock) {
+		StockDetails stockDetails = mStockHashMap.get(stockSymbol).mStockDetails;
 		
-		if (theStock == null) {
-			Toast.makeText(getActivity().getBaseContext(), R.string.invalid_search_alert, Toast.LENGTH_LONG).show();
-		}else {
+		if(stockDetails!=null){
 			
-			bundle.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, theStock);
+			Bundle b = new Bundle();
+			b.putSerializable(DetailsStockViewActivity.STOCK_NAME_EXTRA, stockDetails);
+			b.putInt(StockTraderActivity.STOCK_QUANTITY_TAG, mStockHashMap.get(stockSymbol).quantity);
+			FragmentManager manager = getActivity().getFragmentManager();
+			SellDialog sellDialog = new SellDialog(this);
 			
-			if (parsingNews){
-				try {
-					XMLNewsParser xmlNews = new XMLNewsParser(theStock.getName(), StockListFragment.this); //TODO:Change News parser to have a .parse method
-				} catch (UnsupportedEncodingException e) {
-					Log.e(StockTraderActivity.APP_NAME_TAG, "Company Name can not be encoded");
-				}	
-			}else{
-				//Bundle all thats needed for the sell dialog
-				bundle.putInt(StockTraderActivity.STOCK_QUANTITY_TAG, Integer.parseInt(stockQuantityTextView.getText().toString().substring(1, stockQuantityTextView.getText().toString().length())));
-				FragmentManager manager = getActivity().getFragmentManager();
-				SellDialog sellDialog = new SellDialog();
-				sellDialog.setArguments(bundle);
-				sellDialog.show(manager, "SellDialog");
-			}
-			
-			parsingNews = true;
-			
+			sellDialog.setArguments(b);
+			sellDialog.show(manager, "SellDialog");
 		}
 
 	}
-
-	@Override
-	public void OnParseCompleted(ArrayList<NewsDetails> news) {
-
-		if (news.isEmpty()) {
-			Toast.makeText(getActivity().getBaseContext(), R.string.news_not_found, Toast.LENGTH_LONG).show();
-			news = null;
-		}
-
-		Intent intent = new Intent(getActivity(), DetailsStockViewActivity.class);			
-		DataWrapper newsData = new DataWrapper(news);
-		bundle.putSerializable(DetailsStockViewActivity.NEWS_ARRAYLIST_EXTRA, newsData);
-		intent.putExtras(bundle);
-		startActivity(intent);
-
-	}
-
-
 }

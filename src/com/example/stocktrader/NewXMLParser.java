@@ -69,15 +69,17 @@ public class NewXMLParser {
 				}
 			}
 		}catch (MalformedURLException e) {
+			theStock = null;
 			Log.e(StockTraderActivity.APP_NAME_TAG, "MalformedURLException", e);
 		} catch (IOException e) {
+			theStock = null;
 			Log.e(StockTraderActivity.APP_NAME_TAG, "IOException", e);
 		} catch (ParserConfigurationException e) {
+			theStock = null;
 			Log.e(StockTraderActivity.APP_NAME_TAG, "Parser Configuration Exception", e);
 		} catch (SAXException e) {
+			theStock = null;
 			Log.e(StockTraderActivity.APP_NAME_TAG, "SAX Exception", e);
-		}
-		finally {
 		}
 
 		return theStock;

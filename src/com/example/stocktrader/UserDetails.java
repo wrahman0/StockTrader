@@ -53,7 +53,7 @@ public class UserDetails {
 		
 		// Calculate the value of the stocks
 		do {
-			this.currentStockValue += Float.parseFloat( allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly"))) * Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("quantity")));
+			//this.currentStockValue += Float.parseFloat( allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly"))) * Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("quantity")));
 		}while (allStocks.moveToNext());
 		
 		db.close();
