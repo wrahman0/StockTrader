@@ -190,8 +190,6 @@ public class StockListFragment extends Fragment{
 			BoughtStockCardHolder stockHolder = new BoughtStockCardHolder(card);
 
 			ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
-			//float percentGained =  (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))) * 100;
-			
 			TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
 			
 			//Set the views/info
@@ -201,7 +199,6 @@ public class StockListFragment extends Fragment{
 			stockHolder.boughtPrice = buyPrice;
 			
 			stockHolder.initViews(card);
-			
 
 			//Set the listener for the stock card
 			stockBlock.setOnClickListener(stockCardListener);

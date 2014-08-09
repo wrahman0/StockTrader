@@ -30,6 +30,7 @@ public class SearchStockFragment extends Fragment{
 	Bundle bundle = new Bundle();
 
 	private StockListAdapter mStockListAdapter;
+	private StockSymbolSuggester mSuggester;
 
 	private ArrayList<String>suggestedStockList = new ArrayList<String>();
 	private ArrayList<String>stockNamesList = new ArrayList<String>();
@@ -52,9 +53,12 @@ public class SearchStockFragment extends Fragment{
 			public boolean onQueryTextSubmit(String query) {
 				StockDetailsUpdater.stopUpdater();
 				
-				StockSymbolSuggester mSuggester = new StockSymbolSuggester();
+				if(mSuggester!=null){
+					Log.d(StockTraderActivity.APP_NAME_TAG, "Suggester Stopped");
+					mSuggester.cancel(true);
+				}
+				mSuggester = new StockSymbolSuggester();
 				mSuggester.execute(query);
-				//XMLParser xml = new XMLParser(query, SearchStockFragment.this);
 				return false;
 			}
 

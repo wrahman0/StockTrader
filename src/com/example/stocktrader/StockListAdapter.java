@@ -24,23 +24,6 @@ public class StockListAdapter extends ArrayAdapter<String> {
 		public TextView nameTextView;
 		public TextView currentPriceTextView;
 		public TextView changeTextView;
-		public StockDetails mStockDetails;
-		
-		public void refreshViews(){
-			if(mStockDetails!=null){
-				double currentPrice = Double.parseDouble(mStockDetails.getLastTradePriceOnly());
-				double priceChange = Double.parseDouble(mStockDetails.getChange());
-				
-				changeTextView.setText(String.format("%.2f",priceChange));
-				currentPriceTextView.setText("$"+String.format("%.2f",currentPrice));
-				
-				if (priceChange > 0.0){
-					changeTextView.setTextColor(context.getResources().getColor(R.color.card_color_positive));
-				}else {
-					changeTextView.setTextColor(context.getResources().getColor(R.color.card_color_negative));
-				}
-			}
-		}
 	}
 	
 	public StockListAdapter(Context context, 
@@ -120,16 +103,6 @@ public class StockListAdapter extends ArrayAdapter<String> {
 
 		return stockCardView;
 	}
-	
-//    @Override
-//    public void notifyDataSetChanged() {
-//        super.notifyDataSetChanged();
-//        mStockHashMap.clear();
-//        
-//        for(String stockSymbol:suggestedStockList){
-//        	mStockHashMap.put(stockSymbol, new StockCardHolder());
-//        }
-//    }
     
     public void notifySearchQueryChanged() {
         mStockHashMap.clear();

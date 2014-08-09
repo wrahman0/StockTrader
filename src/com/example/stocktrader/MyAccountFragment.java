@@ -99,14 +99,10 @@ public class MyAccountFragment extends Fragment{
 	}
 
 	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
+	public void onResume() {
 
-		super.setUserVisibleHint(isVisibleToUser);
-		// Make sure that we are currently visible
-		if (this.isVisible()) {
-			getUser();
-			setStaticViews();
-		}
+		getUser();
+		setStaticViews();
 
 	}
 
