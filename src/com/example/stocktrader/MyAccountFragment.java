@@ -167,6 +167,8 @@ public class MyAccountFragment extends Fragment{
 			
 		}catch(SQLException e){
 			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 
 		db.close();
@@ -178,7 +180,7 @@ public class MyAccountFragment extends Fragment{
 			MyBoughtStockInfoHolder holder = mStockHashMap.get(stockSymbol);
 			if(holder.mStockDetails!=null){
 				double currentPrice = Double.parseDouble(holder.mStockDetails.getLastTradePriceOnly());
-				myStockValue+=(currentPrice*(float)holder.quantity);
+				myStockValue+=(currentPrice*holder.quantity);
 			}else{
 				return;
 			}
