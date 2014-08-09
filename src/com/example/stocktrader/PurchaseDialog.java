@@ -248,7 +248,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 						String.valueOf(theUser.getStocksBought()+1), 
 						String.valueOf(theUser.getStartingCash()), 
 						String.valueOf(theUser.getCurrentCash() - totalCost ), 
-						String.valueOf(theUser.getCurrentStockValue()), 
+						String.valueOf(theUser.getCurrentStockValue()+ totalCost), 
 						String.valueOf(theUser.getGainLoss()), 
 						String.valueOf(theUser.getStocksOwned()+1), 
 						String.valueOf(theUser.getTotalTransactions()+1), 
