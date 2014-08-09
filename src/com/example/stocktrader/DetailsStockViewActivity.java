@@ -53,6 +53,8 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 
 	//Buttons
 	private ImageButton detailsBuyStock;
+	
+	private XMLNewsParser mNewsParser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 		displayStockInfo();
 		
 		try {
-			new XMLNewsParser(theStock.getSymbol(),this);
+			mNewsParser = new XMLNewsParser(theStock.getSymbol(),this);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -247,5 +249,11 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 			//Add the views to the table layout thats found in the details stock view activity
 			newsLinearLayout.addView(newsCard);
 		}
+	}
+	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		mNewsParser.cancelTask();
 	}
 }

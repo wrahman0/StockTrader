@@ -46,12 +46,20 @@ public class XMLNewsParser {
 	private String newsLink = "";
 	private String publishedDate = "";
 	private String description = "";
+	
+	private MyAsyncTask mTask;
 
 	public XMLNewsParser(String companyName, OnParseComplete listener) throws UnsupportedEncodingException {
 		this.listener = listener;
 		url = YQL_FIRST + URLEncoder.encode(companyName, "UTF-8") + YQL_SECOND;
 		Log.i(StockTraderActivity.APP_NAME_TAG, url);
-		new MyAsyncTask().execute(url);
+		mTask = new MyAsyncTask();
+		mTask.execute(url);
+	}
+	
+	public void cancelTask(){
+		Log.d(StockTraderActivity.APP_NAME_TAG, "NewsParser cancelled");
+		mTask.cancel(true);
 	}
 
 	private class MyAsyncTask extends AsyncTask<String, String, String>{

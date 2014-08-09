@@ -1,6 +1,5 @@
 package com.example.stocktrader;
 
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ public class SearchStockFragment extends Fragment{
 	private StockListAdapter mStockListAdapter;
 
 	private ArrayList<String>suggestedStockList = new ArrayList<String>();
+	private ArrayList<String>stockNamesList = new ArrayList<String>();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +66,7 @@ public class SearchStockFragment extends Fragment{
 
 		});
 		
-		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList);
+		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, stockNamesList);
 		mListView.setAdapter(mStockListAdapter);
 		return view;
 	}
@@ -106,8 +106,10 @@ public class SearchStockFragment extends Fragment{
 		private static final String RESULT_SET = "ResultSet";
 		private static final String QUERY_RESULT = "Result";
 		private static final String STOCK_SYMBOL = "symbol";
+		private static final String STOCK_NAME = "name";
 
-		private ArrayList<String>stockList = new ArrayList<String>();
+		private ArrayList<String>symbolsList = new ArrayList<String>();
+		private ArrayList<String>namesList = new ArrayList<String>();
 
 		private String getJSONString(String str){
 			if (str==null){
@@ -147,7 +149,9 @@ public class SearchStockFragment extends Fragment{
 						JSONObject jsonObjStock = jsonArrResults.getJSONObject(i);
 
 						String symbol = jsonObjStock.getString(STOCK_SYMBOL);
-						stockList.add(symbol);
+						String name = jsonObjStock.getString(STOCK_NAME);
+						symbolsList.add(symbol);
+						namesList.add(name);
 
 					}
 
@@ -165,16 +169,19 @@ public class SearchStockFragment extends Fragment{
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 
-			for(String stock_symbol:stockList){
+			for(String stock_symbol:symbolsList){
 				Log.i(TAG, stock_symbol);
 			}
 			
-			if(stockList.size() == 0) {
+			if(symbolsList.size() == 0) {
 				Toast.makeText(getActivity().getBaseContext(), R.string.no_search_results, Toast.LENGTH_LONG).show();
 			}
 			
 			suggestedStockList.clear();
-			suggestedStockList.addAll(stockList);
+			stockNamesList.clear();
+			
+			suggestedStockList.addAll(symbolsList);
+			stockNamesList.addAll(namesList);
 			
 			StockDetailsUpdater.createUpdater(suggestedStockList,
 					new StockDetailsUpdater.UpdateListener() {

@@ -1,6 +1,5 @@
 package com.example.stocktrader;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,22 +16,39 @@ import android.widget.TextView;
 public class StockListAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private ArrayList<String>suggestedStockList;
+	private ArrayList<String>stockNamesList;
 	private HashMap<String, StockCardHolder> mStockHashMap = new HashMap<String, StockCardHolder>();
 	
-	private static class StockCardHolder {
-		public TextView symbol;
+	private class StockCardHolder {
+		public TextView symbolTextView;
+		public TextView nameTextView;
+		public TextView currentPriceTextView;
+		public TextView changeTextView;
 		public StockDetails mStockDetails;
 		
 		public void refreshViews(){
 			if(mStockDetails!=null){
+				double currentPrice = Double.parseDouble(mStockDetails.getLastTradePriceOnly());
+				double priceChange = Double.parseDouble(mStockDetails.getChange());
+				
+				changeTextView.setText(String.format("%.2f",priceChange));
+				currentPriceTextView.setText("$"+String.format("%.2f",currentPrice));
+				
+				if (priceChange > 0.0){
+					changeTextView.setTextColor(context.getResources().getColor(R.color.card_color_positive));
+				}else {
+					changeTextView.setTextColor(context.getResources().getColor(R.color.card_color_negative));
+				}
 			}
 		}
 	}
 	
-	public StockListAdapter(Context context, ArrayList<String>suggestedStockList){
+	public StockListAdapter(Context context, 
+			ArrayList<String>suggestedStockList, ArrayList<String>stockNamesList){
 		super(context, R.layout.stock_card, suggestedStockList);
 		this.context = context;
 		this.suggestedStockList = suggestedStockList;
+		this.stockNamesList = stockNamesList;
 	}
 
 	@Override
@@ -45,20 +61,24 @@ public class StockListAdapter extends ArrayAdapter<String> {
 			stockCardView = inflater.inflate(R.layout.stock_card, null);
 			// configure view holder
 			StockCardHolder stockCardHolder = new StockCardHolder();
-			stockCardHolder.symbol = (TextView) stockCardView.findViewById(R.id.cardStockName);
+			stockCardHolder.symbolTextView = (TextView) stockCardView.findViewById(R.id.cardStockSymbol);
+			stockCardHolder.nameTextView = (TextView) stockCardView.findViewById(R.id.cardStockName);
+			stockCardHolder.currentPriceTextView = (TextView) stockCardView.findViewById(R.id.detailsLastTradePriceOnly);
+			stockCardHolder.changeTextView = (TextView) stockCardView.findViewById(R.id.detailsChange);
 			stockCardView.setTag(stockCardHolder);
 			
 		}
 		
 		StockCardHolder stockCardHolder = (StockCardHolder)stockCardView.getTag();
-		stockCardHolder.symbol.setText(suggestedStockList.get(position));
+		stockCardHolder.symbolTextView.setText(suggestedStockList.get(position));
+		stockCardHolder.nameTextView.setText(stockNamesList.get(position));
 		
 		stockCardView.setOnClickListener(new View.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				StockCardHolder stockCardHolder = (StockCardHolder)v.getTag();
-				String stockSymbol = (String) stockCardHolder.symbol.getText();
+				String stockSymbol = (String) stockCardHolder.symbolTextView.getText();
 				
 				if(mStockHashMap.containsKey(stockSymbol)){
 					StockDetails stockDetails = mStockHashMap.get(stockSymbol).mStockDetails;
@@ -94,7 +114,7 @@ public class StockListAdapter extends ArrayAdapter<String> {
 		StockCardHolder holder = mStockHashMap.get(stockSymbol);
 		if(stockDetails!=null && holder!=null){
 			holder.mStockDetails = stockDetails;
-			holder.refreshViews();
+			//holder.refreshViews();
 		}
     }
 

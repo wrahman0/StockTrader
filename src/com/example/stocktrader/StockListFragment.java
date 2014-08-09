@@ -1,7 +1,5 @@
 package com.example.stocktrader;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -231,87 +229,6 @@ public class StockListFragment extends Fragment{
 		});
 		StockDetailsUpdater.startUpdater();
 
-	}
-
-	private void renderStockCard(TableLayout tableLayout, Cursor stockRow){
-//
-//		LayoutInflater inflater = (LayoutInflater) getActivity()
-//				.getSystemService (Context.LAYOUT_INFLATER_SERVICE);
-//
-//		View card = inflater.inflate(R.layout.stock_bought_card, null);
-//
-//		ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
-//		ImageView gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
-//		//float percentGained =  (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly"))) - Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice")))) / Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("buyprice"))) * 100;
-//		
-//		TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
-//		
-//		//Find the views
-//		stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
-//		stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
-//		lastTradePriceTextView = (TextView) card.findViewById (R.id.lastTradePriceTextView);
-//		changeTextView = (TextView) card.findViewById (R.id.changeTextView);
-//		stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
-//		gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
-//		
-//		//Set the views
-//		stockNameTextView.setText(stockRow.getString(stockRow.getColumnIndex("name")));
-//		stockSymbolTextView.setText(stockRow.getString(stockRow.getColumnIndex("symbol")));
-//		//changeTextView.setText(stockRow.getString(stockRow.getColumnIndex("change")));
-//		//lastTradePriceTextView.setText(stockRow.getString(stockRow.getColumnIndex("lasttradepriceonly")));
-//		
-//		//Set the color accordingly
-////		if (Float.parseFloat(stockRow.getString(stockRow.getColumnIndex("change"))) > 0.0){
-////			changeTextView.setTextColor(getResources().getColor(R.color.card_color_positive));
-////		}else {
-////			changeTextView.setTextColor(getResources().getColor(R.color.card_color_negative));
-////		}
-//		
-//		stockQuantityTextView.setText("x" + stockRow.getString(stockRow.getColumnIndex("quantity")));
-//		//gainLossTextView.setText(String.format("%.2f",percentGained) + "%");
-//		
-//		//Setting the gained lost indicator based on the percentGained
-////		if (percentGained <= 0.0){
-////			//Set it to lost indicator
-////			gainLossImageView.setImageResource(R.drawable.arrow_negative);
-////		}
-//		
-//		mTrackedStockList.add(stockRow.getString(stockRow.getColumnIndex("symbol")));
-//		
-//		//Set the listener for the stock card
-//		stockBlock.setOnClickListener(new OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//				//Get the stock symbol from the card which is the parent of the imageButton
-//				TableRow cardTableRow = (TableRow) v.getParent();
-//				TextView stockSymbolTextView = (TextView) cardTableRow.findViewById (R.id.stockSymbolTextView);
-//				xml = new XMLParser(StockListFragment.this);
-//				try {
-//					xml.parseStock(stockSymbolTextView.getText().toString());
-//				} catch (UnsupportedEncodingException e) {
-//					Log.e(StockTraderActivity.APP_NAME_TAG, "Query cannot be encoded.");
-//					e.printStackTrace();
-//				}
-//			}
-//			
-//		});
-//		
-//		//Set the listener for the stock card sell button
-//		stockSell.setOnClickListener(new OnClickListener(){
-//
-//			@Override
-//			public void onClick(View v) {
-//				
-//				parsingNews = false;
-//				Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
-//				showSellDialog(v);
-//				
-//			}
-//			
-//		});
-//
-//		tableLayout.addView(card);
 	}
 	
 	private void showSellDialog(View v){

@@ -17,6 +17,8 @@ public class StockDetailsUpdater{
 	private Runnable mRunnable;
 
 	private ArrayList<String>mTrackedStockList;
+	private static ArrayList<UpdaterTask>mRunningTasks = new ArrayList<UpdaterTask>();
+	
 	private UpdateListener mUpdateListener;
 
 	public static void createUpdater(
@@ -52,9 +54,10 @@ public class StockDetailsUpdater{
 		mRunnable = new Runnable(){
 			public void run(){
 				for(String stockSymbol:mTrackedStockList){
-					UpdaterTask mSuggester = new UpdaterTask();
-					mSuggester.execute(stockSymbol);
-
+					UpdaterTask mUpdater = new UpdaterTask();
+					mUpdater.execute(stockSymbol);
+					
+					mRunningTasks.add(mUpdater);
 				}
 				mHandler.postDelayed(mRunnable, UPDATE_INTERVAL);
 			}
@@ -66,6 +69,9 @@ public class StockDetailsUpdater{
 
 	private void stop(){
 		Log.d(TAG, "Updater Stopped");
+		for(UpdaterTask task:mRunningTasks){
+			task.cancel(true);
+		}
 		mHandler.removeCallbacks(mRunnable);
 	}
 
