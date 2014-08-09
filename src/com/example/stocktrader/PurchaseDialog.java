@@ -217,18 +217,21 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		}else if (v.getId()==R.id.positiveButton){
 
 			//Check if the user has enough money
-			if (totalCost < theUser.getCurrentCash()){
+			if (totalCost <= theUser.getCurrentCash()){
 				//Allow the purchase
 				//Check if the stock exists
-				Long rowId = db.findStockIfExists(theStock.getName());
-				if (rowId!=null){
+				Cursor dbRow = db.findStockIfExists(theStock.getName());
+				if (dbRow!=null){
 					
 					//Get all the stocks
 					Cursor allStock = db.getAllStocks();
 					allStock.moveToFirst();
 					
-					db.updateStock(rowId,theStock.getName(), theStock.getSymbol(), 
-							String.valueOf(Integer.parseInt(allStock.getString(allStock.getColumnIndex("quantity"))) + quantity), 
+					db.updateStock(Long.parseLong(dbRow.getString(dbRow.getColumnIndex(DBAdapter.KEY_ROWID))),
+							theStock.getName(), 
+							theStock.getSymbol(), 
+							String.valueOf(Integer.parseInt(
+									dbRow.getString(dbRow.getColumnIndex(DBAdapter.KEY_QUANTITY))) + quantity),
 							theStock.getLastTradePriceOnly()
 					);
 					
@@ -238,10 +241,17 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 							theStock.getName(), theStock.getSymbol(), 
 							String.valueOf(quantity), theStock.getLastTradePriceOnly()
 					);
-					dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), 
-							String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() - totalCost ), 
-							"0", "0", String.valueOf(theUser.getStocksOwned()+1), String.valueOf(theUser.getTotalTransactions()+1), 
-							String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));	
+					dbUser.updateUser(theUser.get_id(), 
+							theUser.getUsername(), 
+							String.valueOf(theUser.getStocksBought()+1), 
+							String.valueOf(theUser.getStartingCash()), 
+							String.valueOf(theUser.getCurrentCash() - totalCost ), 
+							String.valueOf(theUser.getCurrentStockValue()), 
+							String.valueOf(theUser.getGainLoss()), 
+							String.valueOf(theUser.getStocksOwned()+1), 
+							String.valueOf(theUser.getTotalTransactions()+1), 
+							String.valueOf(theUser.getPositiveTransactions()), 
+							String.valueOf(theUser.getNegativeTransactions()));	
 				}
 				
 				

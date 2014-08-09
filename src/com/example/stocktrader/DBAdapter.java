@@ -130,7 +130,7 @@ public class DBAdapter {
 		db.execSQL(DATABASE_CREATE);
 	}
 	
-	public Long findStockIfExists(String name){
+	public Cursor findStockIfExists(String name){
 		
 		Cursor stockNames = db.query(DATABASE_TABLE, 
 				new String[] {KEY_ROWID, KEY_NAME, KEY_SYMBOL, KEY_QUANTITY, KEY_BUY_PRICE}, 
@@ -140,7 +140,7 @@ public class DBAdapter {
 			
 			do{
 				if (stockNames.getString(stockNames.getColumnIndex(KEY_NAME)).equals(name)){
-					return Long.parseLong(stockNames.getString(stockNames.getColumnIndex(KEY_ROWID)));
+					return stockNames;
 				}
 			}while (stockNames.moveToNext());
 			

@@ -226,12 +226,25 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 				db.deleteStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))));
 			}else{
 				//Update the stock with the new quantity
-				db.updateStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))), theStock.getName(), 
-						theStock.getSymbol(), String.valueOf(Integer.parseInt(cursor.getString(cursor.getColumnIndex("quantity"))) - quantity ), 
+				db.updateStock(Long.parseLong(cursor.getString(cursor.getColumnIndex("_id"))), 
+						theStock.getName(), 
+						theStock.getSymbol(), 
+						String.valueOf(Integer.parseInt(cursor.getString(cursor.getColumnIndex("quantity"))) - quantity ),
 						cursor.getString(cursor.getColumnIndex("buyprice")));
 
 			}
-			dbUser.updateUser(theUser.get_id(), theUser.getUsername(), String.valueOf(theUser.getStocksBought()+1), String.valueOf(theUser.getStartingCash()), String.valueOf(theUser.getCurrentCash() + totalCost ), "0", "0", String.valueOf(theUser.getStocksOwned()-1), String.valueOf(theUser.getTotalTransactions()+1), String.valueOf(theUser.getPositiveTransactions()), String.valueOf(theUser.getNegativeTransactions()));
+			dbUser.updateUser(theUser.get_id(), 
+					theUser.getUsername(), 
+					String.valueOf(theUser.getStocksBought()+1), 
+					String.valueOf(theUser.getStartingCash()), 
+					String.valueOf(theUser.getCurrentCash() + totalCost ), 
+					String.valueOf(theUser.getCurrentStockValue()), 
+					String.valueOf(theUser.getGainLoss()), 
+					String.valueOf(theUser.getStocksOwned()), 
+					String.valueOf(theUser.getTotalTransactions()+1), 
+					String.valueOf(theUser.getPositiveTransactions()), 
+					String.valueOf(theUser.getNegativeTransactions()));
+			
 			dbUser.close();
 			db.close();
 
