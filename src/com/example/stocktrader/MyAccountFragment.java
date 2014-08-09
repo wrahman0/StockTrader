@@ -1,6 +1,8 @@
 package com.example.stocktrader;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +35,16 @@ public class MyAccountFragment extends Fragment{
 	private TextView accNegativeTransactions;
 
 	private Button accDeleteUserButton;
+	
+	private ArrayList<String> mTrackedStockList = new ArrayList<String>();
+	private HashMap<String, MyBoughtStockInfoHolder> mStockHashMap = new HashMap<String, MyBoughtStockInfoHolder>();
+	
+	private class MyBoughtStockInfoHolder {
+		public String stockSymbol;
+		public int quantity;
+		public double boughtPrice;
+		public StockDetails mStockDetails;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +65,7 @@ public class MyAccountFragment extends Fragment{
 		accDeleteUserButton = (Button) view.findViewById(R.id.accDeleteUserButton);
 		
 		getUser();
-		setStaticViews();
+		refreshViews();
 		
 		accDeleteUserButton.setOnClickListener(new View.OnClickListener() {
 
@@ -100,19 +114,106 @@ public class MyAccountFragment extends Fragment{
 
 	@Override
 	public void onResume() {
-
+		super.onResume();
 		getUser();
-		setStaticViews();
+		refreshViews();
 
+		mTrackedStockList.clear();
+		mStockHashMap.clear();
+		startStockValueUpdate();
+	}
+	
+	private void startStockValueUpdate(){
+		DBAdapter db = new DBAdapter(getActivity());
+		try{
+			db.open();
+			Cursor allStocksCursor = db.getAllStocks();
+			allStocksCursor.moveToFirst();
+			
+			do{
+				MyBoughtStockInfoHolder stockHolder = new MyBoughtStockInfoHolder();
+				
+				//Get values from database
+				String symbol = allStocksCursor.getString(allStocksCursor.getColumnIndex(DBAdapter.KEY_SYMBOL));
+				int quantity = allStocksCursor.getInt(allStocksCursor.getColumnIndex(DBAdapter.KEY_QUANTITY));
+				Double buyPrice  = allStocksCursor.getDouble(allStocksCursor.getColumnIndex(DBAdapter.KEY_BUY_PRICE));
+				
+				//Set the views/info
+				stockHolder.stockSymbol = symbol;
+				stockHolder.quantity = quantity;
+				stockHolder.boughtPrice = buyPrice;
+				
+				mTrackedStockList.add(symbol);
+				mStockHashMap.put(symbol, stockHolder);
+				
+			}while(allStocksCursor.moveToNext());
+
+
+			StockDetailsUpdater.createUpdater(mTrackedStockList,
+					new StockDetailsUpdater.UpdateListener() {
+
+				@Override
+				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+					if(stockDetails!=null){
+						MyBoughtStockInfoHolder holder = mStockHashMap.get(stockSymbol);
+						holder.mStockDetails = stockDetails;
+						
+						updateIfAllStockDetailsObtained();
+					}
+
+				}
+			});
+			StockDetailsUpdater.startUpdater();
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+
+		db.close();
+	}
+	
+	private void updateIfAllStockDetailsObtained() {
+		float myStockValue = (float) 0.0;
+		for(String stockSymbol:mTrackedStockList){
+			MyBoughtStockInfoHolder holder = mStockHashMap.get(stockSymbol);
+			if(holder.mStockDetails!=null){
+				double currentPrice = Double.parseDouble(holder.mStockDetails.getLastTradePriceOnly());
+				myStockValue+=(currentPrice*(float)holder.quantity);
+			}else{
+				return;
+			}
+		}
+		theUser.setCurrentStockValue(myStockValue);
+		refreshViews();
+		
+		saveUserDetailsToDB();
 	}
 
-	private void setStaticViews(){
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		saveUserDetailsToDB();
+	}
+	
+	private void saveUserDetailsToDB(){
+		
+		DBAdapterUser dbUser = new DBAdapterUser (getActivity());
+		try{
+			dbUser.open();
+			dbUser.updateUser(theUser);
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		dbUser.close();
+	}
+
+	private void refreshViews(){
 
 		setTextViewColors();
 		accUsername.setText(String.valueOf(theUser.getUsername()));
 		accStartingCapital.setText("$"+ String.format("%.2f", theUser.getStartingCash()));
 		accCurrentCapital.setText("$"+ String.format("%.2f", theUser.getCurrentCash()));
-		accCurrentStockValue.setText("$"+ String.format("%.2f", theUser.getCurrentStockValue(getActivity())));
+		accCurrentStockValue.setText("$"+ String.format("%.2f", theUser.getCurrentStockValue()));
 		accGainLoss.setText("$" + String.format("%.2f", theUser.getGainLoss()));
 		accStocksBought.setText(String.valueOf(theUser.getStocksBought()));
 		accStocksOwned.setText(String.valueOf(theUser.getStocksOwned()));
@@ -125,7 +226,7 @@ public class MyAccountFragment extends Fragment{
 	private void setTextViewColors(){
 
 		//Set the color of the gain loss textview
-		if (theUser.getCurrentStockValue(getActivity())>0.0){
+		if (theUser.getCurrentStockValue()>0.0){
 			accCurrentStockValue.setTextColor(getResources().getColor(R.color.card_color_positive));
 		}else{
 			accCurrentStockValue.setTextColor(getResources().getColor(R.color.card_color_negative));

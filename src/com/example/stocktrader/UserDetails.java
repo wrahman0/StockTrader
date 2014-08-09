@@ -33,30 +33,7 @@ public class UserDetails {
 		this.negativeTransactions = Integer.parseInt(userRow.getString(10));
 	}
 	
-	public float getCurrentStockValue(Context ctx) {
-		
-		setCurrentStockValue((float)0.0); 
-		
-		// Open stocklist db
-		DBAdapter db = new DBAdapter(ctx);
-		try{
-			db.open();
-		}catch (SQLException e){
-			e.printStackTrace();
-		}
-		
-		Cursor allStocks = db.getAllStocks();
-		
-		if (!allStocks.moveToFirst()){
-			return (float) 0.0;
-		}
-		
-		// Calculate the value of the stocks
-		do {
-			//this.currentStockValue += Float.parseFloat( allStocks.getString(allStocks.getColumnIndex("lasttradepriceonly"))) * Float.parseFloat(allStocks.getString(allStocks.getColumnIndex("quantity")));
-		}while (allStocks.moveToNext());
-		
-		db.close();
+	public float getCurrentStockValue() {
 		return this.currentStockValue;
 		
 	}

@@ -37,7 +37,7 @@ public class StockTraderActivity extends FragmentActivity {
 		
 		mFragments.add(new SearchStockFragment());
 		mFragments.add(new StockListFragment());
-		mFragments.add(new SearchStockFragment());
+		mFragments.add(new MyAccountFragment());
 		
 		mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
 		mViewPager.setOffscreenPageLimit(2);

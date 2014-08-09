@@ -124,9 +124,26 @@ public class DBAdapterUser {
 		}
 		return mCursor;
 	}
-
+	
+	public boolean updateUser(UserDetails userDetails){
+		return updateUser(userDetails.get_id(),
+							userDetails.getUsername()+"",
+							userDetails.getStocksBought()+"",
+							userDetails.getStartingCash()+"",
+							userDetails.getCurrentCash()+"",
+							userDetails.getCurrentStockValue()+"",
+							userDetails.getGainLoss()+"",
+							userDetails.getStocksOwned()+"",
+							userDetails.getTotalTransactions()+"",
+							userDetails.getPositiveTransactions()+"",
+							userDetails.getNegativeTransactions()+"");
+	}
+	
 	//Edit a stock
-	public boolean updateUser(long rowId, String username, String stocksbought, String startingcash, String currentcash, String currentstockvalue, String gainloss, String stocksowned, String totaltransactions, String positivetransactions, String negativetransactions){
+	public boolean updateUser(long rowId, String username, String stocksbought, 
+			String startingcash, String currentcash, String currentstockvalue, 
+			String gainloss, String stocksowned, String totaltransactions, 
+			String positivetransactions, String negativetransactions){
 		Log.w(StockTraderActivity.STOCK_DATABASE_TAG, "UPGRADING DATABASE...");
 		ContentValues args = new ContentValues();
 		

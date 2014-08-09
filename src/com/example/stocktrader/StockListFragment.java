@@ -26,7 +26,7 @@ public class StockListFragment extends Fragment{
 	
 	private static final long serialVersionUID = 1L;
 	private DBAdapter db;
-	private Cursor allStocks;
+	private Cursor allStocksCursor;
 	
 	private ArrayList<String> mTrackedStockList = new ArrayList<String>();
 	private HashMap<String, BoughtStockCardHolder> mStockHashMap = new HashMap<String, BoughtStockCardHolder>();
@@ -133,8 +133,8 @@ public class StockListFragment extends Fragment{
 			e.printStackTrace();
 		}
 
-		allStocks = db.getAllStocks();
-		return allStocks.moveToFirst();
+		allStocksCursor = db.getAllStocks();
+		return allStocksCursor.moveToFirst();
 
 	}
 
@@ -178,13 +178,10 @@ public class StockListFragment extends Fragment{
 
 		do{
 			//Get values from database
-			String symbol = allStocks.getString(allStocks.getColumnIndex(DBAdapter.KEY_SYMBOL));
-			String name = allStocks.getString(allStocks.getColumnIndex(DBAdapter.KEY_NAME));
-			int quantity = allStocks.getInt(allStocks.getColumnIndex(DBAdapter.KEY_QUANTITY));
-			Double buyPrice  = allStocks.getDouble(allStocks.getColumnIndex(DBAdapter.KEY_BUY_PRICE));
-			
-			mTrackedStockList.add(symbol);
-			
+			String symbol = allStocksCursor.getString(allStocksCursor.getColumnIndex(DBAdapter.KEY_SYMBOL));
+			String name = allStocksCursor.getString(allStocksCursor.getColumnIndex(DBAdapter.KEY_NAME));
+			int quantity = allStocksCursor.getInt(allStocksCursor.getColumnIndex(DBAdapter.KEY_QUANTITY));
+			Double buyPrice  = allStocksCursor.getDouble(allStocksCursor.getColumnIndex(DBAdapter.KEY_BUY_PRICE));
 
 			View card = inflater.inflate(R.layout.stock_bought_card, null);
 			BoughtStockCardHolder stockHolder = new BoughtStockCardHolder(card);
@@ -206,9 +203,10 @@ public class StockListFragment extends Fragment{
 			//Set the listener for the stock card sell button
 			stockSell.setOnClickListener(sellButtonListener);
 			
+			mTrackedStockList.add(symbol);
 			mStockHashMap.put(symbol, stockHolder);
 			stockList.addView(card);
-		}while(allStocks.moveToNext());
+		}while(allStocksCursor.moveToNext());
 
 
 		StockDetailsUpdater.createUpdater(mTrackedStockList,
