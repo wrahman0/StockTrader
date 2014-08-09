@@ -52,7 +52,14 @@ public class UserSetupActivity extends Activity{
 		public void onClick(View v) {
 			
 			String username = signupUsername.getText().toString();
-			int startingCash = Integer.parseInt(signupStartingCash.getText().toString());
+			int startingCash = 0;
+			if(signupStartingCash.getText().length()>0){
+				startingCash = Integer.parseInt(signupStartingCash.getText().toString());
+			}else{
+				Toast.makeText(getBaseContext(), 
+						"Starting cash must more than $1,000", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			
 			if (username.length() >= 4 && startingCash >= 1000){
 				
