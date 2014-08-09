@@ -17,7 +17,7 @@ public class StockListAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private ArrayList<String>suggestedStockList;
 	private ArrayList<String>stockNamesList;
-	private HashMap<String, StockCardHolder> mStockHashMap = new HashMap<String, StockCardHolder>();
+	private HashMap<String, StockDetails> mStockHashMap = new HashMap<String, StockDetails>();
 	
 	private class StockCardHolder {
 		public TextView symbolTextView;
@@ -69,9 +69,30 @@ public class StockListAdapter extends ArrayAdapter<String> {
 			
 		}
 		
+		String stockSymbol = suggestedStockList.get(position);
 		StockCardHolder stockCardHolder = (StockCardHolder)stockCardView.getTag();
 		stockCardHolder.symbolTextView.setText(suggestedStockList.get(position));
 		stockCardHolder.nameTextView.setText(stockNamesList.get(position));
+
+		StockDetails stockDetails = mStockHashMap.get(stockSymbol);
+		if(stockDetails!=null){
+			double currentPrice = Double.parseDouble(stockDetails.getLastTradePriceOnly());
+			double priceChange = Double.parseDouble(stockDetails.getChange());
+
+			stockCardHolder.changeTextView.setText(String.format("%.2f",priceChange));
+			stockCardHolder.currentPriceTextView.setText("$"+String.format("%.2f",currentPrice));
+
+			if (priceChange > 0.0){
+				stockCardHolder.changeTextView.setTextColor(
+						context.getResources().getColor(R.color.card_color_positive));
+			}else {
+				stockCardHolder.changeTextView.setTextColor(
+						context.getResources().getColor(R.color.card_color_negative));
+			}
+		}else{
+			stockCardHolder.changeTextView.setText("??.??");
+			stockCardHolder.currentPriceTextView.setText("$??.??");
+		}
 		
 		stockCardView.setOnClickListener(new View.OnClickListener(){
 
@@ -81,7 +102,7 @@ public class StockListAdapter extends ArrayAdapter<String> {
 				String stockSymbol = (String) stockCardHolder.symbolTextView.getText();
 				
 				if(mStockHashMap.containsKey(stockSymbol)){
-					StockDetails stockDetails = mStockHashMap.get(stockSymbol).mStockDetails;
+					StockDetails stockDetails = mStockHashMap.get(stockSymbol);
 
 					Log.d(StockTraderActivity.APP_NAME_TAG, "Clicked: "+stockSymbol);
 
@@ -100,21 +121,31 @@ public class StockListAdapter extends ArrayAdapter<String> {
 		return stockCardView;
 	}
 	
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
+//    @Override
+//    public void notifyDataSetChanged() {
+//        super.notifyDataSetChanged();
+//        mStockHashMap.clear();
+//        
+//        for(String stockSymbol:suggestedStockList){
+//        	mStockHashMap.put(stockSymbol, new StockCardHolder());
+//        }
+//    }
+    
+    public void notifySearchQueryChanged() {
         mStockHashMap.clear();
         
         for(String stockSymbol:suggestedStockList){
-        	mStockHashMap.put(stockSymbol, new StockCardHolder());
+        	mStockHashMap.put(stockSymbol, null);
         }
+        
+        notifyDataSetChanged();
     }
     
     public void updateStockToHashMap(String stockSymbol, StockDetails stockDetails){
-		StockCardHolder holder = mStockHashMap.get(stockSymbol);
-		if(stockDetails!=null && holder!=null){
-			holder.mStockDetails = stockDetails;
-			//holder.refreshViews();
+
+		if(stockDetails!=null){
+			mStockHashMap.put(stockSymbol, stockDetails);
+			notifyDataSetChanged();
 		}
     }
 

@@ -90,7 +90,7 @@ public class SearchStockFragment extends Fragment{
 	}
 
 	private void updateStockListing() {
-		mStockListAdapter.notifyDataSetChanged();
+		mStockListAdapter.notifySearchQueryChanged();
 	}
 
 	private class StockSymbolSuggester extends AsyncTask<String, Void, Void> {
