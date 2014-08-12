@@ -238,7 +238,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 					String.valueOf(theUser.getStocksBought()), 
 					String.valueOf(theUser.getStartingCash()), 
 					String.valueOf(theUser.getCurrentCash() + totalCost ), 
-					String.valueOf(theUser.getCurrentStockValue()), 
+					String.valueOf(theUser.getCurrentStockValue()- totalCost), 
 					String.valueOf(theUser.getGainLoss()), 
 					String.valueOf(theUser.getStocksOwned()), 
 					String.valueOf(theUser.getTotalTransactions()+1), 

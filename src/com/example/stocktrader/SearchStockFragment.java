@@ -26,7 +26,7 @@ public class SearchStockFragment extends Fragment{
 
 	private SearchView mSearchView;
 	private ListView mListView;
-	
+
 	Bundle bundle = new Bundle();
 
 	private StockListAdapter mStockListAdapter;
@@ -52,7 +52,7 @@ public class SearchStockFragment extends Fragment{
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 				StockDetailsUpdater.stopUpdater();
-				
+
 				if(mSuggester!=null){
 					Log.d(StockTraderActivity.APP_NAME_TAG, "Suggester Stopped");
 					mSuggester.cancel(true);
@@ -69,27 +69,26 @@ public class SearchStockFragment extends Fragment{
 			}
 
 		});
-		
+
 		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, stockNamesList);
 		mListView.setAdapter(mStockListAdapter);
 		return view;
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		
-		if(isVisible()){
-			StockDetailsUpdater.createUpdater(suggestedStockList,
-					new StockDetailsUpdater.UpdateListener() {
 
-				@Override
-				public void onUpdate(String stockSymbol, StockDetails stockDetails){
-					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
-				}
-			});
-			StockDetailsUpdater.startUpdater();
-		}
+
+		StockDetailsUpdater.createUpdater(suggestedStockList,
+				new StockDetailsUpdater.UpdateListener() {
+
+			@Override
+			public void onUpdate(String stockSymbol, StockDetails stockDetails){
+				mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
+			}
+		});
+		StockDetailsUpdater.startUpdater();
 
 	}
 
@@ -101,10 +100,10 @@ public class SearchStockFragment extends Fragment{
 		private static final String TAG = "StockSymbolSuggester";
 
 		private String query = "";
-		
+
 		private static final String url_first = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query=";
 		private static final String url_second = "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
-		
+
 
 		// JSON Node names
 		private static final String RESULT_SET = "ResultSet";
@@ -119,7 +118,7 @@ public class SearchStockFragment extends Fragment{
 			if (str==null){
 				return null;
 			}
-			
+
 			str = str.replaceFirst("YAHOO.Finance.SymbolSuggest.ssCallback\\(", "");
 			str = str.substring(0, str.length()-1);
 
@@ -135,7 +134,7 @@ public class SearchStockFragment extends Fragment{
 				e.printStackTrace();
 			}
 			String url = url_first + query + url_second;
-			
+
 			// Creating service handler class instance
 			WebServiceHandler wsh = new WebServiceHandler();
 
@@ -176,17 +175,17 @@ public class SearchStockFragment extends Fragment{
 			for(String stock_symbol:symbolsList){
 				Log.i(TAG, stock_symbol);
 			}
-			
+
 			if(symbolsList.size() == 0) {
 				Toast.makeText(getActivity().getBaseContext(), R.string.no_search_results, Toast.LENGTH_LONG).show();
 			}
-			
+
 			suggestedStockList.clear();
 			stockNamesList.clear();
-			
+
 			suggestedStockList.addAll(symbolsList);
 			stockNamesList.addAll(namesList);
-			
+
 			StockDetailsUpdater.createUpdater(suggestedStockList,
 					new StockDetailsUpdater.UpdateListener() {
 
@@ -196,7 +195,7 @@ public class SearchStockFragment extends Fragment{
 				}
 			});
 			StockDetailsUpdater.startUpdater();
-			
+
 			updateStockListing();
 		}
 

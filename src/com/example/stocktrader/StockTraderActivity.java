@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.WindowManager;
 
 public class StockTraderActivity extends FragmentActivity {
@@ -46,6 +47,7 @@ public class StockTraderActivity extends FragmentActivity {
 			
 			@Override
 			public void onPageSelected(int position) {
+				Log.d(APP_NAME_TAG,"onPageSelected: "+position);
 				// When swiping between pages, select the
 				// corresponding tab.
 				getActionBar().setSelectedNavigationItem(position);
