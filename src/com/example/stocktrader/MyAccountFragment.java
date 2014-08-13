@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,15 +116,39 @@ public class MyAccountFragment extends Fragment{
 	@Override
 	public void onResume() {
 		super.onResume();
-		getUser();
-		refreshViews();
 
-		mTrackedStockList.clear();
-		mStockHashMap.clear();
-		startStockValueUpdate();
+		StockTraderActivity sta = (StockTraderActivity)getActivity();
+
+		if(sta.getCurrentFragment() == MyAccountFragment.this){
+			Log.d(StockTraderActivity.APP_NAME_TAG, "MyAccountFragment in view");
+			
+			getUser();
+			refreshViews();
+
+			mTrackedStockList.clear();
+			mStockHashMap.clear();
+			getUserStocksFromDB();
+			
+
+			StockDetailsUpdater.createUpdater(mTrackedStockList,
+					new StockDetailsUpdater.UpdateListener() {
+
+				@Override
+				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+					if(stockDetails!=null){
+						MyBoughtStockInfoHolder holder = mStockHashMap.get(stockSymbol);
+						holder.mStockDetails = stockDetails;
+						
+						updateIfAllStockDetailsObtained();
+					}
+
+				}
+			});
+			StockDetailsUpdater.startUpdater();
+		}
 	}
 	
-	private void startStockValueUpdate(){
+	private void getUserStocksFromDB(){
 		DBAdapter db = new DBAdapter(getActivity());
 		try{
 			db.open();
@@ -147,23 +172,6 @@ public class MyAccountFragment extends Fragment{
 				mStockHashMap.put(symbol, stockHolder);
 				
 			}while(allStocksCursor.moveToNext());
-
-
-			StockDetailsUpdater.createUpdater(mTrackedStockList,
-					new StockDetailsUpdater.UpdateListener() {
-
-				@Override
-				public void onUpdate(String stockSymbol, StockDetails stockDetails){
-					if(stockDetails!=null){
-						MyBoughtStockInfoHolder holder = mStockHashMap.get(stockSymbol);
-						holder.mStockDetails = stockDetails;
-						
-						updateIfAllStockDetailsObtained();
-					}
-
-				}
-			});
-			StockDetailsUpdater.startUpdater();
 			
 		}catch(SQLException e){
 			e.printStackTrace();

@@ -66,8 +66,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		mStockSymbol.add(theStock.getSymbol());
 
 		//Set the text
-		setStaticInfo();
-		setDynamicInfo();
+		setDisplayInfo();
 
 		//Set title of the dialog box
 		getDialog().setTitle(R.string.purchase_dialog_title);
@@ -106,7 +105,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					}else{
 						quantity = Integer.parseInt(s.toString());
 					}
-					setDynamicInfo();
+					setDisplayInfo();
 				}
 				
 			}
@@ -130,18 +129,12 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 			public void onUpdate(String stockSymbol, StockDetails stockDetails){
 				if(stockDetails!=null && stockSymbol.equals(mStockSymbol.get(0))){
 					theStock = stockDetails;
-					setDynamicInfo();
+					setDisplayInfo();
 				}
 			}
 			
 		});
 		StockDetailsUpdater.startUpdater();
-	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		StockDetailsUpdater.stopUpdater();
 	}
 
 	private void openDB(){
@@ -186,7 +179,7 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		purchaseQuantityEditText = (EditText) dialogView.findViewById(R.id.purchaseQuantityEditText);
 	}
 
-	private void setStaticInfo(){
+	private void setDisplayInfo(){
 		purchaseStockName.setText(theStock.getName());
 		purchaseStockSymbol.setText(theStock.getSymbol());
 		purchaseStockPrice.setText("$"+theStock.getLastTradePriceOnly());
@@ -195,9 +188,6 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 		purchaseUserBank.setText("$"+String.valueOf(theUser.getCurrentCash()));
 
 		volume = Integer.parseInt(theStock.getVolume());
-	}
-
-	private void setDynamicInfo(){
 
 		//tax = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity * taxRate;
 		totalCost = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity;

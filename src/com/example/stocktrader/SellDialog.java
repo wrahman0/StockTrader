@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		mStockSymbol.add(theStock.getSymbol());
 		
 		//Set the text
-		setStaticInfo();
-		setDynamicInfo();
+		setDisplayInfo();
 
 		//Set title of the dialog box
 		getDialog().setTitle(R.string.sell_dialog_title);
@@ -109,7 +109,7 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 					}else{
 						quantity = Integer.parseInt(s.toString());
 					}
-					setDynamicInfo();
+					setDisplayInfo();
 				}
 
 			}
@@ -133,18 +133,12 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 			public void onUpdate(String stockSymbol, StockDetails stockDetails){
 				if(stockDetails!=null && stockSymbol.equals(mStockSymbol.get(0))){
 					theStock = stockDetails;
-					setDynamicInfo();
+					setDisplayInfo();
 				}
 			}
 			
 		});
 		StockDetailsUpdater.startUpdater();
-	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		StockDetailsUpdater.stopUpdater();
 	}
 
 	private void openDB(){
@@ -190,15 +184,13 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 		sellQuantityEditText = (EditText) dialogView.findViewById(R.id.sellQuantityEditText);
 	}
 
-	private void setStaticInfo(){
+	private void setDisplayInfo(){ // Gets called on quantity edit text change
+		Log.d(StockTraderActivity.APP_NAME_TAG, "setDynamicInfo Called");
 		sellStockName.setText(theStock.getName());
 		sellStockSymbol.setText(theStock.getSymbol());
 		sellStockPrice.setText("$"+theStock.getLastTradePriceOnly());
 		sellUserBank.setText("$"+String.valueOf(theUser.getCurrentCash()));
 		sellStockQuantity.setText(String.valueOf(volume));
-	}
-
-	private void setDynamicInfo(){ // Gets called on quantity edit text change
 		totalCost = Float.parseFloat(theStock.getLastTradePriceOnly()) * quantity;
 		sellTotalStockPrice.setText("$"+String.format("%.2f", Float.parseFloat(theStock.getLastTradePriceOnly())*quantity));
 		sellOverallTotal.setText("$"+ String.format("%.2f", totalCost));

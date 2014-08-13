@@ -79,16 +79,21 @@ public class SearchStockFragment extends Fragment{
 	public void onResume() {
 		super.onResume();
 
+		StockTraderActivity sta = (StockTraderActivity)getActivity();
 
-		StockDetailsUpdater.createUpdater(suggestedStockList,
-				new StockDetailsUpdater.UpdateListener() {
+		if(sta.getCurrentFragment() == SearchStockFragment.this){
+			Log.d(StockTraderActivity.APP_NAME_TAG, "SearchStockFragment in view");
+			
+			StockDetailsUpdater.createUpdater(suggestedStockList,
+					new StockDetailsUpdater.UpdateListener() {
 
-			@Override
-			public void onUpdate(String stockSymbol, StockDetails stockDetails){
-				mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
-			}
-		});
-		StockDetailsUpdater.startUpdater();
+				@Override
+				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
+				}
+			});
+			StockDetailsUpdater.startUpdater();
+		}
 
 	}
 
@@ -186,14 +191,14 @@ public class SearchStockFragment extends Fragment{
 			suggestedStockList.addAll(symbolsList);
 			stockNamesList.addAll(namesList);
 
-			StockDetailsUpdater.createUpdater(suggestedStockList,
-					new StockDetailsUpdater.UpdateListener() {
-
-				@Override
-				public void onUpdate(String stockSymbol, StockDetails stockDetails){
-					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
-				}
-			});
+//			StockDetailsUpdater.createUpdater(suggestedStockList,
+//					new StockDetailsUpdater.UpdateListener() {
+//
+//				@Override
+//				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+//					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
+//				}
+//			});
 			StockDetailsUpdater.startUpdater();
 
 			updateStockListing();

@@ -111,14 +111,36 @@ public class StockListFragment extends Fragment{
 	public void onResume() {
 		super.onResume();
 
-		mTrackedStockList.clear();
-		mStockHashMap.clear();
-		stockList.removeAllViews();
-		if (openDB()){
-			populateView();	
-		}
+		StockTraderActivity sta = (StockTraderActivity)getActivity();
 
-		db.close();
+		if(sta.getCurrentFragment() == StockListFragment.this){
+			Log.d(StockTraderActivity.APP_NAME_TAG, "StockListFragment in view");
+			
+			mTrackedStockList.clear();
+			mStockHashMap.clear();
+			stockList.removeAllViews();
+			if (openDB()){
+				populateView();	
+			}
+
+			db.close();
+			
+			//Start updater for StockListFragment
+			StockDetailsUpdater.createUpdater(mTrackedStockList,
+					new StockDetailsUpdater.UpdateListener() {
+
+				@Override
+				public void onUpdate(String stockSymbol, StockDetails stockDetails){
+					if(stockDetails!=null){
+						BoughtStockCardHolder holder = mStockHashMap.get(stockSymbol);
+						holder.mStockDetails = stockDetails;
+						holder.refreshViews();
+					}
+
+				}
+			});
+			StockDetailsUpdater.startUpdater();
+		}
 
 	}
 
@@ -207,22 +229,6 @@ public class StockListFragment extends Fragment{
 			mStockHashMap.put(symbol, stockHolder);
 			stockList.addView(card);
 		}while(allStocksCursor.moveToNext());
-
-
-		StockDetailsUpdater.createUpdater(mTrackedStockList,
-				new StockDetailsUpdater.UpdateListener() {
-
-			@Override
-			public void onUpdate(String stockSymbol, StockDetails stockDetails){
-				if(stockDetails!=null){
-					BoughtStockCardHolder holder = mStockHashMap.get(stockSymbol);
-					holder.mStockDetails = stockDetails;
-					holder.refreshViews();
-				}
-
-			}
-		});
-		StockDetailsUpdater.startUpdater();
 
 	}
 	

@@ -124,5 +124,11 @@ public class StockTraderActivity extends FragmentActivity {
 		}
 
 	}
+	
+	public Fragment getCurrentFragment(){
+		
+		Log.d(APP_NAME_TAG, ""+mViewPager.getCurrentItem());
+		return mFragments.get(mViewPager.getCurrentItem());
+	}
 
 }
