@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class SearchStockFragment extends Fragment{
 
 	private SearchView mSearchView;
 	private ListView mListView;
+	private ProgressBar searchProgressBar;
 
 	Bundle bundle = new Bundle();
 
@@ -44,6 +46,7 @@ public class SearchStockFragment extends Fragment{
 		//get reference to components
 		mSearchView = (SearchView)view.findViewById(R.id.searchView);
 		mListView = (ListView)view.findViewById(R.id.searchListView);
+		searchProgressBar = (ProgressBar)view.findViewById(R.id.searchProgressBar);
 
 		mSearchView.setSubmitButtonEnabled(true);
 		mSearchView.setQueryHint(getString(R.string.stock_search_bar_hint));
@@ -57,6 +60,9 @@ public class SearchStockFragment extends Fragment{
 					Log.d(StockTraderActivity.APP_NAME_TAG, "Suggester Stopped");
 					mSuggester.cancel(true);
 				}
+				
+				startSearchProgressBar();
+				
 				mSuggester = new StockSymbolSuggester();
 				mSuggester.execute(query);
 				return false;
@@ -100,6 +106,16 @@ public class SearchStockFragment extends Fragment{
 
 	private void updateStockListing() {
 		mStockListAdapter.notifySearchQueryChanged();
+	}
+	
+	private void startSearchProgressBar(){
+		searchProgressBar.setIndeterminate(true);
+		searchProgressBar.setVisibility(View.VISIBLE);
+	}
+	
+	private void stopSearchProgressBar(){
+		searchProgressBar.setVisibility(View.INVISIBLE);
+		searchProgressBar.setIndeterminate(false);
 	}
 
 	private class StockSymbolSuggester extends AsyncTask<String, Void, Void> {
@@ -177,6 +193,8 @@ public class SearchStockFragment extends Fragment{
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
+			
+			stopSearchProgressBar();
 
 			for(String stock_symbol:symbolsList){
 				Log.i(TAG, stock_symbol);
