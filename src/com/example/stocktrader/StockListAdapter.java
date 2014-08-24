@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class StockListAdapter extends ArrayAdapter<String> {
@@ -24,6 +26,9 @@ public class StockListAdapter extends ArrayAdapter<String> {
 		public TextView nameTextView;
 		public TextView currentPriceTextView;
 		public TextView changeTextView;
+		
+		public ImageButton arrowImageButton;
+		public ProgressBar progressBar;
 	}
 	
 	public StockListAdapter(Context context, 
@@ -48,6 +53,8 @@ public class StockListAdapter extends ArrayAdapter<String> {
 			stockCardHolder.nameTextView = (TextView) stockCardView.findViewById(R.id.cardStockName);
 			stockCardHolder.currentPriceTextView = (TextView) stockCardView.findViewById(R.id.detailsLastTradePriceOnly);
 			stockCardHolder.changeTextView = (TextView) stockCardView.findViewById(R.id.detailsChange);
+			stockCardHolder.arrowImageButton = (ImageButton) stockCardView.findViewById(R.id.stockDetailsButton);
+			stockCardHolder.progressBar = (ProgressBar) stockCardView.findViewById(R.id.progressBar1);
 			stockCardView.setTag(stockCardHolder);
 			
 		}
@@ -72,9 +79,18 @@ public class StockListAdapter extends ArrayAdapter<String> {
 				stockCardHolder.changeTextView.setTextColor(
 						context.getResources().getColor(R.color.card_color_negative));
 			}
+			
+			stockCardHolder.progressBar.setVisibility(View.GONE);
+			stockCardHolder.progressBar.setIndeterminate(false);
+			stockCardHolder.arrowImageButton.setVisibility(View.VISIBLE);
 		}else{
 			stockCardHolder.changeTextView.setText("??.??");
 			stockCardHolder.currentPriceTextView.setText("$??.??");
+			
+
+			stockCardHolder.arrowImageButton.setVisibility(View.GONE);
+			stockCardHolder.progressBar.setIndeterminate(true);
+			stockCardHolder.progressBar.setVisibility(View.VISIBLE);
 		}
 		
 		stockCardView.setOnClickListener(new View.OnClickListener(){

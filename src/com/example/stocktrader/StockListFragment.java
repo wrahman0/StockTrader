@@ -17,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -46,6 +47,8 @@ public class StockListFragment extends Fragment{
 		public double boughtPrice;
 		public StockDetails mStockDetails;
 		
+		private ImageButton stockSellButton;
+		private ProgressBar progressBar;
 		private ImageView gainLossImageView;
 		private TextView stockNameTextView;
 		private TextView stockSymbolTextView;
@@ -55,6 +58,8 @@ public class StockListFragment extends Fragment{
 		private TextView gainLossTextView;
 		
 		public BoughtStockCardHolder(View card){
+			stockSellButton = (ImageButton) card.findViewById(R.id.stockSell);
+			progressBar = (ProgressBar) card.findViewById(R.id.progressWheel);
 			gainLossImageView = (ImageView) card.findViewById(R.id.gainLossImageView);
 			stockNameTextView = (TextView) card.findViewById (R.id.stockNameTextView);
 			stockSymbolTextView = (TextView) card.findViewById (R.id.stockSymbolTextView);
@@ -62,6 +67,17 @@ public class StockListFragment extends Fragment{
 			changeTextView = (TextView) card.findViewById (R.id.changeTextView);
 			stockQuantityTextView = (TextView) card.findViewById (R.id.stockQuantityTextView);
 			gainLossTextView = (TextView) card.findViewById(R.id.gainLossTextView);
+
+			stockSellButton.setOnClickListener(new OnClickListener(){
+
+				@Override
+				public void onClick(View v) {
+					//Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
+					showSellDialog(v);
+
+				}
+
+			});
 		}
 		
 		public void refreshViews(){
@@ -90,6 +106,18 @@ public class StockListFragment extends Fragment{
 			stockNameTextView.setText(stockName);
 			stockSymbolTextView.setText(stockSymbol);
 			stockQuantityTextView.setText("x" + quantity);
+		}
+		
+		public void startProgressBar(){
+			stockSellButton.setVisibility(View.GONE);
+			progressBar.setIndeterminate(true);
+			progressBar.setVisibility(View.VISIBLE);
+		}
+		
+		public void stopProgressBar(){
+			progressBar.setVisibility(View.GONE);
+			progressBar.setIndeterminate(false);
+			stockSellButton.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -133,6 +161,7 @@ public class StockListFragment extends Fragment{
 				public void onUpdate(String stockSymbol, StockDetails stockDetails){
 					if(stockDetails!=null){
 						BoughtStockCardHolder holder = mStockHashMap.get(stockSymbol);
+						holder.stopProgressBar();
 						holder.mStockDetails = stockDetails;
 						holder.refreshViews();
 					}
@@ -186,17 +215,6 @@ public class StockListFragment extends Fragment{
 			}
 			
 		};
-		
-		OnClickListener sellButtonListener = new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				//Toast.makeText(getActivity(), "Processing Transaction...", Toast.LENGTH_SHORT).show();
-				showSellDialog(v);
-				
-			}
-			
-		};
 
 		do{
 			//Get values from database
@@ -207,8 +225,7 @@ public class StockListFragment extends Fragment{
 
 			View card = inflater.inflate(R.layout.stock_bought_card, null);
 			BoughtStockCardHolder stockHolder = new BoughtStockCardHolder(card);
-
-			ImageButton stockSell = (ImageButton) card.findViewById(R.id.stockSell);
+			
 			TableRow stockBlock = (TableRow)card.findViewById(R.id.stockBlock);
 			
 			//Set the views/info
@@ -218,12 +235,10 @@ public class StockListFragment extends Fragment{
 			stockHolder.boughtPrice = buyPrice;
 			
 			stockHolder.initViews(card);
+			stockHolder.startProgressBar();
 
 			//Set the listener for the stock card
 			stockBlock.setOnClickListener(stockCardListener);
-			
-			//Set the listener for the stock card sell button
-			stockSell.setOnClickListener(sellButtonListener);
 			
 			mTrackedStockList.add(symbol);
 			mStockHashMap.put(symbol, stockHolder);

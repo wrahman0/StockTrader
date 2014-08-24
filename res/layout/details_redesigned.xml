@@ -204,6 +204,12 @@
         android:layout_width="0dp"
         android:layout_height="10dp" />
 
+    <ProgressBar
+        android:id="@+id/newsProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.40" />
+
     <ScrollView
         android:id="@+id/newsScrollView"
         android:layout_width="wrap_content"

@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class DetailsStockViewActivity extends Activity implements OnParseComplete{
@@ -39,6 +40,7 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 	private StockDetails theStock;
 
 	private LinearLayout newsLinearLayout;
+	private ProgressBar newsProgressBar;
 
 	//Get the views for stock that we will modify later
 	private TextView detailsName;
@@ -79,6 +81,10 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 		displayStockInfo();
 		
 		try {
+			newsLinearLayout.setVisibility(View.GONE);
+			newsProgressBar.setIndeterminate(true);
+			newsProgressBar.setVisibility(View.VISIBLE);
+			
 			mNewsParser = new XMLNewsParser(theStock.getSymbol(),this);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -163,10 +169,13 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 		detailsYearLow = (TextView) findViewById (R.id.detailsYearLow);
 
 		//LinearLayout for the news
-		newsLinearLayout = (LinearLayout) findViewById(R.id.newsLinearLayout);
+		newsLinearLayout = (LinearLayout)findViewById(R.id.newsLinearLayout);
 
 		//Button
-		detailsBuyStock = (ImageButton) findViewById (R.id.detailsBuyButton);
+		detailsBuyStock = (ImageButton)findViewById(R.id.detailsBuyButton);
+		
+		//ProgressBar
+		newsProgressBar = (ProgressBar)findViewById(R.id.newsProgressBar);
 	}
 
 	//Gets the current user
@@ -207,6 +216,11 @@ public class DetailsStockViewActivity extends Activity implements OnParseComplet
 
 	@Override
 	public void OnParseCompleted(ArrayList<NewsDetails> news) {
+
+		newsProgressBar.setVisibility(View.GONE);
+		newsProgressBar.setIndeterminate(false);
+		newsLinearLayout.setVisibility(View.VISIBLE);
+		
 		//Setting the news information. Jsoup.parse removes all the HTML tags
 		if (news!=null){
 			NewsDetails theNews;
