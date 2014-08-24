@@ -202,7 +202,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:inputType="number"
-            android:maxLength="5"
+            android:maxLength="9"
             android:minEms="2"
             android:text="1" >
 

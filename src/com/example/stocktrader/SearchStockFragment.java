@@ -71,6 +71,7 @@ public class SearchStockFragment extends Fragment{
 		});
 
 		mStockListAdapter = new StockListAdapter(getActivity(), suggestedStockList, stockNamesList);
+		mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		mListView.setAdapter(mStockListAdapter);
 		return view;
 	}
@@ -191,14 +192,6 @@ public class SearchStockFragment extends Fragment{
 			suggestedStockList.addAll(symbolsList);
 			stockNamesList.addAll(namesList);
 
-//			StockDetailsUpdater.createUpdater(suggestedStockList,
-//					new StockDetailsUpdater.UpdateListener() {
-//
-//				@Override
-//				public void onUpdate(String stockSymbol, StockDetails stockDetails){
-//					mStockListAdapter.updateStockToHashMap(stockSymbol, stockDetails);
-//				}
-//			});
 			StockDetailsUpdater.startUpdater();
 
 			updateStockListing();

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SellDialog extends DialogFragment implements View.OnClickListener{
 	
@@ -239,6 +240,9 @@ public class SellDialog extends DialogFragment implements View.OnClickListener{
 			
 			dbUser.close();
 			db.close();
+			
+			//Confirm transaction
+			Toast.makeText(getActivity(), String.format("Sold %d shares of %s", quantity, theStock.getName()), Toast.LENGTH_SHORT).show();
 
 		}
 		if(mParentFragment!=null){

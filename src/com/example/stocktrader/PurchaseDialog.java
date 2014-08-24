@@ -99,12 +99,8 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 					int count) {
 
 				if (s.length()!=0){
-					if(Integer.parseInt(s.toString()) > volume){
-						quantity = volume;
-						purchaseQuantityEditText.setText(String.valueOf(volume));
-					}else{
-						quantity = Integer.parseInt(s.toString());
-					}
+
+					quantity = Integer.parseInt(s.toString());
 					setDisplayInfo();
 				}
 				
@@ -201,7 +197,6 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 	@Override
 	public void onClick(View v){
 		if (v.getId()==R.id.negativeButton){
-			
 			dismiss();
 			
 		}else if (v.getId()==R.id.positiveButton){
@@ -245,15 +240,18 @@ public class PurchaseDialog extends DialogFragment implements View.OnClickListen
 						String.valueOf(theUser.getPositiveTransactions()), 
 						String.valueOf(theUser.getNegativeTransactions()));	
 				
+				dbUser.close();
+				db.close();
+				dismiss();
+				
+				//Confirm Purchase
+				Toast.makeText(getActivity(), String.format("Bought %d shares of %s", quantity, theStock.getName()), Toast.LENGTH_SHORT).show();
 				
 			}else{
 				//Decline the purchase
 				Toast.makeText(getActivity(), "Not Enough Money", Toast.LENGTH_SHORT).show();
 			}
 
-			dbUser.close();
-			db.close();
-			dismiss();
 		}
 	}
 
