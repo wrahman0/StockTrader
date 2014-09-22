@@ -18,10 +18,4 @@
         </TableLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/stockListRefreshButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/stocklist_refresh" />
-
 </LinearLayout>
